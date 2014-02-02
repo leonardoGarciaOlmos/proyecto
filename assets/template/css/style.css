@@ -1,0 +1,47 @@
+/**
+	@author Jhoynerk Caraballo
+*/
+/*body {
+    padding-bottom: 0px!important;
+}*/
+
+/*body.breadcrumbs-fixed {
+	padding-top: 0px;
+}*/
+
+.navbar .nav-logo{
+	padding-top: 4px;
+	padding-bottom: 3px;
+}
+
+.navbar .navbar-color{
+	background-color: #fff200;
+	border-bottom: 3px solid #333;
+}
+
+.ace-nav>li {
+	line-height: 49px;
+	max-height: 49px;
+}
+
+.ace-nav>li.black {
+	background: #333;
+}
+
+.badge .label-green, .badge-green {
+	background-color: #97ca3d!important;
+	background-color: #68AF27!important;
+	background-color: rgba(151,202,61,0.8)!important;
+}
+
+.badge .label-red, .badge-red {
+	background-color: #C22439!important;
+}
+
+.badge .label-blue, .badge-blue {
+	background-color: #009AD7!important;
+}
+
+.tags > .tag{
+	width: 70%!important;
+}

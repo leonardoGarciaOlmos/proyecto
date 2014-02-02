@@ -1,0 +1,76 @@
+<?php /*%%SmartyHeaderCode:531952386b38756977-43062814%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    '1a11a5a0fb8f5ab7ee1cba46436f1cf4622b284c' => 
+    array (
+      0 => 'application\\views\\templates\\menu.tpl',
+      1 => 1379427406,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '531952386b38756977-43062814',
+  'variables' => 
+  array (
+    'datos' => 0,
+    'data' => 0,
+    'ciPath' => 0,
+  ),
+  'has_nocache_code' => false,
+  'version' => 'Smarty-3.1.14',
+  'unifunc' => 'content_52386b3886d239_43495467',
+  'cache_lifetime' => 120,
+),true); /*/%%SmartyHeaderCode%%*/?>
+<?php if ($_valid && !is_callable('content_52386b3886d239_43495467')) {function content_52386b3886d239_43495467($_smarty_tpl) {?><table class="table table-bordered tablesorter table-striped">
+	<thead>
+		<tr>
+			<th>
+				<div class="text-left field-sorting " rel="id">Url</div>
+			</th>
+			<th>
+				<div class="text-left field-sorting " rel="name">Nombre</div>
+			</th>
+			<th>
+				<div class="text-left field-sorting " rel="name">Icono</div>
+			</th>
+			<th>
+				<div class="text-left field-sorting " rel="alias">Padre</div>
+			</th>
+			<th>
+				<div class="text-left field-sorting " rel="alias">Hijos</div>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+			</tbody>
+</table>
+
+
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css"  />
+<link rel="stylesheet" href="css/ace.min.css" />
+<link rel="stylesheet" href="http://192.168.5.3/adsi/assets/css/chosen.css">
+
+<style type="text/css">
+	div.text-left > .chosen-select-div{
+		display: inline-block;
+	}
+	span.chosen-select-button > button{
+		font-size: 1em;
+	}
+</style>
+
+<!-- <script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/ace-extra.min.js"></script>
+<script type="text/javascript" src='http://192.168.5.3/adsi/assets/js/jquery-2.0.3.min.js'></script>
+<script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/chosen.jquery.js"></script>
+<script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/icon-array.js"></script>
+<script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/tag.js"></script>
+<script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/menu.js"></script> -->
+
+<!-- <script src="http://192.168.5.3/adsi//assets/js/ace.js"></script> -->
+
+
+<link rel="stylesheet" href="http://192.168.5.3/adsi/css/font-awesome.min.css">
+<?php }} ?>

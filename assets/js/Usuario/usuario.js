@@ -1,0 +1,61 @@
+var button = '<button onclick="return false;" id="buscar" class="btn btn-purple btn-small" >'+
+              'Buscar<i class="icon-search icon-on-right bigger-110"></i>'+
+              '</button>';
+$(document).on('ready',function(){      
+
+  $('#field-Dpto').on('change',function( ){
+    var Dpto_id = $(this).val();
+    $.ajax({
+      dataType: "json",
+      type: "GET",
+      url: base_url+'carrera/carreraByDPTO/'+Dpto_id,
+      success: function( data ) {
+        generateSelect( data );
+      }
+    });
+  });
+
+  function generateSelect ( item , target ) {
+    var html = '';
+    for (var i = 0 ; i < item.length; i++) {
+       html += '<option value="'+item[i].departamento_id+'">'+item[i].descripcion+'<option>';
+    }
+    $(target).html( html );
+  }
+
+  $('#crudForm').on('click','#buscar',function( ){
+    var ci = $('#field-ci').val();
+    $.ajax({
+      dataType: "json",
+      type: "POST",
+      data:{ci:ci},
+      url: base_url+'usuario/findByCI/',
+      success: function( data ) {
+        if (data.success) {
+          renderData( data.user );
+        }else{
+          alert('No se ha encontrado ningún estudiante');
+        }
+      }
+    });
+  });
+
+function renderData ( data ) {
+  $.each(data, function(index, val) {
+     $('#field-'+index).val(val);
+  });
+  $('.chosen-select').trigger("chosen:updated");
+}
+
+/*var button = '<button onclick="return false;" id="buscar" class="btn btn-purple btn-small" >'+
+              'Buscar<i class="icon-search icon-on-right bigger-110"></i>'+
+              '</button>';*/
+
+$('#field-ci').parent().append(button);
+
+
+//findByCI
+
+
+
+});

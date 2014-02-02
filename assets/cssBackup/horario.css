@@ -1,0 +1,84 @@
+body {
+    scrollbar-face-color: #6685CA; 
+    scrollbar-highlight-color: #6685CA; 
+    scrollbar-shadow-color: #6685CA; 
+    scrollbar-3dlight-color:#FFFFFF;
+    scrollbar-arrow-color:#FFFFFF; 
+    scrollbar-track-color:#E5E5E5; 
+    scrollbar-drakshadow-color:#000000;
+}
+#format td {
+    height: 50px;
+    text-align:center;
+}
+.day-hour{
+    background-color:#26ADE4;
+    color:white;
+    width:170px;
+    height: 50px;
+}
+#format .horas {
+    text-align:center;
+    width:170px;
+    background-color:rgba(213, 228, 255, 0.50);
+    border-style:dashed;
+}
+#format td {
+    border-style:dashed;
+    height: 60px;
+}
+span.combo {
+    margin-top:20px;
+}
+#modal {
+    font-size:12px;
+}
+#table-modal td {
+    padding:5px;
+    width: 515px;
+}
+#table-modal thead {
+    background-color:#26ADE4;
+    color:white;
+    text-align: center;
+}
+#table-modal td {
+    border-style:outset;
+}
+.data_h {
+    font-size: 11px;
+    padding: 0px;
+}
+#format .ui-selecting {
+    background: #FECA40;
+}
+#format .ui-selected {
+    background: #F39814;
+    color: white;
+}
+#occupied{
+
+    height: 170px;
+    overflow-y:scroll; 
+}
+#format .ui-selected {
+    background: #C7B2FF;
+    color: white;
+}
+#format .ui-selecting{
+    background: #C7B2FF;
+    color: white;
+}
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}

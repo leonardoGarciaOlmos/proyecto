@@ -1,0 +1,556 @@
+<?php /*%%SmartyHeaderCode:199625237604e103638-27440625%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+$_valid = $_smarty_tpl->decodeProperties(array (
+  'file_dependency' => 
+  array (
+    '1a11a5a0fb8f5ab7ee1cba46436f1cf4622b284c' => 
+    array (
+      0 => 'application\\views\\templates\\menu.tpl',
+      1 => 1379359895,
+      2 => 'file',
+    ),
+  ),
+  'nocache_hash' => '199625237604e103638-27440625',
+  'variables' => 
+  array (
+    'datos' => 0,
+    'data' => 0,
+    'ciPath' => 0,
+  ),
+  'has_nocache_code' => false,
+  'version' => 'Smarty-3.1.14',
+  'unifunc' => 'content_5237604e2d9a02_40677914',
+  'cache_lifetime' => 120,
+),true); /*/%%SmartyHeaderCode%%*/?>
+<?php if ($_valid && !is_callable('content_5237604e2d9a02_40677914')) {function content_5237604e2d9a02_40677914($_smarty_tpl) {?><table class="table table-bordered tablesorter table-striped">
+	<thead>
+		<tr>
+			<th>
+				<div class="text-left field-sorting " rel="id">Url</div>
+			</th>
+			<th>
+				<div class="text-left field-sorting " rel="name">Nombre</div>
+			</th>
+			<th>
+				<div class="text-left field-sorting " rel="name">Icono</div>
+			</th>
+			<th>
+				<div class="text-left field-sorting " rel="alias">Padre</div>
+			</th>
+			<th>
+				<div class="text-left field-sorting " rel="alias">Hijos</div>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=mapa/>mapa/</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=0 value="" data-fatoser=mapa/ data-url=mapa/ ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=mapa/ placeholder="Urls Hijos" value=""  class="autocomplete" data-child=mapa//>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=mapa/url>mapa/url</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=1 value="" data-fatoser=mapa/url data-url=mapa/url ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=mapa/url placeholder="Urls Hijos" value=""  class="autocomplete" data-child=mapa/url/>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=mapa/crear>mapa/crear</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=2 value="" data-fatoser=mapa/crear data-url=mapa/crear ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=mapa/crear placeholder="Urls Hijos" value=""  class="autocomplete" data-child=mapa/crear/>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=reporte/>reporte/</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=3 value="" data-fatoser=reporte/ data-url=reporte/ ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=reporte/ placeholder="Urls Hijos" value=""  class="autocomplete" data-child=reporte//>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=reporte/consultar>reporte/consultar</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=4 value="" data-fatoser=reporte/consultar data-url=reporte/consultar ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=reporte/consultar placeholder="Urls Hijos" value=""  class="autocomplete" data-child=reporte/consultar/>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=reporte/eliminar>reporte/eliminar</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=5 value="" data-fatoser=reporte/eliminar data-url=reporte/eliminar ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=reporte/eliminar placeholder="Urls Hijos" value=""  class="autocomplete" data-child=reporte/eliminar/>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=carrito/>carrito/</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=6 value="" data-fatoser=carrito/ data-url=carrito/ ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=carrito/ placeholder="Urls Hijos" value=""  class="autocomplete" data-child=carrito//>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=carrito/ordenes>carrito/ordenes</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=7 value="" data-fatoser=carrito/ordenes data-url=carrito/ordenes ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=carrito/ordenes placeholder="Urls Hijos" value=""  class="autocomplete" data-child=carrito/ordenes/>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=carrito/pagos>carrito/pagos</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=8 value="" data-fatoser=carrito/pagos data-url=carrito/pagos ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=carrito/pagos placeholder="Urls Hijos" value=""  class="autocomplete" data-child=carrito/pagos/>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=carrito/aviso>carrito/aviso</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=9 value="" data-fatoser=carrito/aviso data-url=carrito/aviso ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=carrito/aviso placeholder="Urls Hijos" value=""  class="autocomplete" data-child=carrito/aviso/>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=carrito/banners>carrito/banners</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=10 value="" data-fatoser=carrito/banners data-url=carrito/banners ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=carrito/banners placeholder="Urls Hijos" value=""  class="autocomplete" data-child=carrito/banners/>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=Departamento/>Departamento/</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=11 value="" data-fatoser=Departamento/ data-url=Departamento/ ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=Departamento/ placeholder="Urls Hijos" value=""  class="autocomplete" data-child=Departamento//>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=Departamento/Sistema>Departamento/Sistema</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=12 value="" data-fatoser=Departamento/Sistema data-url=Departamento/Sistema ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=Departamento/Sistema placeholder="Urls Hijos" value=""  class="autocomplete" data-child=Departamento/Sistema/>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=Departamento/Producción>Departamento/Producción</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=13 value="" data-fatoser=Departamento/Producción data-url=Departamento/Producción ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=Departamento/Producción placeholder="Urls Hijos" value=""  class="autocomplete" data-child=Departamento/Producción/>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=Departamento/Ventas>Departamento/Ventas</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=14 value="" data-fatoser=Departamento/Ventas data-url=Departamento/Ventas ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=Departamento/Ventas placeholder="Urls Hijos" value=""  class="autocomplete" data-child=Departamento/Ventas/>
+					</div>
+				</div>
+			</td>
+		</tr>
+				<tr class="">
+			<td class="">
+				<div class="text-left url" data-url=Departamento/Transcripción>Departamento/Transcripción</div>
+			</td>
+			<td class="">
+				<div class="text-left"><input type="text" value=""></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="chosen-select-div">
+						<select data-placeholder="Elegir el icono..." class="chosen-select" style="width:350px;" tabindex="2">
+							<option value=""></option>
+							<!-- <option selected>icon-adjust</option> -->
+						</select>
+
+					</div>
+					<span class="chosen-select-button"></span>
+				</div>
+			</td>
+			<td class="">
+				<div class="text-center"><input type="checkbox" id=15 value="" data-fatoser=Departamento/Transcripción data-url=Departamento/Transcripción ></div>
+			</td>
+			<td class="">
+				<div class="text-left">
+					<div class="controls">
+						<input type="text" id=Departamento/Transcripción placeholder="Urls Hijos" value=""  class="autocomplete" data-child=Departamento/Transcripción/>
+					</div>
+				</div>
+			</td>
+		</tr>
+			</tbody>
+</table>
+
+
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css"  />
+<link rel="stylesheet" href="css/ace.min.css" />
+<link rel="stylesheet" href="http://192.168.5.3/adsi/assets/css/chosen.css">
+
+<style type="text/css">
+	div.text-left > .chosen-select-div{
+		display: inline-block;
+	}
+	span.chosen-select-button > button{
+		font-size: 1em;
+	}
+</style>
+
+<!-- <script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/ace-extra.min.js"></script>
+<script type="text/javascript" src='http://192.168.5.3/adsi/assets/js/jquery-2.0.3.min.js'></script>
+<script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/chosen.jquery.js"></script>
+<script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/icon-array.js"></script>
+<script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/tag.js"></script>
+<script type="text/javascript" src="http://192.168.5.3/adsi/assets/js/menu.js"></script> -->
+
+<!-- <script src="http://192.168.5.3/adsi//assets/js/ace.js"></script> -->
+
+
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<?php }} ?>
