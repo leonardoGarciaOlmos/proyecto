@@ -22,7 +22,7 @@
 
 		    $carreras = $this->perfil->get_carreras();
 		    $this->smarty->assign('carreras',$carreras);
-		    $userData = $this->perfil->get_UserData("20748439");
+		    $userData = $this->perfil->get_UserData("20748439"); 
 		    $this->smarty->assign('userData',$userData[0]);
 		    $this->smarty->assign('base_url',$this->config->item("base_url"));
 		    $vista = $this->smarty->fetch('perfil-docente.tpl');

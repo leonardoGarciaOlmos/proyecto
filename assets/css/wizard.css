@@ -1,0 +1,65 @@
+.accordion-style1.panel-group .panel {
+	border-width: 1px;
+	border-color: rgb(205, 216, 227);
+	border-style: solid;
+	background-color: rgb(255, 255, 255);
+	box-shadow: none;
+}
+
+.panel-group .panel {
+	margin-bottom: 1px;
+	overflow: hidden;
+}
+
+.panel-title {
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 16px;
+}
+
+.accordion-style1.panel-group .panel-heading .accordion-toggle.collapsed {
+	color: rgb(71, 143, 202);
+	font-weight: normal;
+	background-color: rgb(249, 249, 249);
+}
+
+.accordion-style1.panel-group .panel-heading .accordion-toggle {
+	color: rgb(76, 143, 189);
+	background-color: rgb(238, 244, 249);
+	position: relative;
+	font-weight: bold;
+	line-height: 1;
+	padding: 10px;
+	display: block;
+}
+
+.panel-body {
+	padding: 15px;
+}
+
+.accordion-style1.panel-group .panel-heading + .panel-collapse .panel-body {
+	border-top-color: rgb(205, 216, 227);
+}
+
+.panel-group .panel-heading+.panel-collapse .panel-body {
+	border-top: 1px solid #ddd;
+}
+
+.ui-helper-hidden-accessible {
+	display: none;
+}
+
+.ui-autocomplete{
+	list-style-type: none;
+}
+
+button#addSemes{
+	float: right;
+}
+
+@media screen and (max-width:480px){
+	button#addSemes{
+		float: left;
+		margin-bottom: 15px;
+	}
+}

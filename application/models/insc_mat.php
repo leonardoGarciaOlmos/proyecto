@@ -14,52 +14,20 @@
 	}
 	
 
-	function get_materias($ci, $carrera_id)
-	{
-		$query = $this->db->query('SELECT m.codigo, m.nombre FROM docente_has_materia dhm, carrera c, pensum p, materia m, materia_has_pensum mhp where m.codigo = dhm.materia_codigo and c.id = dhm.carrera_id and p.carrera_id = c.id and mhp.materia_codigo = m.codigo and mhp.pensum_id = p.id and dhm.usuario_ci = '.$ci.' and c.id ="'.$carrera_id.'"');
+	function get_UserData($ci){
+		$query = $this->db->query("SELECT u.ci, u.nombre, u.apellido, u.direccion, u.fecha_nac, u.correo, u.expediente, u.nivel_instruccion, c.nombre as carrera, d.nombre as departamento FROM usuario u, carrera c, departamento d, estudiante_has_carrera ec WHERE c.departamento_id = d.id
+and c.id = ec.carrera_id and ec.usuario_ci = u.ci and u.ci = ".$ci." ");
 
-		return $query->result_array();
+		$data = $query->result_array();
+		return $data;
 	}
 
-	function get_carreras(){
-		$query = $this->db->query('SELECT id, nombre FROM carrera');
+	function get_semestre($pensum){
+		$query = $this->db->query("SELECT max(semestre) as semestre from materia_has_pensum mhp WHERE pensum_id = ".$pensum." ");
 
-		return $query->result_array();
+		$data = $query->result_array();
+		return $data;
 	}
-
-	function get_plan($carrera_id, $ci, $materia){
-		$query = $this->db->query('SELECT * FROM plan_evaluacion WHERE carrera_id = '.$carrera_id.' and profesor = '.$ci.' and materia = "'.$materia.'" ');
-
-		$result = $query->result_array();
-
-		if(isset($result[0]["id"])){
-			$query = $this->db->query('SELECT porcentaje, descripcion FROM evaluacion WHERE plan_evaluacion_id = '.$result[0]["id"].'');
-			
-			return $query->result_array();
-		}
-	}
-
-	function save_plan($plan){
-
-		$query = $this->db->query('SELECT * FROM plan_evaluacion WHERE carrera_id = '.$plan["carrera_id"].' and profesor = '.$plan["profesor"].' and materia = "'.$plan["materia"].'" ');
-
-		$result = $query->result_array();
-
-		if(isset($result[0]["id"])){
-			$query = $this->db->query('DELETE FROM evaluacion WHERE plan_evaluacion_id = '.$result[0]["id"].' ');
-		}else{
-			$query = $this->db->query('INSERT INTO plan_evaluacion values("",'.$plan["carrera_id"].','.$plan["profesor"].',"'.$plan["materia"].'")');
-
-			$query = $this->db->query('SELECT MAX(id) as id FROM plan_evaluacion');
-			$result = $query->result_array();
-		}
-
-		foreach ($plan["evaluaciones"] as $key => $value) {
-			$query = $this->db->query('INSERT INTO evaluacion values("",'.$value["num_eval"].',"'.$value["nom_eval"].'",'.$result[0]["id"].')');
-		}
-
-	}
-
 
 
 }

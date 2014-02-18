@@ -1,226 +1,147 @@
 $(document).ready(function()
 {
 
-	$buttonAdd = $('a.add-anchor');
-	$selectDepart = $('select#select_departamento');
-	$selectCarrer = $('select#select_carrera');
-	$buttonNext = $('button#next');
-	$buttonPrev = $('button#prev');
-	$carrera = $('input#id_carrera');
-	var step = 1;
-	var totalStep = parseInt($('input#total-step').val());
+	//+---------------------------+
+	//|	 Cambia la direccion del  | 
+	//|  boton de añadir pensum   |
+	//+---------------------------+
+	$('a.add-anchor').attr('href', base_url + 'pensum/add');
 
 
-	// Cambia direccion del boton de agregar
-	$buttonAdd.attr('href', 'add');
-
-
-	// Controlar el select departamento para cambiar carrera
-	$selectDepart.on('change', function()
+	//+-------------------------------+
+	//|	 Cambia la direccion del  	  | 
+	//|  boton de añadir actualizar   |
+	//+-------------------------------+
+	$(document).on('click', '#update', function()
 	{
-		var value = $(this).val();
+		var value = $(this).attr('value');
 
-		if(value == '')
-		{
-			buildSelect($selectCarrer, '', null, '');
-		}
-		else{
-
-			$.ajax({
-				cache: false,
-				type: 'POST',
-				data: 'id_dep=' + value,
-				dataType: "json",
-				url: base_url + 'pensum/json_carrera',
-				success: function(arrayObject)
-				{
-					buildSelect($selectCarrer, arrayObject, 'add', 'Seleccionar Carrera');
-				},
-				error: function()
-				{ alert('Error'); }
-			});
-		}
-	})
-
-
-	$selectCarrer.on('change', function()
-	{
-		var val = $(this).val();
-		var pensum = $pensum.val();
-
-		if(pensum != '' && val != '')
-		{
-			bootbox.confirm("El pensum esta en proceso de construccion, si cambia la carrera se perderan los datos.<br>Desea crear un nuevo pensum?", function(result)
+		$.ajax({
+			url: base_url+'pensum/json_pensum',
+			dataType: 'json',
+			data: {pensum: value},
+			async: false,
+			type: 'POST',
+			success: function(data)
 			{
-				// ACTUALIZAR PENSUM
-				if(result == true)
-				{
-					$.ajax({
-						cache: false,
-						type: 'POST',
-						data: {pensum_id: pensum, carrera_id: val},
-						dataType: "json",
-						url: base_url + 'pensum/json_update_pensum',
-						success: function(val)
-						{
-							if(val == true)
-							{
-								$accordion.html('<h4>No existe semestre ni materia</h4>');
-								$accordionSem.html('<h4>No existe seminario registrado</h4>');
-								$semestre.val('1');
-							}
-						},
-						error: function()
-						{ alert('Error'); }
-					});
-				}else
-					$("select#select_carrera option[value="+ $carrera.val() +"]").attr("selected",true);
-			})
-		}
+				if(data[0].estatus != 'PENDIENTE')
+					bootbox.alert("No se puede moficar el pensum ya que su informacion fue validada");
+				else
+					window.location.href = base_url+'pensum/update/'+value;
+			}
+		});
 	});
-
-
-	// Controlar el boton de Next y Prev
-	$buttonNext.on('click', function()
-	{
-		if(step == 1)
-		{
-			var retVal = validateCarrera($selectCarrer);
-			$carrera.val($selectCarrer.val());
-
-			if(retVal == false)
-				bootbox.alert('Debe seleccionar la carrera para seguir con los siguientes pasos');
-			else if(retVal == true)
-				managerStep('next');
-		}
-		else
-			managerStep('next');
-	});
-
-	$buttonPrev.on('click', function()
-	{
-		if(step == 1)
-		{
-			var retVal = validateCarrera($selectCarrer);
-			$carrera.val($selectCarrer.val());
-
-			if(retVal == false)
-				bootbox.alert('Debe seleccionar la carrera para seguir con los siguientes pasos');
-			else if(retVal == true)
-				managerStep('prev');
-		}
-		else
-			managerStep('prev');
-	});
-
-	
-	
-	// ++++++++++ Funciones ++++++++++
-	function validateCarrera(objectSelect)
-	{
-		var valRet = false;
-		var valObject = objectSelect.val(); 
-
-		if(valObject == '')
-			valRet = false;  // No ha sido seleccionado la carrera
-		else
-			valRet = true;	 // ha sido seleccionado la carrera
-
-		return valRet;
-	}
-
-
-	function buildSelect(objectSelect, objectValue, opc, msj)
-	{
-		if(opc === null)
-		{	
-			objectSelect.html('<option value="">...</option>');
-			objectSelect.attr('disabled', 'disabled');
-		}else if(opc === 'add')
-		{
-			var length = objectValue.length;
-
-			objectSelect.removeAttr('disabled');
-			objectSelect.html('<option value="">' +msj+ '</option>');
-			for(var i = 0; i < length; i++)
-			{
-				objectSelect.append('<option value="'+objectValue[i].id+'">'+objectValue[i].nombre+'</option>');
-			}
-		}
-	}
-
-
-	function buildSelect(objectSelect, objectValue, opc, msj)
-	{
-		if(opc === null)
-		{	
-			objectSelect.html('<option value="">...</option>');
-			objectSelect.attr('disabled', 'disabled');
-		}else if(opc === 'add')
-		{
-			var length = objectValue.length;
-
-			objectSelect.removeAttr('disabled');
-			objectSelect.html('<option value="">' +msj+ '</option>');
-			for(var i = 0; i < length; i++)
-			{
-				objectSelect.append('<option value="'+objectValue[i].id+'">'+objectValue[i].nombre+'</option>');
-			}
-		}
-	}
-
-	
-	function managerStep(opc)
-	{
-		var ret = false;
-
-		if(step == totalStep && opc === 'next')
-		{ 
-			window.location = base_url + 'pensum/all'; 
-		}else
-		{
-			if(opc === 'next')
-			{
-				$('li[data-target="#step'+ step +'"]').attr('class', 'complete');
-				$('div#step'+ step).attr('class', 'step-pane');
-				step+=1;
-				$('li[data-target="#step'+ step +'"]').attr('class', 'active');
-				$('div#step'+ step).attr('class', 'step-pane active');
-
-			}
-			else if(opc === 'prev')
-			{
-				$('li[data-target="#step'+ step +'"]').attr('class', '');
-				$('div#step'+ step).attr('class', 'step-pane');
-				step-=1;
-				$('li[data-target="#step'+ step +'"]').attr('class', 'active');
-				$('div#step'+ step).attr('class', 'step-pane active');
-			}
-
-			switch(step)
-			{
-				case 1:
-					$buttonPrev.attr('disabled', 'disabled');
-				break;
-
-				case totalStep:
-					$buttonNext.html('Finalizar <i class="icon-arrow-right icon-on-right"></i>');
-				break;
-
-				case 3:
-					$.getJSON(base_url+'pensum/json_mate_has_pens', { pensum_id: $pensum.val() }, function(data)
-					{ buildSelect($('select#mat_has_pensum'), data, 'add', 'Seleccionar Materia'); });
-				break;
-
-				default:
-					$buttonPrev.removeAttr('disabled');
-					$buttonNext.html('Sign <i class="icon-arrow-right icon-on-right"></i>');
-				break;
-			}
-		}
-
-		
-	}
-
-
 });
+
+
+/* FUNCIONES GENRALES */
+
+
+/**
+*	
+* Construir un tag <select>	
+*
+* Según el pase de parametro y opción que haya seleccionado
+* se construye el select con la información o queda
+* sin niguna opción
+*
+* @param 	object objectSelect Objeto del arbol DOM eg.$('select#select')
+* @param 	object objectValue  Objeto que contiene la data a insertar en el select
+* @param 	string opc 			Cadena 'add' aderir la data. 'null' no adiere nada
+* @param 	string msj 			Cadena indica el mensaje a mostrar en la primera opción
+* @return 	none
+*
+*/
+function buildSelect(objectSelect, objectValue, opc, msj)
+{
+	if(opc === 'null')
+	{	
+		objectSelect.html('<option value="">...</option>');
+		objectSelect.attr('disabled', 'disabled');
+	}else if(opc === 'add')
+	{
+		var length = objectValue.length;
+
+		objectSelect.removeAttr('disabled');
+		objectSelect.html('<option value="">' +msj+ '</option>');
+		for(var i = 0; i < length; i++)
+		{
+			objectSelect.append('<option value="'+objectValue[i].id+'">'+objectValue[i].nombre+'</option>');
+		}
+	}
+}
+
+
+/**
+*	
+* Envio de data por ajax	
+*
+* Se envia información mediante ajax especificando
+* varios parametros
+*
+* @param 	string type 'POST' o 'GET'
+* @param 	object objectData  Objeto que contiene la data a enviar
+* @param 	string url Ubicación a donde se envia la data
+* @param 	string stringReturn Pasa el valor por referencia
+* @return 	boolean "TRUE" si todo va bien, "FALSE" si hubo error
+*
+*/
+function ajaxFull(type, objectData, url, stringReturn)
+{
+	stringReturn = '';
+
+	$.ajax({
+		cache: false,
+		type: type,
+		data: objectData,
+		url: base_url + url,
+		success: function(object)
+		{ 
+			stringReturn = object;
+		},
+		error: function(error)
+		{ 
+			stringReturn = error;
+		}
+	});
+
+	return true;
+}
+
+
+/**
+*	
+* Envio de data por ajax	
+*
+* Se envia información mediante ajax especificando
+* varios parametros y vuelve en formato JSON
+*
+* @param 	string type 'POST' o 'GET'
+* @param 	object objectData  Objeto que contiene la data a enviar
+* @param 	string url Ubicación a donde se envia la data
+* @param 	Object objectReturn Pasa el valor por referencia
+* @return 	boolean "TRUE" si todo va bien, "FALSE" si hubo error
+*
+*/
+function ajaxJson(type, objectData, url, objectReturn)
+{
+	stringReturn = '';
+
+	$.ajax({
+		cache: false,
+		type: type,
+		data: objectData,
+		dataType: 'json',
+		url: base_url + url,
+		success: function(object)
+		{ 
+			stringReturn = object;
+			return true; 
+		},
+		error: function(error)
+		{ 
+			stringReturn = error;
+			return false; 
+		}
+	});
+}

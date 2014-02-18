@@ -99,8 +99,7 @@
 
 									<div class="col-sm-9">
 										<select multiple class="chosen-select tag-input-style" id="materias" data-placeholder="Escoja su Materia">
-											<option value="AL">Alabama</option>
-											<option value="AK">Alaska</option>
+
 										</select>
 									</div>
 								</div>

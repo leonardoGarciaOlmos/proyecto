@@ -79,4 +79,21 @@ $crud->set_relation('cod_prelacion','materia','{codigo} ({nombre})');
 			return $post_array;
 		}
 
+				/**
+		*	
+		* Retorna las materia en formato JSON	
+		*
+		* Realiza una consulta a base de dato de las materias
+		* para enviarla en formato JSON
+		*
+		* @param 	none
+		* @return 	none
+		*
+		*/
+		public function json_materia_autocomplete()
+		{
+			$this->load->model('Materia');
+			echo json_encode($this->Materia->autocomplete_materia());
+		}
+
 	}

@@ -60,4 +60,13 @@
 			echo json_encode($carreras);
 		}
 
+				/* FUNCTION RETURN JSON */
+		public function json_carrera_depart()
+		{
+			$this->load->model('Carrera');
+
+			$array = $this->Carrera->carrera_departamento($_GET['id_dep']);
+			echo json_encode($array);
+		}
+
 	}

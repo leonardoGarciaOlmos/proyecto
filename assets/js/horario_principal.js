@@ -2,6 +2,7 @@ $(function () {
 
 
 	$('#carrera').change(function(){
+		$("#semestre").empty();
 		$.post(base_url+"horario/call_get_semestre", {'pensum':$('option:selected',this).attr('pensum')}, function(data){
 			$.each(data, function(pos, item){
 				$('#semestre').append('<option value="'+item.semestre+'">'+item.semestre+'</option>');
