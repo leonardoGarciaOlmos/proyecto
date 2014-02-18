@@ -1,4 +1,10 @@
 jQuery(function($) {
+
+	$.post(base_url+'inscripcionMateria/Call_get_semestre', {pensum: '1'}, function(data, textStatus, xhr) {
+		console.log(data);
+
+
+	});
 			
 	$('[data-rel=tooltip]').tooltip();
 
@@ -17,7 +23,8 @@ jQuery(function($) {
 				}
 			}
 		});
-	}).on('stepclick', function(e){
+	}).on('changed', function(e){
+		console.log($('#fuelux-wizard').wizard("selectedItem"));
 		//return false;//prevent clicking on steps
 	});
 

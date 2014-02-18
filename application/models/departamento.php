@@ -1,18 +1,45 @@
-<?php class departamento extends CI_Model{
+<?php
+class Departamento extends CI_Model
+{
 
-	var $id;  
-	var $name; 
-	var $descripcion;   
-
-	function __construct()
+	/**
+	*	
+	* Solicita todos los departamento	
+	*
+	* Realiza una consulta a la base de dato buscando
+	* todos los departamentos registrado
+	*
+	* @param 	none
+	* @return 	array los departamentos registrados
+	*
+	*/
+	public function all_departamento()
 	{
-		// Llamando al contructor del Modelo
-		parent::__construct();
-		$this->carrera = $this->session->userdata('carrera');
-		$this->pensum = $this->session->userdata('pensum');
-		$this->semestre = $this->session->userdata('semestre');
+		$this->db->select(array('id', 'nombre'));
+		$this->db->from('departamento');
+		$query = $this->db->get();
+		return $query->result_array();
 	}
-	
+
+
+	/**
+	*	
+	* Solicita todos de un departamento	
+	*
+	* Realiza una consulta a la base de dato buscando
+	* los datos de un departamento
+	*
+	* @param 	string id_departamento El identificador del departamento
+	* @return 	array los departamentos registrados
+	*
+	*/
+	public function one_departamento($id_departamento)
+	{
+		$this->db->select('*');
+		$this->db->where('id', $id_departamento);
+		$query = $this->db->get('departamento');
+		return $query->result_array();
+	}
 
 	function get_all()
 	{
@@ -69,6 +96,6 @@
 		$data = $query->result_array();
 		return $data;
 	}
-
+	
 }
 ?>

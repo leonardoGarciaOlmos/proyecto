@@ -171,7 +171,8 @@
 
 		function sesion(){
 			//var_dump($this->session->all_userdata());
-			reg_audit("cool");
+			//reg_audit("cool");
+			var_dump($this->session->userdata("DX_user_id"));
 		}
 
 

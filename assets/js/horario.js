@@ -112,8 +112,25 @@ $(function () {
 
         $('#borrar').click(function(){
             $(".ui-selected").each(function(){
-                    $(this).children().remove();
+                var ci = $(this).children().attr('ci');
+                var selected = $(this);
+                var datapos;
+                var ocupadoposo;
+                $.each(teacher.data, function (pos, item) {
+                    if (item.id == ci) {
+                        $.each(item.ocupado, function (poso, itemo) {
+                            if(itemo.bloque == $(selected).attr("id")){
+                                datapos = pos;
+                                ocupadoposo = poso;
+                            }
+                        });
+                    }
                 });
+                $(this).children().remove();
+                if(datapos != null){    
+                    teacher.data[datapos].ocupado.splice(ocupadoposo,1);
+                }
+            });
         });
 
          $('#cerrar').click(function(){
@@ -122,51 +139,62 @@ $(function () {
     }
 
     function insertar_data(){
-        $.each($('.data_h'), function(pos, item){
-            $.each(teacher.data, function(tpos, titem){
-                if(titem.id == $(item).attr("ci")){
-                    $.each(titem.materia, function(mpos, mitem){
-                        if(mitem.id == $(item).attr("mat")){
-                            if(teacher.data[tpos].materia[mpos].bloque){
-                                teacher.data[tpos].materia[mpos].bloque.push($(item).parents("td").attr("id"));                                
-                            }else{
-                                teacher.data[tpos].materia[mpos].bloque = [];
-                                teacher.data[tpos].materia[mpos].bloque.push($(item).parents("td").attr("id"));   
-                            }
-                        }
+
+        bootbox.confirm("¿Esta seguro que desea insertar esta informacion en el Horario?", function(result) {
+            if(result) {
+                $.each($('.data_h'), function(pos, item){
+                    $.each(teacher.data, function(tpos, titem){
+                        if(titem.id == $(item).attr("ci")){
+                            $.each(titem.materia, function(mpos, mitem){
+                                if(mitem.id == $(item).attr("mat")){
+                                    if(teacher.data[tpos].materia[mpos].bloque){
+                                        teacher.data[tpos].materia[mpos].bloque.push($(item).parents("td").attr("id"));                                
+                                    }else{
+                                        teacher.data[tpos].materia[mpos].bloque = [];
+                                        teacher.data[tpos].materia[mpos].bloque.push($(item).parents("td").attr("id"));   
+                                    }
+                                }
+                            });
+                        }            
                     });
-                }            
-            });
+                });
+
+                $.post(base_url+'horario/insert_data', teacher, function(data){
+                    //$("#format").selectable("destroy");
+                    $(".alert-success").show();
+                    $("#insert_data").hide();
+                });
+
+                setTimeout(function() {
+                    $(".alert-success").hide();
+                }, 15000);
+            }
         });
-
-
-
-        $.post('horario/insert_data', teacher, function(data){
-
-        });
-        
     }
 
     $("#insert_data").click(function(){
         insertar_data();
     });
 
-    $("#consult").click(function(){
+   // $("#consult").click(function(){
         $.getJSON(base_url+'horario/call_consulta_horario', function(data){
             $.each(data, function(pos,item){
-                $("#"+item.bloque).append("<span class='data_h'><p class='text-error'>" + item.materia + "</p><p class='text-info'>" + item.nombre +" "+ item.apellido + "</p></span>");
+
+                $("#"+item.bloque).append("<span class='data_h' mat = "+item.materia_codigo+" ci= "+item.ci+"><p class='text-error'>" + item.materia + "</p><p class='text-info'>" + item.nombre +" "+ item.apellido + "</p></span>");
                 $("td").removeClass('');
             });
         });
-    });
+  //  });
 
     if($('#tipo_consulta').attr('tipo') == "consulta"){
+        $("#title").html("Consulta de Horarios");
         $("#format").selectable("destroy");
-        $("#consult").show();
+        $("#consult").click();
+        $("#consult").hide();
         $("#insert_data").hide();
     }else{
         $("#consult").hide();
-        $("#insert_data").shiw();
+        $("#insert_data").show();
     }
 
 });

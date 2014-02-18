@@ -4,7 +4,7 @@
 		{
 			// Llamando al contructor del Modelo
 			parent::__construct();
-			$this->load->model('perfil_model','perfil');
+			$this->load->model('insc_mat','perfil');
 		}
 
 		public function index($value='')
@@ -15,6 +15,7 @@
 
 		function all()
 		{
+
 			$this->load->model('docente','prof');
 
 		    $output->js_files['hgjfjfjfyjgfyl'] = base_url().'assets/js/jquery-ui-1.10.3.custom.min.js';
@@ -29,7 +30,9 @@
 			foreach ($horas as $item => $value) {
 				array_push($result, $this->prof->get_dias($value['hora_inicio']));
 			}
-
+			
+			$user = $this->perfil->get_UserData($this->session->userdata("DX_user_id"));
+			$this->smarty->assign("userData",$user[0]);
 			$this->smarty->assign('horas',$horas);
 			$this->smarty->assign('dias',$result);
 
@@ -42,8 +45,9 @@
 		}
 
 		
-		function Call_view_pensum(){
-			$this->output->set_content_type('application/json')->set_output(json_encode($this->prof->view_pensum()));
+		function Call_get_semestre(){
+			$pensum = $this->input->post("pensum");
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->get_semestre($pensum)));
 		}
 
 		function Call_get_materias(){

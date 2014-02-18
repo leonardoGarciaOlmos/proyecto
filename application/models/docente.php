@@ -16,7 +16,7 @@
 
 	function get_materias()
 	{
-		$query = $this->db->query('SELECT m.codigo as id, m.nombre as materia from materia m, materia_has_pensum mhp, pensum p, carrera c where c.id="'.$this->carrera.'" and p.carrera_id="'.$this->carrera.'" and mhp.semestre="'.$this->semestre.'" and mhp.pensum_id=p.id and p.carrera_id=c.id and m.codigo=mhp.materia_codigo');
+		$query = $this->db->query('SELECT m.codigo as id, m.nombre as materia from materia m, materia_has_pensum mhp, pensum p, carrera c where c.id="'.$this->carrera.'" and p.carrera_id="'.$this->carrera.'" and mhp.semestre="'.$this->semestre.'" and mhp.pensum_id=p.id and p.carrera_id=c.id and m.codigo=mhp.materia_codigo and p.id='.$this->pensum.'');
 
 		return array('data'=>$query->result());
 	}
@@ -130,7 +130,7 @@
 	}
 
 	function get_semestre($pensum_id){
-		$query = $this->db->query('SELECT DISTINCT semestre FROM materia_has_pensum mhp where mhp.pensum_id="'.$pensum_id.'"');
+		$query = $this->db->query('SELECT DISTINCT semestre FROM materia_has_pensum mhp where mhp.pensum_id="'.$pensum_id.'" order by semestre');
 		$data = $query->result_array();
 
 		return $data;

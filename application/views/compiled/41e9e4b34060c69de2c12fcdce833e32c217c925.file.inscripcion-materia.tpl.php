@@ -1,22 +1,23 @@
-<?php /* Smarty version Smarty-3.1.14, created on 2014-02-02 20:53:27
+<?php /* Smarty version Smarty-3.1.14, created on 2014-02-15 02:19:51
          compiled from "application\views\templates\inscripcion-materia.tpl" */ ?>
-<?php /*%%SmartyHeaderCode:1344952eeb047268295-70992565%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
+<?php /*%%SmartyHeaderCode:2231152fecec7a8a4a0-04890353%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
   'file_dependency' => 
   array (
     '41e9e4b34060c69de2c12fcdce833e32c217c925' => 
     array (
       0 => 'application\\views\\templates\\inscripcion-materia.tpl',
-      1 => 1391309522,
+      1 => 1391628379,
       2 => 'file',
     ),
   ),
-  'nocache_hash' => '1344952eeb047268295-70992565',
+  'nocache_hash' => '2231152fecec7a8a4a0-04890353',
   'function' => 
   array (
   ),
   'variables' => 
   array (
+    'userData' => 0,
     'horas' => 0,
     'hora' => 0,
     'key' => 0,
@@ -25,9 +26,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
   'version' => 'Smarty-3.1.14',
-  'unifunc' => 'content_52eeb0472d46f6_27426688',
+  'unifunc' => 'content_52fecec7c09206_90423359',
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_52eeb0472d46f6_27426688')) {function content_52eeb0472d46f6_27426688($_smarty_tpl) {?><div class="row-fluid">
+<?php if ($_valid && !is_callable('content_52fecec7c09206_90423359')) {function content_52fecec7c09206_90423359($_smarty_tpl) {?><div class="row-fluid">
 	<div class="span12">
 		<div class="widget-box">
 			<div class="widget-header widget-header-blue widget-header-flat">
@@ -51,12 +52,12 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 								<li data-target="#step3" style="min-width: 25%; max-width: 25%;">
 									<span class="step">3</span>
-									<span class="title">Materias Pendientes</span>
+									<span class="title">Resumen de Inscripcion</span>
 								</li>
 
 								<li data-target="#step4" style="min-width: 25%; max-width: 25%;">
 									<span class="step">4</span>
-									<span class="title">Resumen</span>
+									<span class="title">Finalizacion</span>
 								</li>
 							</ul>
 						</div>
@@ -80,7 +81,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 													<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
 														<!-- <i class="icon-circle light-green middle"></i> -->
 														&nbsp;
-														<span class="white middle bigger-120">Lenin S. Luque G.</span>
+														<span class="white middle bigger-120"><?php echo $_smarty_tpl->tpl_vars['userData']->value["nombre"];?>
+ <?php echo $_smarty_tpl->tpl_vars['userData']->value["apellido"];?>
+</span>
 													</a>
 
 												</div>
@@ -103,7 +106,9 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 												<div class="profile-info-name"> Nombre: </div>
 
 												<div class="profile-info-value">
-													<span class="editable editable-click" id="username">Lenin Luque</span>
+													<span class="editable editable-click" id="username"><?php echo $_smarty_tpl->tpl_vars['userData']->value["nombre"];?>
+ <?php echo $_smarty_tpl->tpl_vars['userData']->value["apellido"];?>
+.</span>
 												</div>
 											</div>
 
@@ -112,16 +117,17 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 												<div class="profile-info-value">
 													<i class="icon-map-marker light-orange bigger-110"></i>
-													<span class="editable editable-click" id="country">Netherlands</span>
-													<span class="editable editable-click" id="city">Amsterdam</span>
+													<span class="editable editable-click" id="country"><?php echo $_smarty_tpl->tpl_vars['userData']->value["direccion"];?>
+.</span>
 												</div>
 											</div>
 
 											<div class="profile-info-row">
-												<div class="profile-info-name"> Edad </div>
+												<div class="profile-info-name"> Fecha Nac. </div>
 
 												<div class="profile-info-value">
-													<span class="editable editable-click" id="age">22</span>
+													<span class="editable editable-click" id="age"><?php echo $_smarty_tpl->tpl_vars['userData']->value["fecha_nac"];?>
+.</span>
 												</div>
 											</div>
 
@@ -129,7 +135,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 												<div class="profile-info-name"> E-mail </div>
 
 												<div class="profile-info-value">
-													<span class="editable editable-click" id="signup">xleninx@gmail.com</span>
+													<span class="editable editable-click" id="signup"><?php echo $_smarty_tpl->tpl_vars['userData']->value["correo"];?>
+.</span>
 												</div>
 											</div>
 
@@ -137,7 +144,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 												<div class="profile-info-name"> Expediente </div>
 
 												<div class="profile-info-value">
-													<span class="editable editable-click" id="login">CDS-9528</span>
+													<span class="editable editable-click" id="login"><?php echo $_smarty_tpl->tpl_vars['userData']->value["expediente"];?>
+.</span>
 												</div>
 											</div>
 
@@ -145,7 +153,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 												<div class="profile-info-name"> Instruccion </div>
 
 												<div class="profile-info-value">
-													<span class="editable editable-click" id="about">Ing. Informatica</span>
+													<span class="editable editable-click" id="about"><?php echo $_smarty_tpl->tpl_vars['userData']->value["nivel_instruccion"];?>
+.</span>
 												</div>
 											</div>
 										</div>
@@ -188,12 +197,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 																<ul class="unstyled spaced">
 																	<li>
 																		<i class="icon-caret-right blue"></i>
-																		Carrera: Filosofia (Mension Educacion)
+																		Carrera: <?php echo $_smarty_tpl->tpl_vars['userData']->value["carrera"];?>
+
 																	</li>
 
 																	<li>
 																		<i class="icon-caret-right blue"></i>
-																		Departamento: Educacion.
+																		Departamento: <?php echo $_smarty_tpl->tpl_vars['userData']->value["departamento"];?>
+
 																	</li>
 
 																	<li>
@@ -243,11 +254,50 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 
 													<div class="space-6"></div>
 
+													<div class="widget-box transparent" style="opacity: 1; z-index: 0;">
+														<div class="widget-header">
+															<h4 class="lighter">Instrucciones</h4>
+
+															<div class="widget-toolbar no-border">
+																<a href="#" data-action="collapse">
+																	<i class="icon-chevron-up"></i>
+																</a>
+															</div>
+														</div>
+
+														<div class="widget-body"><div class="widget-body-inner" style="display: block;">
+															<div class="widget-main padding-6 no-padding-left no-padding-right">
+																<ul class="unstyled spaced">
+															<li>
+																<i class="icon-check purple"></i>
+																Verifique que toda su informacion es correcta, de lo contrario dirijase a su perfil para modificar su informacion.
+															</li>
+
+															<li>
+																<i class="icon-star blue"></i>
+																Tenga en cuenta que debe planificar el uso de las unidades de creditos en las materias disponibles para su inscripcion, ya que solo podra inscribir 23 unidades de creditos por semestres.
+															</li>
+
+															<li>
+																<i class="icon-remove red"></i>
+																No debe refrescar la pagina, esta accion borrara toda la informacion que haya cargado sobre su inscripción y debera realizar todos los pasos nuevamente. 
+															</li>
+
+															<li>
+																<i class="icon-ok green"></i>
+																Hechale un vistado al resumen de inscripcion antes de continuar para evitar modificaciones.
+															</li>
+														</ul>
+															</div>
+														</div></div>
+													</div>
+
 													<div class="row-fluid">
 														<div class="span12 well">
 															La informacion sumistrada en esta panalla es referencial en caso de existir alguna incongruencia contacte a su Administrador. <a>Admin@iuspo.com</a>
 														</div>
 													</div>
+
 												</div>
 											</div>
 										</div>
@@ -272,8 +322,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 										
 										<div class="span6">
 											<span class="span6">
-												<label for="form-field-select-2">Semestres</label>
-												<select id="form-field-select-2" multiple="multiple">
+												<label for="semestres">Semestres</label>
+												<select id="semestres" multiple="multiple">
 													<option value="AL">Semestre 1</option>
 													<option value="AK">Semestre 2</option>
 													<option value="AZ">Semestre 3</option>
@@ -283,8 +333,8 @@ $_valid = $_smarty_tpl->decodeProperties(array (
 											</span>
 
 											<span class="span6">											
-												<label for="form-field-select-3">Materia Disponibles</label>
-												<select id="form-field-select-3" multiple="multiple">
+												<label for="materias">Materia Disponibles</label>
+												<select id="materias" multiple="multiple">
 													<option value="AL">Matematica (DSA25)</option>
 													<option value="AK">Informatica (FDS56)</option>
 

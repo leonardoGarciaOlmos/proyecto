@@ -22,12 +22,12 @@
 
 								<li data-target="#step3" style="min-width: 25%; max-width: 25%;">
 									<span class="step">3</span>
-									<span class="title">Materias Pendientes</span>
+									<span class="title">Resumen de Inscripcion</span>
 								</li>
 
 								<li data-target="#step4" style="min-width: 25%; max-width: 25%;">
 									<span class="step">4</span>
-									<span class="title">Resumen</span>
+									<span class="title">Finalizacion</span>
 								</li>
 							</ul>
 						</div>
@@ -51,7 +51,7 @@
 													<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
 														<!-- <i class="icon-circle light-green middle"></i> -->
 														&nbsp;
-														<span class="white middle bigger-120">Lenin S. Luque G.</span>
+														<span class="white middle bigger-120">{$userData["nombre"]} {$userData["apellido"]}</span>
 													</a>
 
 												</div>
@@ -74,7 +74,7 @@
 												<div class="profile-info-name"> Nombre: </div>
 
 												<div class="profile-info-value">
-													<span class="editable editable-click" id="username">Lenin Luque</span>
+													<span class="editable editable-click" id="username">{$userData["nombre"]} {$userData["apellido"]}.</span>
 												</div>
 											</div>
 
@@ -83,16 +83,15 @@
 
 												<div class="profile-info-value">
 													<i class="icon-map-marker light-orange bigger-110"></i>
-													<span class="editable editable-click" id="country">Netherlands</span>
-													<span class="editable editable-click" id="city">Amsterdam</span>
+													<span class="editable editable-click" id="country">{$userData["direccion"]}.</span>
 												</div>
 											</div>
 
 											<div class="profile-info-row">
-												<div class="profile-info-name"> Edad </div>
+												<div class="profile-info-name"> Fecha Nac. </div>
 
 												<div class="profile-info-value">
-													<span class="editable editable-click" id="age">22</span>
+													<span class="editable editable-click" id="age">{$userData["fecha_nac"]}.</span>
 												</div>
 											</div>
 
@@ -100,7 +99,7 @@
 												<div class="profile-info-name"> E-mail </div>
 
 												<div class="profile-info-value">
-													<span class="editable editable-click" id="signup">xleninx@gmail.com</span>
+													<span class="editable editable-click" id="signup">{$userData["correo"]}.</span>
 												</div>
 											</div>
 
@@ -108,7 +107,7 @@
 												<div class="profile-info-name"> Expediente </div>
 
 												<div class="profile-info-value">
-													<span class="editable editable-click" id="login">CDS-9528</span>
+													<span class="editable editable-click" id="login">{$userData["expediente"]}.</span>
 												</div>
 											</div>
 
@@ -116,7 +115,7 @@
 												<div class="profile-info-name"> Instruccion </div>
 
 												<div class="profile-info-value">
-													<span class="editable editable-click" id="about">Ing. Informatica</span>
+													<span class="editable editable-click" id="about">{$userData["nivel_instruccion"]}.</span>
 												</div>
 											</div>
 										</div>
@@ -159,12 +158,12 @@
 																<ul class="unstyled spaced">
 																	<li>
 																		<i class="icon-caret-right blue"></i>
-																		Carrera: Filosofia (Mension Educacion)
+																		Carrera: {$userData["carrera"]}
 																	</li>
 
 																	<li>
 																		<i class="icon-caret-right blue"></i>
-																		Departamento: Educacion.
+																		Departamento: {$userData["departamento"]}
 																	</li>
 
 																	<li>
@@ -214,11 +213,50 @@
 
 													<div class="space-6"></div>
 
+													<div class="widget-box transparent" style="opacity: 1; z-index: 0;">
+														<div class="widget-header">
+															<h4 class="lighter">Instrucciones</h4>
+
+															<div class="widget-toolbar no-border">
+																<a href="#" data-action="collapse">
+																	<i class="icon-chevron-up"></i>
+																</a>
+															</div>
+														</div>
+
+														<div class="widget-body"><div class="widget-body-inner" style="display: block;">
+															<div class="widget-main padding-6 no-padding-left no-padding-right">
+																<ul class="unstyled spaced">
+															<li>
+																<i class="icon-check purple"></i>
+																Verifique que toda su informacion es correcta, de lo contrario dirijase a su perfil para modificar su informacion.
+															</li>
+
+															<li>
+																<i class="icon-star blue"></i>
+																Tenga en cuenta que debe planificar el uso de las unidades de creditos en las materias disponibles para su inscripcion, ya que solo podra inscribir 23 unidades de creditos por semestres.
+															</li>
+
+															<li>
+																<i class="icon-remove red"></i>
+																No debe refrescar la pagina, esta accion borrara toda la informacion que haya cargado sobre su inscripción y debera realizar todos los pasos nuevamente. 
+															</li>
+
+															<li>
+																<i class="icon-ok green"></i>
+																Hechale un vistado al resumen de inscripcion antes de continuar para evitar modificaciones.
+															</li>
+														</ul>
+															</div>
+														</div></div>
+													</div>
+
 													<div class="row-fluid">
 														<div class="span12 well">
 															La informacion sumistrada en esta panalla es referencial en caso de existir alguna incongruencia contacte a su Administrador. <a>Admin@iuspo.com</a>
 														</div>
 													</div>
+
 												</div>
 											</div>
 										</div>
@@ -243,8 +281,8 @@
 										
 										<div class="span6">
 											<span class="span6">
-												<label for="form-field-select-2">Semestres</label>
-												<select id="form-field-select-2" multiple="multiple">
+												<label for="semestres">Semestres</label>
+												<select id="semestres" multiple="multiple">
 													<option value="AL">Semestre 1</option>
 													<option value="AK">Semestre 2</option>
 													<option value="AZ">Semestre 3</option>
@@ -254,8 +292,8 @@
 											</span>
 
 											<span class="span6">											
-												<label for="form-field-select-3">Materia Disponibles</label>
-												<select id="form-field-select-3" multiple="multiple">
+												<label for="materias">Materia Disponibles</label>
+												<select id="materias" multiple="multiple">
 													<option value="AL">Matematica (DSA25)</option>
 													<option value="AK">Informatica (FDS56)</option>
 
