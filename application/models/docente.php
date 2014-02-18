@@ -151,5 +151,25 @@
 		return $data;
 
 	}
+
+	public function getEstudiantes( $horario_id, $usuario_ci ){
+		$query = "SELECT u.ci, concat(nombre,' ',apellido) as nombre 
+					FROM sistemas.usuario_has_horario uh join
+					sistemas.usuario u on uh.usuario_ci=u.ci
+					where horario_id=? and usuario_ci!=? and tipo='ESTUDIANTE';";
+		$query = $this->db->query($query, array($horario_id,$usuario_ci));
+		$data = $query->result_array();
+		return $data;
+	}
+
+	public function getPlanEvaluacion( $ci, $carrera_id, $materia ){
+		$query = "SELECT porcentaje, descripcion FROM sistemas.plan_evaluacion pe inner join sistemas.evaluacion e 
+					on e.plan_evaluacion_id=pe.id
+					where profesor=? and carrera_id=? and materia=?;";
+		$query = $this->db->query($query, array($ci, $carrera_id, $materia));
+		$data = $query->result_array();
+		return $data;
+	}
+
 }
 ?>

@@ -7,10 +7,10 @@ class DUser extends CI_Model
 
 	public function insert( )
 	{
-		$dataUser = $this->user->get('all');
-		if($this->db->insert( 'user', $dataUser )){
+		$dataUser = $this->user->get('ci, nombre, apellido, direccion, fecha_nac, sexo, est_civil, tipo_sangre, observacion, nivel_instruccion, clave, tipo, estatus, etnia, expediente, laico, religioso, congregacion, nacionalidad, pensum_id');
+		if($this->db->insert( 'usuario', $dataUser )){
 			$insert_id = $this->db->insert_id();
-			$this->user->set(array('id'=>$insert_id));
+			$this->user->set(array('id'=>$insert_id, 'ci'=>$insert_id));
 			return true;
 		}
 		return false;
@@ -18,9 +18,9 @@ class DUser extends CI_Model
 
 	public function update( )
 	{
-		$dataUser = $this->user->get('name, email, login, sex');
-		$this->db->where( $this->user->get('id') );
-		return $this->db->update( 'user', $dataUser );
+		$dataUser = $this->user->get('nombre, apellido, direccion, fecha_nac, sexo, est_civil, tipo_sangre, observacion, nivel_instruccion, clave, tipo, estatus, etnia, expediente, laico, religioso, congregacion, nacionalidad, pensum_id');
+		$this->db->where( $this->user->get('ci') );
+		return $this->db->update( 'usuario', $dataUser );
 	}
 
 	public function delete( $userId )
@@ -38,8 +38,8 @@ class DUser extends CI_Model
 
 	public function getUserById( $ids = '' )
 	{
-		$this->db->select('*');
-		$this->db->from('user');
+		$this->db->select('*, ci as id');
+		$this->db->from('usuario');
 		$this->db->where( $ids );
 		$query = $this->db->get();
 		if ($query->num_rows() > 0){
@@ -133,16 +133,16 @@ class DUser extends CI_Model
 		}else{
 			$result = false;
 		}
-		
 		return $result;
 	}
 
 	public function findByCI( $ci )
 	{
-		$campos = 'ci,carrera,nombre,apellido,congregacion,correo,direccion,est_civil,estatus, etnia, laico, nacionalidad, nivel_instruccion, pensum_id, religioso, semestre, sexo, tipo, tipo_sangre, fecha_nac';
+		$campos = 'ci,nombre,apellido,congregacion,correo,direccion,est_civil,estatus, etnia, laico, nacionalidad, nivel_instruccion, pensum_id, religioso, sexo, tipo, tipo_sangre, fecha_nac, nacionalidad, carrera_id as carrera';
 		$this->db->select( $campos );
 		$this->db->from('usuario u');
-		$this->db->where('status', 'PREINSCRITO');
+		$this->db->join('estudiante_has_carrera e', 'u.ci = e.usuario_ci', 'left');
+		$this->db->where('estatus', 'PREINSCRITO');
 		$this->db->like('ci', $ci);
 		$result = $this->db->get();
 		return $result->result_array();
