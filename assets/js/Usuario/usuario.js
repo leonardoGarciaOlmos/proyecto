@@ -10,7 +10,8 @@ $(document).on('ready',function(){
       type: "GET",
       url: base_url+'carrera/carreraByDPTO/'+Dpto_id,
       success: function( data ) {
-        generateSelect( data );
+        generateSelect( data, '#field-carrera');
+        $('.chosen-select').trigger("chosen:updated");
       }
     });
   });
