@@ -25,7 +25,6 @@ class MY_Form_validation extends CI_Form_validation
 	}
    public function is_unique($str, $field)
    {
-   //	var_dump($str, $field);
       if (substr_count($field, '.')==3)
       {
          list($table,$field,$id_field,$id_val) = explode('.', $field);
@@ -36,5 +35,10 @@ class MY_Form_validation extends CI_Form_validation
       }
       
       return $query->num_rows() === 0;
-    }	
+    }
+
+	function alpha_dash_space($str){
+		return ( ! preg_match("/^([-a-z0-9_ ])+$/i", $str)) ? FALSE : TRUE;
+	}
+
 }
