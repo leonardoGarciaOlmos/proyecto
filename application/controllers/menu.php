@@ -40,9 +40,7 @@
 			}else{
 				$this->load->model('url');
 				$data =  $this->input->post();
-			//	var_dump($data);
 				$menuData = $this->orderInsertMenu($data);
-				//var_dump($menuData);
 				$success = $this->url->saveMenu($menuData);
 				echo json_encode($success);
 			}
@@ -55,31 +53,18 @@
 			}else{
 				$this->load->library('form_validation');
 				$val = $this->form_validation;
-				$val->set_rules('name[]', 'nombre', 'required|min_length[4]|max_length[40]');
-				if (!$val->run()){
-					$error['success_error_message'] = $val->error_array();
-					$error['success']= false;
-				}else{
 					$error['success']= true;
-				}
 			}
 			echo json_encode($error);
 
 		}
 
 		private function orderInsertMenu( $data ){
-			//var_dump($data['check']);
 			foreach ($data['id'] as $key => $value){
-/*				 $parent = 1;
-				foreach ($data['check'] as $key => $value) {
-					if($parent == $value){
-						$parent = 0;
-					}
-				}*/
 				$parent = (in_array($value ,$data['check']))?0:1;
-				//var_dump($key);
-				if($value == 43){
-				//	print_r($data['hijos'][$key],$parent);
+				//Prepara campos sin llenar para que no genere error
+				foreach ($data['name'] as $key => $value) {
+					$data['name'][$key] = (strlen($value)>0)? $value : 'ninguno';
 				}
 				if($data['hijos'][$key] == '' AND $parent == 1){
 					$parent = 1;
