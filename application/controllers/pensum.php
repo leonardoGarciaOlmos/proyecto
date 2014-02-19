@@ -91,7 +91,7 @@ class Pensum_Controller extends CI_Controller
 						  base_url().'assets/js/loader.js',
 						  base_url().'assets/template/js/jquery-ui-1.10.3.full.min.js',
 						  base_url().'assets/js/wizard_pensum.js');
-		$css_files = array(base_url().'');
+		$css_files = array(base_url().'assets/css/wizard.css');
 
 	    $this->smarty->assign('output', $output);
 	    $this->smarty->assign('css_files', $css_files);
@@ -144,12 +144,30 @@ class Pensum_Controller extends CI_Controller
 						  base_url().'assets/js/loader.js',
 						  base_url().'assets/template/js/jquery-ui-1.10.3.full.min.js',
 						  base_url().'assets/js/wizard_pensum.js');
-		$css_files = array(base_url().'');
+		$css_files = array(base_url().'assets/css/wizard.css');
 
 	    $this->smarty->assign('output', $output);
 	    $this->smarty->assign('css_files', $css_files);
 	    $this->smarty->assign('js_files', $js_files);
 	    $this->smarty->display('index.tpl');
+	}
+
+
+	/**
+	*	
+	* Eliminar un pensum	
+	*
+	* Realiza la petición a base de dato para eliminar un
+	* pensum en especifico
+	*
+	* @param 	integer $row Objeto que contiene los datos de un registro
+	* @return 	none
+	*
+	*/
+	public function delete($id_pensum)
+	{
+		$this->load->model('Pensum');
+		echo $this->Pensum->delete_pensum($id_pensum);
 	}
 
 
@@ -384,8 +402,14 @@ class Pensum_Controller extends CI_Controller
 						</li>
 
 						<li>
-							<a href="javascript:void(0);" data-target-url="http://localhost/proyectouni/pensum/all/delete/11" title="Eliminar Registro" class="delete-row">
+							<a id="delete" href="#" value="'.$row->id.'">
 								<i class="icon-trash"></i> Eliminar Registro										
+							</a>
+						</li>
+
+						<li>
+							<a id="view" href="#" value="'.$row->id.'">
+								<i class="icon-search"></i> Ver Registro										
 							</a>
 						</li>
 					</ul>

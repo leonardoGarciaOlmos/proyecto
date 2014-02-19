@@ -1,147 +1,45 @@
 <?php
-class Usuario_Controller extends CI_Controller{
+class Estudiante_Controller extends CI_Controller{
 
 	function __construct()
 	{
 		parent::__construct();
-		//$this->load->model('auditor');
-		//$this->dx_auth->check_uri_permissions();
 	} 
 
-		public function index( $value = '' )
-		{
-			$this->admin($value);
-		}
-
-
-	public function admin( $operation = '', $systemId = '' )
+	public function index( $value = '' )
 	{
-		try{
-			$this->load->library('grocery_crud');
-			$crud = new grocery_CRUD();
-			$crud->set_theme('twitter-bootstrap');
-		//	$crud->set_theme('flexigrid');
-			$crud->where('tipo !=', 'ESTUDIANTE');
-			$crud->set_language('spanish');
-			$crud->set_table('usuario');
-			$crud->set_subject('usuario');
-			$crud->unset_jquery_ui();
-
-	/**
-	// Vista de Tabla
-	**/
-			$crud->unset_delete();
-			$crud->unset_print();
-			$crud->unset_columns('direccion','est_civil','fecha_nac','observacion','nivel_instruccion','clave','laico','religioso','congregacion','nacionalidad','confirmacion_de_clave','etnia','newpass','newpass_key','last_ip','created','modified','pensum_id','newpass_time','last_login','semestre','carrera');
-
-	/**
-	//Agregar
-	**/
-
-
-			$crud->unset_fields('direccion','expediente','estatus','tipo','observacion','confirmacion_de_clave','clave');
-			$crud->callback_insert(array($this,'encrypt_password_and_insert_admin_callback'));
-
-	/**
-	//Editar
-	**/
-			$crud->unset_edit_fields('direccion','expediente','estatus','tipo','observacion');
-			$crud->field_type('clave', 'password');
-			$crud->field_type('confirmacion_de_clave', 'password');
-		
-	/**
-	//General
-	**/
-			$crud->fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','laico','religioso','congregacion');
- 			$crud->unset_texteditor('observacion','full_text');
- 			$crud->display_as('fecha_nac','Fecha de Nacimiento')
- 			->display_as('est_civil','Estado Civil')
- 			->display_as('nivel_instruccion','Nivel de Instrucción')
- 			->display_as('confirmacion_de_clave','Confirmación de Clave')
- 			->display_as('congregacion','Congregación')
- 			->display_as('DPTO','Departamento');
-	/**
-	//Validaciones
-	**/
-
-			if($operation == 'add'){
-					$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion');
-			}elseif($operation == 'edit'){
-						$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','laico','religioso','congregacion');
-			}
-
-			if($operation == 'insert_validation'){
-
-				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|exact_length[8]');
-				$crud->set_rules('nombre', 'Nombre', 'required|min_length[3]|max_length[80]|alpha_dash_space');
-				$crud->set_rules('apellido', 'Apellido', 'required|min_length[3]|max_length[80]|alpha_dash_space');
-				$crud->set_rules('correo', 'Correo Electronico', 'required|is_unique[usuario.correo]|valid_email');
-				$crud->set_rules('fecha_nac', 'Fecha de Nacimiento', 'required|min_length[3]|max_length[80]');
-				$crud->set_rules('clave', 'clave', 'required|min_length[6]|max_length[44]');
-				$crud->set_rules('confirmacion_de_clave', 'Confirmacion de Clave', 'required|min_length[6]|max_length[44]|matches[clave]');
-
-			}else if($operation == 'update_validation'){
-
-			}
-
-	/**
-	//Vista
-	**/
-
-			$output = $crud->render();
-			$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/chosen-icon.js';
-			$output->js_files['hdghjddtjdtjl'] = base_url().'assets/js/icon-array.js';
-			$output->js_files['hdghjddtjdtjy'] = base_url().'assets/js/system-icons.js';
-			$output->css_files['hdghjddtjdtjy'] = base_url().'assets/chosen/chosen.css';
-
-
-		}catch(Exception $e){
-
-			show_error($e->getMessage().' --- '.$e->getTraceAsString());
-
-		}
-
-		$this->smarty->assign('output',$output->output);
-		$this->smarty->assign('css_files',$output->css_files);
-		$this->smarty->assign('js_files',$output->js_files);
-		$this->smarty->display('index.tpl');
-
+		$this->preInscripcion($value);
 	}
 
-
-
-
-
-
-
-
-	public function preInscripcionAdmin( $operation = '', $systemId = '' )
+	public function preInscripcion( $operation = '', $systemId = '' )
 	{
 		try{
 			$this->load->library('grocery_crud');
 			$crud = new grocery_CRUD();
 			$crud->set_theme('twitter-bootstrap');
-		//	$crud->set_theme('flexigrid');
-			
 			$crud->set_language('spanish');
 			$crud->set_table('usuario');
+			$crud->where('tipo', 'ESTUDIANTE');
 			$crud->set_subject('usuario');
 			$crud->unset_jquery_ui();
 			$crud->set_relation('nacionalidad','paises','nombre');
-			$crud->set_relation_n_n('carrera', 'estudiante_has_carrera', 'carrera', 'usuario_ci', 'carrera_id', 'nombre');
+			 $crud->set_relation_n_n('carrera', 'estudiante_has_carrera', 'carrera', 'usuario_ci', 'carrera_id', 'nombre');
+		if($operation != 'add'){
+		//	$this->dx_auth->check_uri_permissions();
+		}
 
 	/**
 	// Vista de Tabla
 	**/
-/* 			$crud->unset_print();
+			$crud->unset_columns('direccion','est_civil','fecha_nac','observacion',
+				'nivel_instruccion','clave','laico','religioso', 'tipo','tipo_sangre',
+				'congregacion','nacionalidad','confirmacion_de_clave',
+				'etnia','newpass','newpass_key','last_ip','created','modified','pensum_id','last_login','newpass_time','DPTO');
+			$crud->unset_list();
+ 			$crud->unset_print();
  			$crud->unset_read();
  			$crud->unset_edit();
  			$crud->unset_delete();
- 			$crud->unset_list();*/
-			$crud->unset_columns('direccion','est_civil','fecha_nac','observacion',
-				'nivel_instruccion','clave','laico','religioso',
-				'congregacion','nacionalidad','confirmacion_de_clave','requisitos'
-				,'newpass','newpass_key','last_ip','created','modified','pensum_id','last_login','newpass_time','DPTO');
 	/**
 	//Agregar
 	**/
@@ -149,8 +47,6 @@ class Usuario_Controller extends CI_Controller{
 
 			$crud->unset_fields('direccion','expediente','estatus','tipo','observacion');
 			$crud->callback_insert(array($this,'encrypt_password_and_insert_callback'));
-			//$crud->callback_update(array($this,'encrypt_password_and_insert_callback'));
-
 			//$crud->callback_before_insert(array($this,'requisitos_callback'));
 
 	/**
@@ -165,7 +61,7 @@ class Usuario_Controller extends CI_Controller{
 	//General
 	**/
 			$crud->fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion',
-				'correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion','nacionalidad','DPTO','carrera','requisitos','pensum_id');
+				'correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion','DPTO','nacionalidad','carrera','pensum_id');
  			$crud->unset_texteditor('observacion','full_text');
 
  			$crud->display_as('ci','Cedula de identidad')
@@ -181,7 +77,7 @@ class Usuario_Controller extends CI_Controller{
 
  			$crud->callback_field('DPTO',array($this,'add_field_callback_DPTO'));
 			$crud->callback_field('carrera',array($this,'add_field_callback_carrera'));
-			$crud->callback_field('requisitos',array($this,'add_field_callback_requisitos'));
+		//	$crud->callback_field('requisitos',array($this,'add_field_callback_requisitos'));
 
 
 
@@ -189,10 +85,10 @@ class Usuario_Controller extends CI_Controller{
 	//Validaciones
 	**/
 			if($operation == 'add'){
-					$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave','carrera');
+					$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave');
+					//,'laico','religioso','congregacion'
 			}elseif($operation == 'edit'){
-						$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil',
-							'tipo_sangre','nivel_instruccion','correo','etnia','laico','religioso','congregacion','carrera');
+						$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','laico','religioso','congregacion');
 			}
 
 
@@ -206,16 +102,9 @@ class Usuario_Controller extends CI_Controller{
 				$crud->set_rules('fecha_nac', 'Fecha de Nacimiento', 'required|min_length[3]|max_length[80]');
 				$crud->set_rules('clave', 'clave', 'required|min_length[6]|max_length[44]');
 				$crud->set_rules('confirmacion_de_clave', 'Confirmacion de Clave', 'required|min_length[6]|max_length[44]|matches[clave]');
-				$crud->set_rules('carrera', 'carrera', 'required');
 
 			}else if($operation == 'update_validation'){
-				$crud->set_rules('requisitos', 'requisitos', 'etnia');
-				$crud->set_rules('ci', 'Cedula de Identidad', 'required|exact_length[8]');
-				$crud->set_rules('nombre', 'Nombre', 'required|min_length[3]|max_length[80]|alpha_dash_space');
-				$crud->set_rules('apellido', 'Apellido', 'required|min_length[3]|max_length[80]|alpha_dash_space');
-				$crud->set_rules('correo', 'Correo Electronico', 'required|valid_email');
-				$crud->set_rules('fecha_nac', 'Fecha de Nacimiento', 'required|min_length[3]|max_length[80]');
-				$crud->set_rules('carrera', 'carrera', 'required');
+
 			}
 
 	/**
@@ -223,7 +112,7 @@ class Usuario_Controller extends CI_Controller{
 	**/
 
 			$output = $crud->render();
-			$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/Usuario/usuarioAdmin.js';
+			$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/Usuario/usuario.js';
 
 		}catch(Exception $e){
   if($e->getCode() == 14) //The 14 is the code of the "You don't have permissions" error on grocery CRUD.
@@ -247,38 +136,10 @@ class Usuario_Controller extends CI_Controller{
 
 
 
-	public function profile($value='')
-	{
-		$js_files['dfsdf'] = base_url().'assets/js/base_dato.js';
-		$this->smarty->assign('process', 'restore');
-		$output = $this->smarty->fetch('usuario/profile.tpl');
-
-	    $this->smarty->assign('output', $output);
-	    $this->smarty->assign('css_files','');
-	    $this->smarty->assign('js_files',$js_files);
-	    $this->smarty->display('index.tpl');
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/*
 	public function encrypt_password_and_insert_admin_callback($post_array) {
 		$this->load->library('encrypt');
+		die('muertoooo encrypt_password_and_insert_admin_callback');
 		//$post_array = $this->requisitos_callback($post_array);
 		$key = 'super-secret-key';
 		unset($post_array['confirmacion_de_clave']);
@@ -286,7 +147,7 @@ class Usuario_Controller extends CI_Controller{
 		$post_array['clave'] = $this->encrypt->encode($post_array['clave'], $key);
 		$post_array['semestre'] = 1;		
 		return $this->save($post_array);
-	}
+	}*/
 
 	public function encrypt_password_and_insert_callback($post_array) {
 		$this->load->library('encrypt');
@@ -405,6 +266,6 @@ public function findByCI()
 	}
 	echo json_encode($response);
 }
-	
+
 
 }

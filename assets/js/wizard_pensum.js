@@ -181,21 +181,24 @@ $(document).ready(function()
 
 		if( (!typeof(pensum.pensum)) == "undefined" || (!pensum.pensum == 0) )
 		{
-			bootbox.confirm("Esta un pensum en proceso\n¿Desea iniciar otro pensum?", function(result)
+			if(pensum.carrera != value && value != "")
 			{
-				if(result == true)
+				bootbox.confirm("Esta un pensum en proceso\n¿Desea iniciar otro pensum?", function(result)
 				{
-					$.get(base_url+'pensum/update_carrera_pensum', {pensum: pensum.pensum, carrera: value}, function()
-					{ 
-						pensum.carrera = value;
-						pensum.semestre = 0;
-						$("#accordion").html('<h4>No existe semestre ni materia</h4>');
-						$("#view_pensum").html('<h4>No existe semestre ni materia</h4>');
-					});
-				}
-				else
-					$("select#select_carrera [value='"+pensum.carrera+"']").attr("selected",true);
-			});
+					if(result == true)
+					{
+						$.get(base_url+'pensum/update_carrera_pensum', {pensum: pensum.pensum, carrera: value}, function()
+						{ 
+							pensum.carrera = value;
+							pensum.semestre = 0;
+							$("#accordion2").html('<h4>No existe semestre ni materia</h4>');
+							$("#view_pensum").html('<h4>No existe semestre ni materia</h4>');
+						});
+					}
+					else
+						$("select#select_carrera [value='"+pensum.carrera+"']").attr("selected",true);
+				});
+			}
 		}
 	});
 
@@ -216,12 +219,12 @@ $(document).ready(function()
 			{
 				pensum.semestre = 1;
 				pensum.pensum = data[0].id;
-				add_html_semestre($('#accordion'), pensum.semestre);
+				add_html_semestre($('#accordion2'), pensum.semestre);
 			});
 		}else if (pensum.semestre >= 0) 
 		{
 			pensum.semestre = pensum.semestre + 1;
-			add_html_semestre($('#accordion'), pensum.semestre);
+			add_html_semestre($('#accordion2'), pensum.semestre);
 		}
 	});
 
@@ -230,11 +233,13 @@ $(document).ready(function()
 	//|	 Asigna el evento de autocompletar	    |
 	//|  al textbox de materia de cada semestre |
 	//+-----------------------------------------+
-	$("div.step-content").on("click", "div.panel-heading" ,function()
+	$(document).on("click", "div.accordion-heading" ,function()
 	{
 		var $parent       = $(this).parent(); 
 		var $materia      = $(this).parent().find('input#materia');
 		var $materiaId    = $(this).parent().find('input#materia_id');
+
+		$materia.val("");
 
 		$materia.autocomplete(
 		{
@@ -254,7 +259,7 @@ $(document).ready(function()
 	//+-----------------------------------------+
 	//|	 Elimina la materia del semestre 	    |
 	//+-----------------------------------------+
-	$("div.step-content").on('click', 'button#eliminarMat', function()
+	$(document).on('click', 'button#eliminarMat', function()
 	{
 		var $tablaTr  = $(this).parent().parent();
 		var materiaId = $(this).val();
@@ -304,27 +309,24 @@ $(document).ready(function()
 	    table += '</table>';
 
 	    // Panel que indica el semestre y dentro van las materias
-	    var panelAcordion = '<div class="panel panel-default">';
-		panelAcordion += '<div class="panel-heading">';
-		panelAcordion += '<h3 class="panel-title">';
-		panelAcordion += '<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse'+numSemestre+'">';
-		panelAcordion += '<i class="bigger-110 icon-angle-right" data-icon-hide="icon-angle-down" data-icon-show="icon-angle-right"></i>';
-		panelAcordion += '&nbsp;Semestre #'+numSemestre+'';
-		panelAcordion += '</a>';
-		panelAcordion += '</h3>';
-		panelAcordion += '</div>';
-
-		panelAcordion += '<div class="panel-collapse collapse" id="collapse'+numSemestre+'" style="height: 0px;">';
-		panelAcordion += '<div class="panel-body">';
-		panelAcordion += '<input type="hidden" value="'+numSemestre+'", name="semestre" id="semestre">';
+	    var panelAcordion = '<div class="accordion-group">';
+	    panelAcordion += '<div class="accordion-heading">';
+	    panelAcordion += '<a href="#collapse'+numSemestre+'" data-parent="#accordion2" data-toggle="collapse" class="accordion-toggle collapsed">';
+	    panelAcordion += '<span style="font-size: 16px;">Semestre #'+numSemestre+'</span>';
+	    panelAcordion += '</a>';
+	    panelAcordion += '</div>';
+	    panelAcordion += '<div class="accordion-body collapse" id="collapse'+numSemestre+'">';
+	    panelAcordion += '<div class="accordion-inner">';
+	    panelAcordion += '<input type="hidden" value="'+numSemestre+'", name="semestre" id="semestre">';
 	    panelAcordion += '<input type="hidden" value="" name="materia_id" id="materia_id">';
-	    panelAcordion += '<div class="span1"> <h4>Materia</h4> </div>'
+	    panelAcordion += '<div class="span1"> <h4>Materia</h4> </div>';
 	    panelAcordion += '<div class="span3"> <input type="text" value="" name="materia" id="materia"> </div>';
 	    panelAcordion += '<div class="span12">';
-	    panelAcordion += table
-		panelAcordion += '</div>';
-		panelAcordion += '</div>';
-		panelAcordion += '</div>';
+	    panelAcordion += table;
+	    panelAcordion += '</div>';
+	    panelAcordion += '</div>';
+	    panelAcordion += '</div>';
+	    panelAcordion += '</div>';
 
 		// Se verifica el numero de semestre
 		if(numSemestre == 1)
@@ -396,7 +398,8 @@ $(document).ready(function()
 			type: "GET",
 			data: { pensum: id_pensum, semes: semNum, materia: data_materia},
 			success: function()
-			{ 
+			{
+				data_materia.cod_prelacion = ( data_materia.cod_prelacion == null ) ? '' : data_materia.cod_prelacion;
 				var tagTableMat  = '<tr>';
 				tagTableMat += '<th>'+data_materia.codigo+'</th>';
 				tagTableMat += '<th>'+data_materia.nombre+'</th>';

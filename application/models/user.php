@@ -3,18 +3,30 @@
 		@author Daniel Castillo & Jhoynerk Caraballo
 	*/
 	class User extends MY_Model{
-		protected $id;
-		protected $name;
-		protected $last_name;
-		protected $login;
-		protected $password;
-		protected $password_s; // para pruebas
-		protected $email;
-		protected $sex;
-		protected $date_birth;
-		protected $specialization;
-		protected $status;
-		private $roles;
+		public $id;
+		protected $ci;
+		protected $nombre;
+		protected $apellido;
+		protected $direccion;
+		protected $fecha_nac;
+		protected $sexo;
+		protected $est_civil;
+		protected $tipo_sangre;
+		protected $observacion;
+		protected $nivel_instruccion;
+		protected $clave;
+		protected $tipo;
+		protected $estatus;
+		protected $etnia;
+		protected $expediente;
+		protected $laico;
+		protected $religioso;
+		protected $congregacion;
+		protected $nacionalidad;
+		protected $pensum_id;
+		protected $semestre;
+		protected $carrera;
+		
 
 		public function __construct(){
 			parent::__construct( );
@@ -79,9 +91,9 @@
 			$this->roles = $aux;
 		}
 
-		public function save( ){
+	/*	public function save( ){
 			return $this->duser->insert();
-		}
+		}*/
 
 		public function saveRoles(){
 			if(count($this->roles)>0){
@@ -96,7 +108,7 @@
 			$user = $this->duser->findByCI( $ci );
 			if ($user) {
 				$user = $user[0];
-				$user['requisitos'] = $this->duser->getRequisitos( $ci );
+				$user['requisitos'] = $this->duser->getRequisitos( $user['ci'] );
 			}
 			return $user;
 		}		
@@ -104,19 +116,19 @@
 		public function saveRequisitos( $requisitos){
 			$result = false;
 			$this->db->where('usuario_ci', $requisitos[0]['usuario_ci']);
-			$this->db->delete('requisito_has_usuario');		
+			$this->db->delete('requisito_has_usuario');
 			foreach ($requisitos as $requisito ){
 				$result =	$this->db->insert('requisito_has_usuario', $requisito);
 			}
 			return $result;
 		}
 
-			// public function saveRequisitos( $requisitos){
-				
-			// 	foreach ($requisitos as $requisito ) {
-			// 	 $result =	$this->db->insert('requisito', $requisito);				
-			// 	}
-			// 	return $result;
-			// }
+		public function saveCarreras( $usuario_ci, $carrera ){
+			$result = false;
+			$this->db->where('usuario_ci', $usuario_ci );
+			$this->db->delete('estudiante_has_carrera');
+			$result =	$this->db->insert('estudiante_has_carrera', $carrera);
+			return $result;
+		}
 
 	}
