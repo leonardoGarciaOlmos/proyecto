@@ -31,6 +31,61 @@ $(document).ready(function()
 			}
 		});
 	});
+
+
+
+	//+-------------------------------+
+	//|	 Cambia la direccion del  	  | 
+	//|  boton para eliminar 		  |
+	//+-------------------------------+
+	$(document).on('click', '#delete', function()
+	{
+		var value = $(this).attr('value');
+		var tagTR = $(this).parents("tr");
+
+		$.ajax({
+			url: base_url+'pensum/json_pensum',
+			dataType: 'json',
+			data: {pensum: value},
+			async: false,
+			type: 'POST',
+			success: function(data)
+			{
+				if(data[0].estatus != 'PENDIENTE')
+					bootbox.alert("No se puede eliminar el pensum ya que su informacion fue validada");
+				else
+				{
+					bootbox.dialog({
+						message: "Estas seguro que queres eliminar este registro?",
+						title: '<h3 id="dialog_modal_message_label">Confirmación</h3>',
+						buttons: {
+							cancel: {
+								label: "Cancel",
+								className: "btn cancel-confirmation"
+							},
+							ok: {
+								label: "OK",
+								className: "btn btn-primary ok-confirmation",
+								callback: function() {
+
+									$.ajax({
+										url: base_url+'pensum/delete/'+value,
+										async: false,
+										success:function()
+										{
+											$("#message-box").html('<div class="alert alert-success fade in" style="display: block;"><a class="close" data-dismiss="alert" href="#"> x </a>Tus datos han sido eliminados correctamente de la base de datos.</div>');
+											tagTR.remove();
+										}
+									});
+								}
+							}
+						}
+					});
+				}
+			}
+		});
+
+	});
 });
 
 

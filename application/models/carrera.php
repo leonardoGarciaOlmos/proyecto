@@ -1,63 +1,44 @@
 <?php
-	class carrera_Controller extends CI_Controller{
-
-		public function index( $value = '' )
-		{
-			$this->all($value);
-		}
-
-
-		function all($operacion=0)
-		{
-			$this->load->library('grocery_crud');
-		    $crud = new grocery_CRUD();
-		    $crud->set_theme('twitter-bootstrap');
-		    $crud->set_language('spanish');
-		 
-		    $crud->set_table('carrera')
-		        ->set_subject('Carrera');
-
-		    $crud->fields('nombre','descripcion','departamento_id');
-		  	$crud->required_fields('nombre','departamento_id');
-
-			if($operacion == 'insert_validation'){
-					    $crud->set_rules('nombre', 'Nombre de la carrera', 'trim|required|is_unique[carrera.nombre]');
-					    $crud->set_rules('descripcion', 'Descripcion de la carrera');
-					}
-			if($operacion == 'update_validation'){
-					    $crud->set_rules('nombre', 'Nombre de la carrera','trim|required|callback_unique_edit_check[nombre]');
-					    $crud->set_rules('descripcion', 'Descripcion de la carrera');
-					}
-			$crud->display_as('departamento_id','Departamento');
-			$crud->set_relation('departamento_id','departamento','{id} ({id})');
-					   
-
-					    $output = $crud->render();
-		 
-		    
-		    $this->smarty->assign('output',$output->output);
-		    $this->smarty->assign('css_files',$output->css_files);
-		    $this->smarty->assign('js_files',$output->js_files);
-		    $this->smarty->display('index.tpl');
-		}
-
-		public function unique_edit_check($text, $field){
-			//
-			$systemID = $this->uri->segment(4);
-			$this->system->load( array('id' => $systemID) );
-			$element = array( 'name' => $field, 'value' => $text);
-
-			if( $this->system->validate( $element ) ){
-				return true;
-			}else{
-				$this->form_validation->set_message('unique_edit_check', "El campo %s ya esta registrado.");
-				return false;
-			}
-		}
-		public function carreraByDPTO( $id_Dpto ){
-			$this->load->model('departamento', 'departamento');
-			$carreras = $this->departamento->getCarreras( $id_Dpto );
-			echo json_encode($carreras);
-		}
-
+class Carrera extends CI_Model
+{
+	/**
+	*	
+	* Las carrera por cada departamento	
+	*
+	* Consulta en la base de dato las carrera que
+	* contiene un departamento en especifico 
+	*
+	* @param 	string id_departamento El identificador del departamento 
+	* @return 	array carrera Las carrera del departamento
+	*
+	*/
+	public function carrera_departamento($id_departamento)
+	{
+		$this->db->select(array('id', 'nombre'));
+		$this->db->from('carrera');
+		$this->db->where('departamento_id', $id_departamento);
+		$query = $this->db->get();
+		return $query->result_array();
 	}
+
+
+	/**
+	*	
+	* Informacion de carrera	
+	*
+	* Consulta en la base de dato una
+	* carrera en especifico
+	*
+	* @param 	string id_carrera El identificador de la carrera 
+	* @return 	array carrera Las carrera del departamento
+	*
+	*/
+	public function one_carrera($id_carrera)
+	{
+		$this->db->select('*');
+		$this->db->where('id', $id_carrera);
+		$query = $this->db->get('carrera');
+		return $query->result_array();
+	}
+}
+?>
