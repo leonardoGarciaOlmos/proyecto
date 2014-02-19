@@ -26,6 +26,14 @@ $('#form-signin').on('submit',function( event ){
 });
 
 
+
+
+if(show_captcha){
+	showRecaptcha();
+}
+
+});
+
 function showRecaptcha() {
 Recaptcha.create("6LeV5-oSAAAAAMcsFNA9ofW2uXdXcm2ruwRdvrx_", 'captchadiv', {
     tabindex: 1,
@@ -35,15 +43,11 @@ Recaptcha.create("6LeV5-oSAAAAAMcsFNA9ofW2uXdXcm2ruwRdvrx_", 'captchadiv', {
 });
 }
 
+
 function show_box(id) {
  jQuery('.widget-box.visible').removeClass('visible');
  jQuery('#'+id).addClass('visible');
 }
-
-if(show_captcha){
-	showRecaptcha();
-}
-
 
 function showError(data){
 	var first = false;
@@ -72,13 +76,3 @@ function showError(data){
 		target.after(labelError);
 	});
 }
-
-
-
-
-
-
-
-
-
-});
