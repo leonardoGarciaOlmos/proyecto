@@ -32,8 +32,8 @@
 		      		$crud->set_rules('url', 'url', 'required|min_length[5]|max_length[79]');
 					$crud->set_rules('is_menu', 'menu', 'required');
 			    }
-
-				$crud->callback_before_insert(array($this, 'url_callback_after_insert'));
+		    	$crud->callback_before_insert(array($this,'fix_url_callback'));
+		    	$crud->callback_before_update(array($this,'fix_url_callback'));
 				$crud->unset_print();
 		      	$output = $crud->render();
 		    }catch(Exception $e){
@@ -45,8 +45,13 @@
 		    $this->smarty->display('index.tpl');
 		}
 
-		public function url_callback_before_update($post_array, $primary_key){
-			var_dump($post_array);
+
+		function fix_url_callback($post_array) {		 
+			$pos = strpos($post_array['url'], '/');
+			if ($pos === false) { 
+				$post_array['url'] = $post_array['url'].'/';
+			}
+			return $post_array;
 		}
 
 	}

@@ -8,6 +8,7 @@
 		protected $nombre;
 		protected $apellido;
 		protected $direccion;
+		protected $correo;
 		protected $fecha_nac;
 		protected $sexo;
 		protected $est_civil;

@@ -48,7 +48,9 @@
 									<script type="text/javascript" >
 										var plan = {$encodePE};
 									</script>
-									
+									<div class="title">
+										<h2></h2>
+									</div>
 									<table id="format" class="table table-striped table-bordred table-hover">
 										<thead>
 											<tr>
@@ -70,10 +72,10 @@
 												<td>{$alumno.nombre}</td>
 												{foreach from=$planEvaluacion item=evaluacion} 
 												<td >
-													<input type="number"step="1" value='1' maxlength="2" min="0" max="20"  pattern="\d*" >
+													<input type="number" class="note" step="1" value='1' maxlength="2" min="0" max="20"  pattern="\d*" >
 												</td>
 												{/foreach}
-												<td><b id="def{$alumno.ci}" class="def">20</b></td>
+												<td><b id="def{$alumno.ci}" class="def">0</b></td>
 											</tr>
 											{/foreach}
 										</tbody>

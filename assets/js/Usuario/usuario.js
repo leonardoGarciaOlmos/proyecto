@@ -1,6 +1,3 @@
-var button = '<button onclick="return false;" id="buscar" class="btn btn-purple btn-small" >'+
-              'Buscar<i class="icon-search icon-on-right bigger-110"></i>'+
-              '</button>';
 $(document).on('ready',function(){      
 
   $('#field-Dpto').on('change',function( ){
@@ -47,16 +44,5 @@ function renderData ( data ) {
   });
   $('.chosen-select').trigger("chosen:updated");
 }
-
-/*var button = '<button onclick="return false;" id="buscar" class="btn btn-purple btn-small" >'+
-              'Buscar<i class="icon-search icon-on-right bigger-110"></i>'+
-              '</button>';*/
-
-$('#field-ci').parent().append(button);
-
-
-//findByCI
-
-
 
 });

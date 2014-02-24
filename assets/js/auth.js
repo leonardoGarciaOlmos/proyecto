@@ -25,6 +25,34 @@ $('#form-signin').on('submit',function( event ){
 
 });
 
+function showErrorForgot ( targetSelector , msg ) {
+
+	var target = $(targetSelector);
+	clearTimeout(timeout);
+	var targetClass = "error"+targetSelector.replace('.','');
+	$('.'+targetClass).remove();
+	$(target).addClass('error');
+	var labelError = $('<span display="none" class="'+targetClass+'">'+msg+'</span>')
+	.fadeIn("slow").delay(5000).fadeOut("slow");
+	target.append(labelError);
+}
+
+
+$('#olvidoClave').on('submit',function( event ){
+	event.preventDefault();
+	var formData = $(this).serialize();
+	$.ajax({
+	dataType: "json",
+	type: "POST",
+	url: base_url+'auth/forgot_password',
+	data: formData,
+	success: function( data ) {
+ 		showErrorForgot('.msjForgot',data.message);
+	}
+});
+
+});
+
 
 
 

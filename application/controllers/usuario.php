@@ -20,7 +20,6 @@ class Usuario_Controller extends CI_Controller{
 			$this->load->library('grocery_crud');
 			$crud = new grocery_CRUD();
 			$crud->set_theme('twitter-bootstrap');
-		//	$crud->set_theme('flexigrid');
 			$crud->where('tipo !=', 'ESTUDIANTE');
 			$crud->set_language('spanish');
 			$crud->set_table('usuario');
@@ -74,6 +73,7 @@ class Usuario_Controller extends CI_Controller{
 
 				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|exact_length[8]');
 				$crud->set_rules('nombre', 'Nombre', 'required|min_length[3]|max_length[80]|alpha_dash_space');
+				$crud->set_rules('fecha_nac', 'fecha Nacimiento', 'required|exact_length[10]|callback_check_fecha');
 				$crud->set_rules('apellido', 'Apellido', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('correo', 'Correo Electronico', 'required|is_unique[usuario.correo]|valid_email');
 				$crud->set_rules('fecha_nac', 'Fecha de Nacimiento', 'required|min_length[3]|max_length[80]');
@@ -110,7 +110,18 @@ class Usuario_Controller extends CI_Controller{
 
 
 
-
+public function check_fecha($date)
+{
+		$dateBorn = strtotime( $date );
+		$start = strtotime('1900-01-01'); //Fecha es un campo tipo DATE formato Y-m-d
+		 
+		if($start > $dateBorn){
+			$this->form_validation->set_message('check_fecha', 'El Campo % debe tener una fecha valida');
+			return FALSE;
+		}else{
+			return TRUE;
+		}
+}
 
 
 
@@ -133,11 +144,6 @@ class Usuario_Controller extends CI_Controller{
 	/**
 	// Vista de Tabla
 	**/
-/* 			$crud->unset_print();
- 			$crud->unset_read();
- 			$crud->unset_edit();
- 			$crud->unset_delete();
- 			$crud->unset_list();*/
 			$crud->unset_columns('direccion','est_civil','fecha_nac','observacion',
 				'nivel_instruccion','clave','laico','religioso',
 				'congregacion','nacionalidad','confirmacion_de_clave','requisitos'
@@ -145,13 +151,8 @@ class Usuario_Controller extends CI_Controller{
 	/**
 	//Agregar
 	**/
-
-
 			$crud->unset_fields('direccion','expediente','estatus','tipo','observacion');
-			$crud->callback_insert(array($this,'encrypt_password_and_insert_callback'));
-			//$crud->callback_update(array($this,'encrypt_password_and_insert_callback'));
-
-			//$crud->callback_before_insert(array($this,'requisitos_callback'));
+			$crud->callback_insert(array($this,'encrypt_password_preinscripcionAdmin_callback'));
 
 	/**
 	//Editar
@@ -278,25 +279,24 @@ class Usuario_Controller extends CI_Controller{
 
 
 	public function encrypt_password_and_insert_admin_callback($post_array) {
-		$this->load->library('encrypt');
-		//$post_array = $this->requisitos_callback($post_array);
-		$key = 'super-secret-key';
+		$post_array = $this->requisitos_callback($post_array);
 		unset($post_array['confirmacion_de_clave']);
 		unset($post_array['requisitos'],$post_array['Dpto']);
-		$post_array['clave'] = $this->encrypt->encode($post_array['clave'], $key);
-		$post_array['semestre'] = 1;		
+		$post_array['clave'] =  $this->dx_auth->_encode($post_array['clave']);
+		$post_array['semestre'] = 1;
+		$post_array['tipo'] = 'ESTUDIANTE';
+		$post_array['estatus'] = 'PREINSCRITO';
 		return $this->save($post_array);
 	}
 
-	public function encrypt_password_and_insert_callback($post_array) {
-		$this->load->library('encrypt');
+	public function encrypt_password_preinscripcionAdmin_callback($post_array) {
 		$post_array = $this->requisitos_callback($post_array);
-		$key = 'super-secret-key';
 		unset($post_array['confirmacion_de_clave']);
 		unset($post_array['requisitos'],$post_array['Dpto']);
-		$post_array['clave'] = $this->encrypt->encode($post_array['clave'], $key);
+		$post_array['clave'] =  $this->dx_auth->_encode($post_array['clave']);
 		$post_array['semestre'] = 1;
 		$post_array['tipo'] = 'ESTUDIANTE';
+		$post_array['estatus'] = 'PREINSCRITO';
 		return $this->save($post_array);
 	}
 

@@ -12,9 +12,9 @@
 
 		<!--basic styles-->
 
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+		<link href="{$base_url}assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="{$base_url}assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="{$base_url}assets/css/font-awesome.min.css" />
 
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
@@ -28,9 +28,9 @@
 
 		<!--ace styles-->
 
-		<link rel="stylesheet" href="assets/css/ace.min.css" />
-		<link rel="stylesheet" href="assets/css/ace-responsive.min.css" />
-		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+		<link rel="stylesheet" href="{$base_url}assets/css/ace.min.css" />
+		<link rel="stylesheet" href="{$base_url}assets/css/ace-responsive.min.css" />
+		<link rel="stylesheet" href="{$base_url}assets/css/ace-skins.min.css" />
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
@@ -41,7 +41,7 @@
 		<!--ace settings handler-->
 
 
-		<script src="assets/js/ace-extra.min.js"></script>
+		<script src="{$base_url}assets/js/ace-extra.min.js"></script>
 <script  type="text/javascript" >
 	var base_url = '{$ciPath}';
 	var show_captcha = '{$data.show_captcha}';
@@ -177,23 +177,26 @@
 													Ingresa tu correo para recibir las instrucciones
 												</p>
 
-												<form>
+												<form  id="olvidoClave"  accept-charset="utf-8" action="http://localhost/proyecto/auth" method="post">
 													<fieldset>
 														<label>
 															<span class="block input-icon input-icon-right">
-																<input type="email" class="span12" placeholder="Email" />
+																<input name="login" class="span12" placeholder="Email" />
 																<i class="icon-envelope"></i>
 															</span>
 														</label>
 
 														<div class="clearfix">
-															<button onclick="return false;" class="width-35 pull-right btn btn-small btn-danger">
+															<button type="submit" class="width-35 pull-right btn btn-small btn-danger">
 																<i class="icon-lightbulb"></i>
 																Enviar!
 															</button>
 														</div>
 													</fieldset>
 												</form>
+												<div class="msjForgot" style="margin:10px auto;	">
+													
+												</div>
 											</div><!--/widget-main-->
 
 											<div class="toolbar center">
@@ -302,7 +305,7 @@
 		<!--[if !IE]>-->
 
 		<script type="text/javascript">
-			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+			window.jQuery || document.write("<script src='{$base_url}assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
 		</script>
 
 		<!--<![endif]-->
@@ -314,20 +317,20 @@
 <![endif]-->
 
 		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+			if("ontouchend" in document) document.write("<script src='{$base_url}assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="{$base_url}assets/js/bootstrap.min.js"></script>
 
 		<!--page specific plugin scripts-->
 
 		<!--ace scripts-->
 
-		<script src="assets/js/ace-elements.min.js"></script>
-		<script src="assets/js/ace.min.js"></script>
+		<script src="{$base_url}assets/js/ace-elements.min.js"></script>
+		<script src="{$base_url}assets/js/ace.min.js"></script>
 
 		<!--inline scripts related to this page-->
 		<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
-<script type="text/javascript" src="assets/js/auth.js"></script>
+<script type="text/javascript" src="{$base_url}assets/js/auth.js"></script>
 	</body>
 
 <!-- Mirrored from 192.69.216.111/themes/preview/ace/login.html by HTTrack Website Copier/3.x [XR&CO'2013], Mon, 19 Aug 2013 14:04:52 GMT -->
