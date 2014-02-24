@@ -46,11 +46,13 @@ Please activate your account within %s hours, otherwise your registration will b
 
 You can use either you username or email address to login.
 Your login details are as follows:
-
+</br>
 Login: %s
+</br>
 Email: %s
+</br>
 Password: %s
-
+</br>
 We hope that you enjoy your stay with us :)
 
 Regards,
@@ -61,10 +63,11 @@ $lang['auth_forgot_password_content'] = "%s,
 You have requested your password to be changed, because you forgot the password.
 Please follow this link in order to complete change password process:
 %s
-
+</br>
 Your New Password: %s
+</br>
 Key for Activation: %s
-
+</br>
 After you successfully complete the process, you can change this new password into password that you want.
 
 If you have any more problems with gaining access to your account please contact %s.

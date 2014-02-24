@@ -45,23 +45,23 @@ $(document).on('ready',function(){
 
 	$('#format tbody tr').each(function(){
 		var infotd = [];
-		$(this).find('input[type="number"]').each(function(){
+		$(this).find('.note').each(function(){
 			infotd.push($(this).val());
 		});
 		table.push(infotd);
 	});
 	console.dir(table);
-	$('input[type="number"]').numeric();
+	$('.note').numeric();
 
 });
 
 
 
-$('input[type="number"]').on('change',function(){
+$('.note').on('change',function(){
 	var notas = [];
-	$(this).parents('tr').find('input[type="number"]').each(function(){
+	$(this).parents('tr').find('.note').each(function(){
 		notas.push($(this).val());
-	}).end().find('.def').val( calcularDefinitiva(plan, notas) );
+	}).end().find('.def').html( calcularDefinitiva(plan, notas) );
 });
 
 
@@ -70,5 +70,12 @@ function calcularDefinitiva( planEval, notasEstudiante ) {
 	for (var i=0; i<planEval.length; i++) {
 	    aux.push((parseInt(planEval[i].porcentaje) * parseInt(notasEstudiante[i]))/20); 
 	}
-	return aux.reduce(function(pv, cv) { return pv + cv; }, 0);
+    porcentajeDef = aux.reduce(function(pv, cv) { return pv + cv; }, 0);
+	return (porcentajeDef * 20/100);
 }
+
+
+$(".note").on("keyup", function() {
+    var val = Math.abs(parseInt(this.value, 10) || 0);
+    this.value = val > 20 ? 20 : val;
+});
