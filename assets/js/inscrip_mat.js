@@ -1,11 +1,5 @@
 jQuery(function($) {
 
-	$.post(base_url+'inscripcionMateria/Call_get_semestre', {pensum: '1'}, function(data, textStatus, xhr) {
-		console.log(data);
-
-
-	});
-			
 	$('[data-rel=tooltip]').tooltip();
 
 	var $validation = false;
@@ -25,7 +19,24 @@ jQuery(function($) {
 		});
 	}).on('changed', function(e){
 		console.log($('#fuelux-wizard').wizard("selectedItem"));
-		//return false;//prevent clicking on steps
+		if($('#fuelux-wizard').wizard("selectedItem").step == 2){
+			 $.post(base_url+'inscripcionMateria/Call_get_semestre', {"carrera_id": $("#carrera").attr('carrera')}, function(data){
+			 	$("#semestres").empty();
+			 	$.each(data, function(index, val) {
+			 		 $("#semestres").append('<option value="'+val.semestre+'">Semestre '+val.semestre+'</option>');
+			 	});
+			 });
+		}
+
+		$("#semestres").click(function() {
+			$.post(base_url+'inscripcionMateria/Call_get_materias', {"semestre": $("#semestres").val(), "carrera_id": $("#carrera").attr('carrera')}, function(data){
+				$("#materias").empty();
+				$.each(data, function(index, item) {
+					$("#materias").append('<option value="'+item.codigo+'">'+item.nombre+' ('+item.codigo+')</option>')					
+				});
+			});
+		});
+		//return false;//prevent clickin on steps
 	});
 
 

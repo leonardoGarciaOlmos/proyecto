@@ -31,7 +31,11 @@
 				array_push($result, $this->prof->get_dias($value['hora_inicio']));
 			}
 			
+			$semestre = $this->perfil->get_semestre($this->session->userdata("DX_user_id"));
+			$estatus_mat = $this->perfil->get_status_mat($this->session->userdata("DX_user_id"));
 			$user = $this->perfil->get_UserData($this->session->userdata("DX_user_id"));
+			$this->smarty->assign("semestre",$semestre["semestre"]);
+			$this->smarty->assign("status",$estatus_mat);
 			$this->smarty->assign("userData",$user[0]);
 			$this->smarty->assign('horas',$horas);
 			$this->smarty->assign('dias',$result);
@@ -46,26 +50,15 @@
 
 		
 		function Call_get_semestre(){
-			$pensum = $this->input->post("pensum");
-			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->get_semestre($pensum)));
+			$carrera_id = $this->input->post("carrera_id");
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->get_sem($carrera_id)));
 		}
 
 		function Call_get_materias(){
-			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->get_materias("20748439")));
-		}
-
-		function Call_insert_materias(){
-			$materias = $this->input->post("materias");
-			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->insert_materias($materias,"20748439")));
-		}
-
-		function Call_get_materias_doc(){
-			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->get_materias_doc("20748439")));
-		}
-
-		function Call_delete_materias(){
-			$materias = $this->input->post("materias");
-			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->delete_materias($materias,"20748439")));
+			$semestre = $this->input->post("semestre");
+			$carrera_id = $this->input->post("carrera_id");
+			$ci = $this->session->userdata("DX_user_id");
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->get_materias($semestre, $carrera_id, $ci)));
 		}
 
 }

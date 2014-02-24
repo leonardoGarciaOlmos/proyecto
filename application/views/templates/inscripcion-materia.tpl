@@ -156,7 +156,7 @@
 
 															<div class="row-fluid">
 																<ul class="unstyled spaced">
-																	<li>
+																	<li id="carrera" carrera='{$userData["carrera_id"]}'>
 																		<i class="icon-caret-right blue"></i>
 																		Carrera: {$userData["carrera"]}
 																	</li>
@@ -188,17 +188,23 @@
 																<ul class="unstyled spaced">
 																	<li>
 																		<i class="icon-caret-right green"></i>
-																		Semestre en Cruso: <b class="green">3er Semestre</b>.
+																		Semestre en Cruso: <b class="green">Semestre N° {$semestre}</b>.
 																	</li>
 
 																	<li>
 																		<i class="icon-caret-right green"></i>
-																		Materias Reprovadas: <b class="red">3</b>.
+																		Materias Reprovadas: <b class="red"> 
+																	{if count($status) > 1}
+																		{if isset($status["REPROBADA"])}
+																		{$status["REPROBADA"]}{else} 0{/if}. </b>
 																	</li>
 
 																	<li>
 																		<i class="icon-caret-right green"></i>
-																		Materias Pendientes: <b class="blue">2</b>
+																		Materias Pendientes: <b class="blue">
+																		{if isset($status["PENDIENTE"])}
+																		{$status["PENDIENTE"]}{else} 0{/if}. </b>
+																	{/if}
 																	</li>
 																</ul>
 															</div>
@@ -282,7 +288,7 @@
 										<div class="span6">
 											<span class="span6">
 												<label for="semestres">Semestres</label>
-												<select id="semestres" multiple="multiple">
+												<select id="semestres" size="6">
 													<option value="AL">Semestre 1</option>
 													<option value="AK">Semestre 2</option>
 													<option value="AZ">Semestre 3</option>
@@ -293,14 +299,13 @@
 
 											<span class="span6">											
 												<label for="materias">Materia Disponibles</label>
-												<select id="materias" multiple="multiple">
+												<select id="materias" size="6">
 													<option value="AL">Matematica (DSA25)</option>
 													<option value="AK">Informatica (FDS56)</option>
 
 												</select>
 											</span>
 											<div class="row span12">
-												<div class="space-20"></div>
 												<div class="form-actions">
 													<button class="btn btn-info" type="button">
 														<i class="icon-ok bigger-110"></i>
@@ -313,7 +318,7 @@
 										<div class="span6">
 											<span class="span6">
 												<label for="form-field-select-2">A cursar:</label>
-												<select id="form-field-select-2" multiple="multiple">
+												<select id="form-field-select-2" size="6">
 													<optgroup label="Semestre 1">
 														<option value="AL">Matematica (DSA25)</option>
 														<option value="AK">Informatica (FDS56)</option>
