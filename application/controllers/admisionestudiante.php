@@ -22,8 +22,8 @@ class Admisionestudiante_Controller extends CI_Controller
 
 			$crud->set_theme('twitter-bootstrap');
 	      	$crud->set_language('spanish');
-	      	$crud->set_table('admision_estudiante')
-	      		 ->set_primary_key('ci', 'admision_estudiante')
+	      	$crud->set_table('usuario')
+	      		 ->set_primary_key('ci', 'usuario')
 	      		 ->columns('ci', 'nombre', 'tipo', 'estatus', 'carrera', 'departamento', 'Fino')
 	      		 ->callback_column('Fino', array($this,'_callback_field_checkbox'));
 

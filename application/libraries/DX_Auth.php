@@ -245,7 +245,6 @@ class DX_Auth
 
 
 	function _get_role_user($user){
-		//var_dump($user);
 		$this->ci->load->model('role', 'role');
 		$systemId = $this->ci->config->item('systemId');
 		$this->ci->role->loadActive($user->ci, $systemId);
@@ -452,8 +451,8 @@ class DX_Auth
 	{
 		$this->ci->load->model('url', 'url');
 		$this->ci->load->model('role', 'role');
-
-		$this->ci->role->load( $data->role_id );
+		$role_id = $this->ci->role->getRolByUser( $data->ci );
+		$this->ci->role->load( $role_id );
 		$urlAllowed = $this->ci->url->getUrlPermision( $data->role_id );
 
 		$role_data['role_name'] = $this->ci->role->get('name')['name'];

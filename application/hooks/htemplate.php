@@ -21,15 +21,14 @@
 			$ci->smarty->assign('ciPath', base_url());
 			$ci->smarty->assign('currentUrl', current_url());
 			$ci->load->model('system');
-			//$ci->system->loadMenu($systemId);
 
 		}
 
 		public function hMenu(){
 			$ci =& get_instance();
 			$ci->load->model('system');
-			$array = $ci->system->loadMenu(12); /* Falta el parametro del roleId */
-			//print_r($array);
+			$role_id = $ci->dx_auth->get_role_id();
+			$array = $ci->system->loadMenu( $role_id ); /* Falta el parametro del roleId */
 			$ci->smarty->assign('menu', $array);
 		}
 

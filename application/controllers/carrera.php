@@ -30,7 +30,7 @@
 						$crud->set_rules('departamento_id', 'Departamento');
 					}
 			$crud->display_as('departamento_id','Departamento');
-			$crud->set_relation('departamento_id','departamento d','{id} ({nombre})');
+			$crud->set_relation('departamento_id','departamento','{id} ({nombre})');
 			$output = $crud->render();		 
 		    
 		    $this->smarty->assign('output',$output->output);

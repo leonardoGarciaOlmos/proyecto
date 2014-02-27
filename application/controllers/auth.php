@@ -104,7 +104,7 @@ class Auth_Controller extends CI_Controller
 			{
 				// Redirect to homepage
 				//echo ' redirect(, location);';//redirect('', 'location');
-				$response['redirect'] = 'usuario/preInscripcion/add';
+				$response['redirect'] = 'usuario/profile';
 				echo json_encode($response);
 			}
 			else

@@ -3,7 +3,9 @@
 
 		public function index( $value = '' )
 		{
-
+			if(!$this->dx_auth->is_logged_in()){
+				redirect($base_url.'/auth/');
+			}
 			$js_files['dfsdf'] = base_url().'assets/js/base_dato.js';
 			$output ='';
 

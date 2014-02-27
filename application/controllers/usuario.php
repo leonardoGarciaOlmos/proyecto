@@ -20,7 +20,6 @@ class Usuario_Controller extends CI_Controller{
 			$this->load->library('grocery_crud');
 			$crud = new grocery_CRUD();
 			$crud->set_theme('twitter-bootstrap');
-			$crud->where('tipo !=', 'ESTUDIANTE');
 			$crud->set_language('spanish');
 			$crud->set_table('usuario');
 			$crud->set_subject('usuario');
@@ -140,6 +139,13 @@ public function check_fecha($date)
 			$crud->unset_jquery_ui();
 			$crud->set_relation('nacionalidad','paises','nombre');
 			$crud->set_relation_n_n('carrera', 'estudiante_has_carrera', 'carrera', 'usuario_ci', 'carrera_id', 'nombre');
+			$crud->unset_list();
+ 			$crud->unset_print();
+ 			$crud->unset_read();
+ 			$crud->unset_edit();
+ 			$crud->unset_delete();
+
+
 
 	/**
 	// Vista de Tabla
@@ -284,8 +290,8 @@ public function check_fecha($date)
 		unset($post_array['requisitos'],$post_array['Dpto']);
 		$post_array['clave'] =  $this->dx_auth->_encode($post_array['clave']);
 		$post_array['semestre'] = 1;
-		$post_array['tipo'] = 'ESTUDIANTE';
-		$post_array['estatus'] = 'PREINSCRITO';
+		$post_array['tipo'] = 'ADMINISTRATIVO';
+		$post_array['estatus'] = 'ACTIVO';
 		return $this->save($post_array);
 	}
 
@@ -296,7 +302,7 @@ public function check_fecha($date)
 		$post_array['clave'] =  $this->dx_auth->_encode($post_array['clave']);
 		$post_array['semestre'] = 1;
 		$post_array['tipo'] = 'ESTUDIANTE';
-		$post_array['estatus'] = 'PREINSCRITO';
+		$post_array['estatus'] = 'INSCRITO';
 		return $this->save($post_array);
 	}
 

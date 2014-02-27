@@ -1,5 +1,5 @@
 <?php
-class Profesor_Controller extends CI_Controller{
+class Personal_Controller extends CI_Controller{
 
 	function __construct()
 	{
@@ -13,29 +13,6 @@ class Profesor_Controller extends CI_Controller{
 		$this->admin();
 	}
 
-	public function notas($value='')
-	{
-
-		$output->js_files['hgjfjfjfyjgfyl'] = base_url().'assets/js/usuario/notasprof.js';
-		$output->js_files['hgjfjfjfyjggfyl'] = base_url().'assets/js/numeric.js';
-		$output->css_files['hgjfjfjfyjgfyl2'] = base_url().'assets/css/notasProf.css';
-
-		$alumnos = $this->getNotas(12,'20748439');
-		$planEvaluacion = $this->getPlanEvaluacion( '20748439', 2, 2 );
-		$encodePE =json_encode( $planEvaluacion );
-
-		$this->smarty->assign('encodePE',$encodePE);
-		$this->smarty->assign('alumnos',$alumnos);
-		$this->smarty->assign('planEvaluacion',$planEvaluacion);
-		$this->smarty->assign('base_url',$this->config->item("base_url"));
-		$vista = $this->smarty->fetch('usuario/chargeEvaluation.tpl');
-		$this->smarty->assign('output',$vista);
-		$this->smarty->assign('css_files',$output->css_files);
-		$this->smarty->assign('js_files',$output->js_files);
-		$this->smarty->display('index.tpl');
-	}
-
-
 
 	public function admin()
 	{
@@ -43,7 +20,7 @@ class Profesor_Controller extends CI_Controller{
 			$this->load->library('grocery_crud');
 			$crud = new grocery_CRUD();
 			$crud->set_theme('twitter-bootstrap');
-			$crud->where('tipo =', 'DOCENTE');
+			$crud->where('tipo =', 'ADMINISTRATIVO');
 			$crud->set_language('spanish');
 			$crud->set_table('usuario');
 			$crud->set_subject('usuario');
@@ -155,7 +132,7 @@ class Profesor_Controller extends CI_Controller{
 		unset($post_array['requisitos'],$post_array['Dpto']);
 		$post_array['clave'] = crypt($this->dx_auth->_encode($post_array['clave']));
 		$post_array['semestre'] = null;
-		$post_array['tipo'] = 'DOCENTE';
+		$post_array['tipo'] = 'ADMINISTRATIVO';
 		$post_array['estatus'] = 'ACTIVO';
 		return $this->save($post_array);
 	}
@@ -167,36 +144,13 @@ class Profesor_Controller extends CI_Controller{
 		$this->user->load( array('ci' => $data['ci']));
 		$this->user->set( $data );
 		$this->user->save();
-		$this->user->saveRol(23);//role ESTUDIANTE
+		$this->user->saveRol(22);//role ESTUDIANTE
 	}
 
 	private function requisitos_callback($post_array) {
 		$post_array['pensum_id'] = null;
 		unset($post_array['requisitos']);		
 		return $post_array;
-	}
-
-
-	private function getNotas( $horario_id, $usuario_ci )
-	{
-		$this->load->model('docente');
-		$estudiantes = $this->docente->getEstudiantes( $horario_id, $usuario_ci );
-		if($estudiantes){
-			return $estudiantes;
-		}else{
-			return false;
-		}
-	}
-
-	private function getPlanEvaluacion( $ci, $carrera_id, $materia )
-	{
-		$this->load->model('docente');
-		$planEvaluacion = $this->docente->getPlanEvaluacion( $ci, $carrera_id, $materia );
-		if($planEvaluacion){
-			return $planEvaluacion;
-		}else{
-			return false;
-		}
 	}
 
 }

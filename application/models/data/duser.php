@@ -7,9 +7,9 @@ class DUser extends CI_Model
 
 	public function insert( )
 	{
-		$dataUser = $this->user->get('ci, nombre, apellido, direccion, fecha_nac, sexo, est_civil, tipo_sangre, observacion, nivel_instruccion, clave, tipo, estatus, etnia, expediente, laico, religioso, congregacion, nacionalidad, pensum_id');
+		$dataUser = $this->user->get('ci, nombre, apellido, direccion, correo, fecha_nac, sexo, est_civil, tipo_sangre, observacion, nivel_instruccion, clave, tipo, estatus, etnia, expediente, laico, religioso, congregacion, nacionalidad, pensum_id');
 		if($this->db->insert( 'usuario', $dataUser )){
-			$insert_id = $this->db->insert_id();
+			$insert_id = $this->user->ci;
 			$this->user->set(array('id'=>$insert_id, 'ci'=>$insert_id));
 			return true;
 		}
@@ -18,7 +18,7 @@ class DUser extends CI_Model
 
 	public function update( )
 	{
-		$dataUser = $this->user->get('nombre, apellido, direccion, fecha_nac, sexo, est_civil, tipo_sangre, observacion, nivel_instruccion, clave, tipo, estatus, etnia, expediente, laico, religioso, congregacion, nacionalidad, pensum_id');
+		$dataUser = $this->user->get('nombre, apellido, direccion, fecha_nac, correo, sexo, est_civil, tipo_sangre, observacion, nivel_instruccion, clave, tipo, estatus, etnia, expediente, laico, religioso, congregacion, nacionalidad, pensum_id');
 		$this->db->where( $this->user->get('ci') );
 		return $this->db->update( 'usuario', $dataUser );
 	}
@@ -116,7 +116,7 @@ class DUser extends CI_Model
 		$this->db->select('u.requisito_id');
 		$this->db->from('user u');
 		$this->db->like('usuario_ci', $ci );
-		$this->db->get();
+		return $this->db->get();
 	}
 
 	public function getRequisitos($ci)

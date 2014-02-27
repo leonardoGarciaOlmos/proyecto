@@ -53,8 +53,8 @@ class Estudiante_Controller extends CI_Controller{
 	//Editar
 	**/
 			$crud->unset_edit_fields('direccion','expediente','estatus','tipo','observacion');
-			$crud->field_type('clave', 'password');
-			$crud->field_type('confirmacion_de_clave', 'password');
+		//	$crud->field_type('clave', 'password');
+		//	$crud->field_type('confirmacion_de_clave', 'password');
 			$crud->field_type('pensum_id', 'invisible');
 		
 	/**
@@ -152,7 +152,7 @@ public function check_fecha($date)
 		$post_array = $this->requisitos_callback($post_array);
 		unset($post_array['confirmacion_de_clave']);
 		unset($post_array['requisitos'],$post_array['Dpto']);
-		$post_array['clave'] =  $this->dx_auth->_encode($post_array['clave']);
+		$post_array['clave'] = crypt($this->dx_auth->_encode($post_array['clave']));
 		$post_array['semestre'] = 1;
 		$post_array['tipo'] = 'ESTUDIANTE';
 		$post_array['estatus'] = 'PREINSCRITO';
@@ -168,6 +168,7 @@ public function check_fecha($date)
 		$this->user->load( array('ci' => $data['ci']));
 		$this->user->set( $data );
 		$this->user->save();
+		$this->user->saveRol(20);//role ESTUDIANTE
 	}
 
 	private function requisitos_callback($post_array) {

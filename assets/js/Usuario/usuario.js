@@ -16,7 +16,7 @@ $(document).on('ready',function(){
   function generateSelect ( item , target ) {
     var html = '';
     for (var i = 0 ; i < item.length; i++) {
-       html += '<option value="'+item[i].departamento_id+'">'+item[i].descripcion+'<option>';
+       html += '<option value="'+item[i].id+'">'+item[i].descripcion+'<option>';
     }
     $(target).html( html );
   }

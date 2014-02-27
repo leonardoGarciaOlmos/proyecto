@@ -120,7 +120,6 @@
 					  FROM role
 					  WHERE Url_id=?";
 			$result = $this->db->query( $query, array($UrlId) );
-
 			return $result->result_array();
 		}
 
