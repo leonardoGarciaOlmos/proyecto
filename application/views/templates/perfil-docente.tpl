@@ -131,7 +131,7 @@
 						<form style="padding-left: 80px; padding-right: 80px;">
 							<label for="c_materias">Multiple</label>
 
-							<select class="form-control" id="c_materias" multiple="multiple">
+							<select class="form-control span12" id="c_materias" multiple="multiple">
 
 							</select>
 

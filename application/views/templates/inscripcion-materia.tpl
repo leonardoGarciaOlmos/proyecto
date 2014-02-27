@@ -156,7 +156,7 @@
 
 															<div class="row-fluid">
 																<ul class="unstyled spaced">
-																	<li id="carrera" carrera='{$userData["carrera_id"]}'>
+																	<li id="carrera" pensum="{$userData['pensum_id']}" carrera='{$userData["carrera_id"]}'>
 																		<i class="icon-caret-right blue"></i>
 																		Carrera: {$userData["carrera"]}
 																	</li>
@@ -196,15 +196,20 @@
 																		Materias Reprovadas: <b class="red"> 
 																	{if count($status) > 1}
 																		{if isset($status["REPROBADA"])}
-																		{$status["REPROBADA"]}{else} 0{/if}. </b>
+																		{$status["REPROBADA"]}{else} 0{/if}.
+																	{else} 0
+																	{/if} </b>
 																	</li>
 
 																	<li>
 																		<i class="icon-caret-right green"></i>
 																		Materias Pendientes: <b class="blue">
+																	{if count($status) > 1}
 																		{if isset($status["PENDIENTE"])}
-																		{$status["PENDIENTE"]}{else} 0{/if}. </b>
-																	{/if}
+																		{$status["PENDIENTE"]}{else} 0{/if}. 
+																	{else} 0
+																	{/if} </b>
+																	
 																	</li>
 																</ul>
 															</div>
@@ -300,14 +305,11 @@
 											<span class="span6">											
 												<label for="materias">Materia Disponibles</label>
 												<select id="materias" size="6">
-													<option value="AL">Matematica (DSA25)</option>
-													<option value="AK">Informatica (FDS56)</option>
-
 												</select>
 											</span>
 											<div class="row span12">
 												<div class="form-actions">
-													<button class="btn btn-info" type="button">
+													<button id ="asign" class="btn btn-info" type="button">
 														<i class="icon-ok bigger-110"></i>
 														Asignar
 													</button>
@@ -317,16 +319,16 @@
 
 										<div class="span6">
 											<span class="span6">
-												<label for="form-field-select-2">A cursar:</label>
-												<select id="form-field-select-2" size="6">
-													<optgroup label="Semestre 1">
+												<label for="sem-mat">A cursar:</label>
+												<select id="sem-mat" size="6">
+													<!-- <optgroup label="Semestre 1">
 														<option value="AL">Matematica (DSA25)</option>
 														<option value="AK">Informatica (FDS56)</option>
 													</optgroup>
 													 <optgroup label="Semestre 2">
 														<option value="AL">Matematica (DSA25)</option>
 														<option value="AK">Informatica (FDS56)</option>
-													</optgroup>
+													</optgroup> -->
 												</select>
 											</span>
 
@@ -337,7 +339,7 @@
 													</div>
 
 													<div class="infobox-data">
-														<span class="infobox-data-number">11</span>
+														<span id ="total_uc" class="infobox-data-number">0</span>
 														<div class="infobox-content">Unidades de Credito</div>
 													</div>
 
@@ -348,7 +350,7 @@
 													</div>
 
 													<div class="infobox-data">
-														<span class="infobox-data-number">7</span>
+														<span id ="total_mat" class="infobox-data-number">0</span>
 														<div class="infobox-content">Cant. Materias</div>
 													</div>
 												</div>
@@ -356,7 +358,7 @@
 											
 											<div class="row span12">
 												<div class="form-actions">
-													<button class="btn btn-danger" type="button">
+													<button id="delete" class="btn btn-danger" type="button">
 														<i class="icon-trash bigger-110"></i>
 														Eliminar
 													</button>
@@ -410,14 +412,97 @@
 
 							<div class="step-pane" id="step3">
 								<div class="center">
-									<h3 class="blue lighter">This is step 3</h3>
+									<h3 class="blue lighter">Resumen de Inscripcion</h3>
+									<div class="span10 offset1">
+									<div class="widget-box transparent invoice-box">
+										<div class="widget-header widget-header-large">
+											<h3 class="grey lighter pull-left position-relative">
+												<i class="icon-leaf green"></i>
+												Semestres Inscritos
+											</h3>
+										</div>
+
+										<div class="widget-body">
+											<div class="widget-main padding-24">
+												<div class="row-fluid">
+													<div id="sem-container" class="row-fluid">
+														<div class="span6">
+															<div class="row-fluid">
+																<div class="span12 label label-large label-info arrowed-in arrowed-right">
+																	<b>Semestre 1</b>
+																</div>
+															</div>
+
+															<div class="row-fluid">
+																<ul class="unstyled spaced">
+																	<li>
+																		ITE0133<i class="icon-caret-right blue"></i>
+																		 Introducción a la teología y vida cristiana
+																	</li>
+																</ul>
+															</div>
+														</div><!--/span-->
+
+														<div class="span6">
+															<div class="row-fluid">
+																<div class="span12 label label-large label-success arrowed-in arrowed-right">
+																	<b>Customer Info</b>
+																</div>
+															</div>
+
+															<div class="row-fluid">
+																<ul class="unstyled spaced">
+																	<li>
+																		<i class="icon-caret-right blue"></i>
+																		Street, City
+																	</li>
+
+																	<li>
+																		<i class="icon-caret-right blue"></i>
+																		Zip Code
+																	</li>
+
+																	<li>
+																		<i class="icon-caret-right blue"></i>
+																		State, Country
+																	</li>
+
+																	<li class="divider"></li>
+
+																	<li>
+																		<i class="icon-caret-right blue"></i>
+																		Contact Info
+																	</li>
+																</ul>
+															</div>
+														</div><!--/span-->
+													</div><!--row-->
+
+													<div class="space"></div>
+
+													<div class="row-fluid">
+														<div class="span12 well">
+															Gracias por usar nuestro servicio de Inscripcion recuerde que lo cambios que efectue no podran ser modificados por favor realice como mucho cuidado.
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								</div>
 							</div>
 
 							<div class="step-pane" id="step4">
 								<div class="center">
-									<h3 class="green">Congrats!</h3>
-									Your product is ready to ship! Click finish to continue!
+									<h3 class="green">Felicitaciones!</h3>
+									El proceso de inscripcion ha terminado, puede imprimir su horario de clases si lo desea en el boton de abajo!.
+								</div>
+								<div class="space"></div>
+								<div class="center">
+									<button id ="print" class="btn btn-app btn-light btn-block">
+										<i class="icon-print bigger-200"></i>
+									</button>
 								</div>
 							</div>
 						</div>
@@ -438,5 +523,53 @@
 				</div><!--/widget-main-->
 			</div><!--/widget-body-->
 		</div>
+	</div>
+</div>
+
+<div id="hours" style="display:none">
+	<div class="widget-box transparent">
+		<div class="widget-header widget-header-flat">
+			<h4 class="lighter">
+				<i class="icon-calendar orange"></i>
+				Horas disponibles
+			</h4>
+		</div>
+
+		<div class="widget-body">
+			<div class="widget-main no-padding">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>
+								Dias
+							</th>
+
+							<th>
+								Horas Inicio
+							</th>
+
+							<th class="hidden-phone">
+								Horas Fin
+							</th>
+						</tr>
+					</thead>
+
+					<tbody id="tbody">
+						<tr>
+							<td>Lunes
+							</td>
+
+							<td>
+								<b class="green">08:00 AM</b>
+							</td>
+
+							<td class="hidden-phone">
+								<b class="red">08:50 AM</b>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div><!--/widget-main-->
+		</div><!--/widget-body-->
 	</div>
 </div>

@@ -22,7 +22,7 @@
 
 			$carreras = $this->perfil->get_carreras();
 			$this->smarty->assign('carreras',$carreras);
-			$userData = $this->perfil->get_UserData("20748439");
+			$userData = $this->perfil->get_UserData("21118126");
 			$this->smarty->assign('userData',$userData[0]);
 			$this->smarty->assign('base_url',$this->config->item("base_url"));
 			$vista = $this->smarty->fetch('perfil-docente.tpl');
@@ -39,23 +39,23 @@
 
 		function Call_get_materias(){
 			$carrera = $this->input->post("carrera_id");
-			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->get_materias($carrera, "20748439")));
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->get_materias($carrera, "21118126")));
 		}
 
 		function Call_insert_materias(){
 			$materias = $this->input->post("materias");
 			$carrera = $this->input->post("carrera_id");
-			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->insert_materias($carrera,$materias,"20748439")));
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->insert_materias($carrera,$materias,"21118126")));
 		}
 
 		function Call_get_materias_doc(){
 			$carrera = $this->input->post("carrera_id");
-			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->get_materias_doc($carrera,"20748439")));
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->get_materias_doc($carrera,"21118126")));
 		}
 
 		function Call_delete_materias(){
 			$materias = $this->input->post("materias");
-			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->delete_materias($materias,"20748439")));
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->perfil->delete_materias($materias,"21118126")));
 		}
 
 }

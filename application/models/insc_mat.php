@@ -15,7 +15,7 @@
 	
 
 	function get_UserData($ci){
-		$query = $this->db->query("SELECT u.ci, u.nombre, u.apellido, u.direccion, u.fecha_nac, u.correo, u.expediente, u.nivel_instruccion, c.nombre as carrera, d.nombre as departamento, c.id as carrera_id FROM usuario u, carrera c, departamento d, estudiante_has_carrera ec WHERE c.departamento_id = d.id
+		$query = $this->db->query("SELECT u.ci, u.nombre, u.apellido, u.direccion, u.fecha_nac, u.correo, u.expediente, u.nivel_instruccion, c.nombre as carrera, d.nombre as departamento, c.id as carrera_id, u.pensum_id FROM usuario u, carrera c, departamento d, estudiante_has_carrera ec WHERE c.departamento_id = d.id
 and c.id = ec.carrera_id and ec.usuario_ci = u.ci and u.ci = ".$ci." ");
 
 		$data = $query->result_array();
@@ -78,6 +78,25 @@ and c.id = ec.carrera_id and ec.usuario_ci = u.ci and u.ci = ".$ci." ");
 									and ESN.estatus = 'APROBADA')) as x where semestre = ".$semestre.";");
 		$data = $query->result_array();
 		return $data;
+	}
+
+	function get_horario_estu($pensum, $semestre, $materia){
+		$query = $this->db->query('SELECT * from view_horario where pensum ="'.$pensum.'" and semestre="'.$semestre.'" and materia_codigo = "'.$materia.'" ');
+		return $query->result();
+	}
+
+	function inscribir($bloque, $pensum, $ci){
+		foreach ($bloque as $key => $value) {
+			$query = $this->db->query('SELECT horario_id FROM sistemas.view_horario where pensum = '.$pensum.' and materia_codigo="'.$value["mat"].'" and bloque='.$value["bloque"].' ');
+			$result = $query->result_array();
+			
+			$query = $this->db->query('INSERT INTO usuario_has_horario values('.$ci.', '.$result[0]["horario_id"].')');
+		}
+	}
+
+	function get_horas($pensum, $semestre, $materia){
+		$query = $this->db->query('SELECT * from dia, hora_inicio, hora_final where pensum ="'.$pensum.'" and semestre="'.$semestre.'" and materia_codigo = "'.$materia.'" ');
+		return $query->result();
 	}
 
 

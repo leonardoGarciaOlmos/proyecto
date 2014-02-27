@@ -39,7 +39,6 @@
 				array_push($result, $this->prof->get_dias($value['hora_inicio']));
 			}
 
-
 			$this->smarty->assign('horas',$horas);
 		    $this->smarty->assign('dias',$result);
 		    $this->smarty->assign('base_url',$this->config->item("base_url"));
