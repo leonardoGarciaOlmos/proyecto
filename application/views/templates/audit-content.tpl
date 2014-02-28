@@ -17,8 +17,6 @@
 		</thead>
 
 		<tbody>
-
-                
                  {foreach key=key from=$audit item=datos} 
                  <tr>
                     <td class="center">{$datos.id_user}</td>
@@ -41,15 +39,12 @@
                     <td class="center">{$datos.client_ip}</td>
                 </tr>   
                 {/foreach}   
-                
-                
-		
 		</tbody>
 
 		<tfoot>
 			
 		</tfoot>
 		</table>
-		
+
 </div>
 
