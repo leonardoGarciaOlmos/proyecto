@@ -81,8 +81,11 @@
 
 		if(isset($result[0])){
 			print_r("se ejecuto");
-			$num = $result[0]["horario_id"];
-			$this->db->query('DELETE FROM bloque_hora_has_horario where horario_id = "'.$num.'"');
+			//$num = $result[0]["horario_id"];
+			foreach ($result as $key => $value) {
+				$this->db->query('DELETE FROM bloque_hora_has_horario where horario_id = "'.$value['horario_id'].'"');
+				# code...
+			}
 		}
 
 		foreach ($data as $key => $value) {

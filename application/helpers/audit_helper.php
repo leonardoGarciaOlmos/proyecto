@@ -5,13 +5,13 @@
 	 * @param  string $operation
 	 * @return [type]
 	 */
-	function reg_audit($operation="")
+	function reg_audit($operation="", $description="desconocida")
 	{
 		$CI =& get_instance();
-		$id_user = $CI->session->userdata('id_user');
+		$id_user = $CI->session->userdata('DX_user_id');		
 		$date = new DateTime();
 		$ip = $_SERVER['REMOTE_ADDR'];
-		$query = $CI->db->query('INSERT INTO audit value("","20748439","'.$date->format('Y-m-d H:i:s').'","'.$operation.'","'.$ip.'")');
+		$query = $CI->db->query('INSERT INTO audit value("",'.$id_user.',"'.$description.'","'.$date->format('Y-m-d H:i:s').'","'.$operation.'","'.$ip.'")');
 	}
 }
 

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".chosen-select").chosen({no_results_text: "Oops, Nada Encontrado!"}); 
+	$(".chosen-select").chosen({no_results_text: "Oops, Nada Encontrado!", width: "95%"}); 
 
 	
 
