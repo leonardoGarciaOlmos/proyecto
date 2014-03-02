@@ -176,13 +176,13 @@ class Users extends CI_Model
 		return $this->set_user($user_id, $data);
 	}
 
-	function activate_newpass($user_id, $key)
+	function activate_newpass($ci, $key)
 	{
-		$this->db->set('password', 'newpass', FALSE);
+		$this->db->set('clave', 'newpass', FALSE);
 		$this->db->set('newpass', NULL);
 		$this->db->set('newpass_key', NULL);
 		$this->db->set('newpass_time', NULL);
-		$this->db->where('ci', $user_id);
+		$this->db->where('ci', $ci);
 		$this->db->where('newpass_key', $key);
 		
 		return $this->db->update($this->_table);

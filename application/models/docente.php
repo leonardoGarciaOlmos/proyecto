@@ -81,8 +81,11 @@
 
 		if(isset($result[0])){
 			print_r("se ejecuto");
-			$num = $result[0]["horario_id"];
-			$this->db->query('DELETE FROM bloque_hora_has_horario where horario_id = "'.$num.'"');
+			//$num = $result[0]["horario_id"];
+			foreach ($result as $key => $value) {
+				$this->db->query('DELETE FROM bloque_hora_has_horario where horario_id = "'.$value['horario_id'].'"');
+				# code...
+			}
 		}
 
 		foreach ($data as $key => $value) {
@@ -162,10 +165,12 @@
 		return $data;
 	}
 
-	public function getPlanEvaluacion( $ci, $carrera_id, $materia ){
-		$query = "SELECT porcentaje, descripcion FROM sistemas.plan_evaluacion pe inner join sistemas.evaluacion e 
-					on e.plan_evaluacion_id=pe.id
-					where profesor=? and carrera_id=? and materia=?;";
+	public function getPlanEvaluacion( $id_plan ){
+		$query = "SELECT *
+					 FROM sistemas.plan_evaluacion pe inner join sistemas.evaluacion e 
+						on e.plan_evaluacion_id=pe.id
+						and pe.id = ? ";
+
 		$query = $this->db->query($query, array($ci, $carrera_id, $materia));
 		$data = $query->result_array();
 		return $data;

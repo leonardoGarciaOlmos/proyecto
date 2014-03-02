@@ -47,5 +47,15 @@
 		public function deleteUrls(){
 			return $this->drole->deleteUrls();
 		}
+
+		public function getRolByUser( $ci )
+		{
+			$this->db->select('uhr.role_id');
+			$this->db->from('user_has_role uhr');
+			$this->db->like('user_id', $ci );
+			$result = $this->db->get();
+			return $result->result_array()[0]['role_id'];
+		}
+
 	}
 

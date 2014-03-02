@@ -4,28 +4,30 @@
 	*/
 	class User extends MY_Model{
 		public $id;
-		protected $ci;
-		protected $nombre;
-		protected $apellido;
-		protected $direccion;
-		protected $fecha_nac;
-		protected $sexo;
-		protected $est_civil;
-		protected $tipo_sangre;
-		protected $observacion;
-		protected $nivel_instruccion;
-		protected $clave;
-		protected $tipo;
-		protected $estatus;
-		protected $etnia;
-		protected $expediente;
-		protected $laico;
-		protected $religioso;
-		protected $congregacion;
-		protected $nacionalidad;
-		protected $pensum_id;
-		protected $semestre;
-		protected $carrera;
+		public $ci;
+		public $nombre;
+		public $apellido;
+		public $direccion;
+		public $correo;
+		public $fecha_nac;
+		public $sexo;
+		public $est_civil;
+		public $tipo_sangre;
+		public $observacion;
+		public $nivel_instruccion;
+		public $clave;
+		public $tipo;
+		public $estatus;
+		public $etnia;
+		public $expediente;
+		public $laico;
+		public $religioso;
+		public $congregacion;
+		public $nacionalidad;
+		public $pensum_id;
+		public $semestre;
+		public $carrera;
+		public $roles;
 		
 
 		public function __construct(){
@@ -68,17 +70,7 @@
 			return $this->roles;
 		}
 
-		public function getRol( $systemId )
-		{
-			if (count($this->roles)>0){
-				foreach ($this->roles as $key => $value) {
-					if ($systemId == $value['system_id']){
-						return $this->roles[$key];
-					}
-				}
-			}
-			return false;
-		}
+
 
 		public function setRoles( $roles )
 		{
@@ -128,6 +120,16 @@
 			$this->db->where('usuario_ci', $usuario_ci );
 			$this->db->delete('estudiante_has_carrera');
 			$result =	$this->db->insert('estudiante_has_carrera', $carrera);
+			return $result;
+		}
+
+		public function saveRol($id_role)
+		{
+			$data = $this->get('all');
+			$this->db->where('user_id', $this->ci );
+			$this->db->delete('user_has_role');
+			$rol = array('user_id' =>$this->ci, 'role_id' => $id_role, 'status' => 'ACTIVE' );
+			$result = $this->db->insert( 'user_has_role', $rol );
 			return $result;
 		}
 

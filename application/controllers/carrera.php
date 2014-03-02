@@ -19,6 +19,8 @@
 		    $crud->fields('nombre','descripcion','departamento_id');
 		  	$crud->required_fields('nombre','departamento_id');
 		  	$operacion = $crud->getState();
+
+
 			if($operacion == 'insert_validation'){
 					    $crud->set_rules('nombre', 'Nombre de la carrera', 'trim|required|is_unique[carrera.nombre]');
 						$crud->set_rules('departamento_id', 'Departamento','trim|required');
@@ -37,19 +39,6 @@
 		    $this->smarty->display('index.tpl');
 		}
 
-		public function unique_edit_check($text, $field){
-			//
-			$systemID = $this->uri->segment(4);
-			$this->system->load( array('id' => $systemID) );
-			$element = array( 'name' => $field, 'value' => $text);
-
-			if( $this->system->validate( $element ) ){
-				return true;
-			}else{
-				$this->form_validation->set_message('unique_edit_check', "El campo %s ya esta registrado.");
-				return false;
-			}
-		}
 
 		public function carreraByDPTO( $id_Dpto ){
 			$this->load->model('departamento', 'departamento');

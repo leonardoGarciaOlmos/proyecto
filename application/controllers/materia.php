@@ -11,15 +11,12 @@
 		{
 			$this->load->library('grocery_crud');
 		    $crud = new grocery_CRUD();
-		    $info = $crud->getStateInfo('primary_key');
 		    $crud->set_theme('twitter-bootstrap');
-		    $crud->set_language('spanish');
-		 
+		    $crud->set_language('spanish');		 
 		    $crud->set_table('materia')
 		        ->set_subject('Materia');
-
+		    $operacion = $crud->getState();
 		    $crud->fields('codigo','nombre','horas_teoricas','horas_practicas','total_horas','uni_credito','cod_prelacion');
-
 		  $crud->display_as('codigo','Código')
 		  ->display_as('fecha_nac','Horas Teóricas')
 		  ->display_as('total_horas','Total de Horas')
@@ -41,6 +38,7 @@ if($operacion == 'insert_validation'){
 		    $crud->set_rules('uni_credito', 'Unidades de credito', 'required|is_numeric');
 		}
 if($operacion == 'update_validation'){
+			    $info = $crud->getStateInfo();
 		   // $crud->set_rules('codigo', 'Codigo de materia', 'required|is_unique[materia.codigo]|length[7]');
 		    $crud->set_rules('nombre', 'Nombre de la materia', 'trim|required|is_unique[materia.nombre.codigo.'.$info->primary_key.']');
 		    $crud->set_rules('horas_teoricas', 'Horas teoricas', 'required|is_numeric');

@@ -170,17 +170,17 @@ class DX_Auth
 	{
  $config = Array(
   'protocol' => 'smtp',
-  'smtp_host' => 'smtp.googlemail.com',
+  'smtp_host' => 'smtp.gmail.com',
   'smtp_port' => 465,
-  'smtp_user' => 'iuspove@gmail.com', // change it to yours
-  'smtp_pass' => 'iuspove2012', // change it to yours
+  'smtp_user' => 'danielcfe@gmail.com', // change it to yours
+  'smtp_pass' => 'dante172013', // change it to yours
   'mailtype' => 'html',
   'charset' => 'iso-8859-1',
   'wordwrap' => TRUE,
   'smtp_crypto' => 'ssl'
 );		
 		$this->ci->load->library('Email',$config);
-	//	var_dump($from,$to,$subject,$message);
+		//var_dump($from,$to,$subject,$message);
 
 
  
@@ -245,7 +245,6 @@ class DX_Auth
 
 
 	function _get_role_user($user){
-		//var_dump($user);
 		$this->ci->load->model('role', 'role');
 		$systemId = $this->ci->config->item('systemId');
 		$this->ci->role->loadActive($user->ci, $systemId);
@@ -452,8 +451,8 @@ class DX_Auth
 	{
 		$this->ci->load->model('url', 'url');
 		$this->ci->load->model('role', 'role');
-
-		$this->ci->role->load( $data->role_id );
+		$role_id = $this->ci->role->getRolByUser( $data->ci );
+		$this->ci->role->load( $role_id );
 		$urlAllowed = $this->ci->url->getUrlPermision( $data->role_id );
 
 		$role_data['role_name'] = $this->ci->role->get('name')['name'];
@@ -466,13 +465,7 @@ class DX_Auth
 			'DX_user_id'						=> $data->ci,
 			'DX_role_id'						=> $data->role_id,	
 			'DX_email'							=> $data->correo,
-			'DX_role_name'						=> $role_data['role_name'],
-			//'DX_role_urlAllowed'				=> $role_data['role_urlAllowed'],	
-			// Array of parent role_id
-			/*'DX_parent_roles_name'		=> $role_data['parent_roles_name'],
-			 // Array of parent role_name
-			'DX_permission'						=> $role_data['permission'],
-			'DX_parent_permissions'				=> $role_data['parent_permissions'],*/			
+			'DX_role_name'						=> $role_data['role_name'],	
 			'DX_logged_in'						=> TRUE,
 			'DX_nombre'							=> $data->nombre,
 			'DX_apellido'						=> $data->apellido,
@@ -955,8 +948,6 @@ class DX_Auth
 					$stored_hash = $row->clave;
 					$this->_get_role_user($row);
 
-
-
 					// Is password matched with hash in database ?
 					if (crypt($password, $stored_hash) === $stored_hash)
 					{
@@ -1105,7 +1096,7 @@ class DX_Auth
 				$subject = sprintf($this->ci->lang->line('auth_activate_subject'), $this->ci->config->item('DX_website_name'));
 
 				// Activation Link
-				$new_user['activate_url'] = site_url($this->ci->config->item('DX_activate_uri')."{$new_user['username']}/{$new_user['activation_key']}");
+				$new_user['activate_url'] = base_url($this->ci->config->item('DX_activate_uri')."{$new_user['username']}/{$new_user['activation_key']}");
 				
 				// Trigger event and get email content
 				$this->sending_activation_email($new_user, $message);
@@ -1243,12 +1234,13 @@ class DX_Auth
 			// Get login and check if it's exist 
 			if ($query = $this->ci->users->get_login($login) AND $query->num_rows() == 1)
 			{
+
 				// Get User data
 				$row = $query->row();
-				
 				// Check if there is already new password created but waiting to be activated for this login
-				if ( ! $row->newpass_key)
+				if (!$row->newpass_key)
 				{
+
 					// Appearantly there is no password created yet for this login, so we create new password
 					$data['password'] = $this->_gen_pass();
 					
@@ -1262,17 +1254,17 @@ class DX_Auth
 					$this->ci->users->newpass($row->id, $encode, $data['key']);
 
 					// Create reset password link to be included in email
-					$data['reset_password_uri'] = site_url($this->ci->config->item('DX_reset_password_uri')."{$row->username}/{$data['key']}");
+					$data['reset_password_uri'] = site_url($this->ci->config->item('DX_reset_password_uri')."{$row->correo}/{$data['key']}");
 					
 					// Create email
 					$from = $this->ci->config->item('DX_webmaster_email');
 					$subject = $this->ci->lang->line('auth_forgot_password_subject'); 
 					
-					// Trigger event and get email content
+					
 					$this->sending_forgot_password_email($data, $message);
 
 					// Send instruction email
-					$this->_email($row->email, $from, $subject, $message);
+					$this->_email($row->correo, $from, $subject, $message);
 					
 					$result = TRUE;
 				}
@@ -1304,9 +1296,9 @@ class DX_Auth
 		$user_id = 0;
 		
 		// Get user id
-		if ($query = $this->ci->users->get_user_by_username($username) AND $query->num_rows() == 1)
+		if ($query = $this->ci->users->get_user_by_email($username) AND $query->num_rows() == 1)
 		{
-			$user_id = $query->row()->id;
+			$user_id = $query->row()->ci;
 			
 			// Try to activate new password
 			if ( ! empty($username) AND ! empty($key) AND $this->ci->users->activate_newpass($user_id, $key) AND $this->ci->db->affected_rows() > 0 )

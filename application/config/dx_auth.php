@@ -88,7 +88,7 @@ $config['DX_email_account_details'] = TRUE;
 |
 */
 
-$config['DX_login_using_username'] = TRUE;
+$config['DX_login_using_username'] = FALSE;
 $config['DX_login_using_email'] = TRUE;
 $config['DX_login_record_ip'] = TRUE;
 $config['DX_login_record_time'] = TRUE;

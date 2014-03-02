@@ -3,7 +3,10 @@
 	$config['grocery_crud_default_language']	= 'spanish';
 
 	// There are only three choices: "uk-date" (dd/mm/yyyy), "us-date" (mm/dd/yyyy) or "sql-date" (yyyy-mm-dd)
-	$config['grocery_crud_date_format']			= 'uk-date';
+	$config['grocery_crud_date_format']			= 'sql-date';
+	
+$config['grocery_crud_default_date_format']	 = 'd M Y';
+$config['grocery_crud_default_datetime_format'] = 'd M Y - H:i';
 
 	// The default per page when a user firstly see a list page
 	$config['grocery_crud_default_per_page']	= 25;
@@ -20,9 +23,9 @@
 	$config['grocery_crud_character_limiter'] 	= 30;
 
 	//All the forms are opening with dialog forms without refreshing the page once again.
-	//IMPORTANT: PLease be aware that this functionality is still in BETA phase and it is
+	//IMPORTANT: PLease be aware that this functionality is still in BETA phase and it is 
 	//not suggested to use this in production mode
-	$config['grocery_crud_dialog_forms'] = true;
+	$config['grocery_crud_dialog_forms'] = false;
 
 	//Having some options at the list paging. This is the default one that all the websites are using.
 	//Make sure that the number of grocery_crud_default_per_page variable is included to this array.

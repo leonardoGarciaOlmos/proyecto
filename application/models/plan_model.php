@@ -16,7 +16,7 @@
 
 	function get_materias($ci, $carrera_id)
 	{
-		$query = $this->db->query('SELECT m.codigo, m.nombre FROM docente_has_materia dhm, carrera c, pensum p, materia m, materia_has_pensum mhp where m.codigo = dhm.materia_codigo and c.id = dhm.carrera_id and p.carrera_id = c.id and mhp.materia_codigo = m.codigo and mhp.pensum_id = p.id and dhm.usuario_ci = '.$ci.' and c.id ="'.$carrera_id.'"');
+		$query = $this->db->query('SELECT m.codigo, m.nombre FROM docente_has_materia dhm, carrera c, pensum p, materia m, materia_has_pensum mhp, horario h, usuario_has_horario uhh where m.codigo = dhm.materia_codigo and c.id = dhm.carrera_id and p.carrera_id = c.id and mhp.materia_codigo = m.codigo and mhp.pensum_id = p.id and uhh.usuario_ci = dhm.usuario_ci and h.id = uhh.horario_id and m.codigo = h.materia_has_pensum_materia_codigo and dhm.usuario_ci = '.$ci.' and c.id ="'.$carrera_id.'"');
 
 		return $query->result_array();
 	}

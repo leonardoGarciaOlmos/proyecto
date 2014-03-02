@@ -1,6 +1,3 @@
-var button = '<button onclick="return false;" id="buscar" class="btn btn-purple btn-small" >'+
-              'Buscar<i class="icon-search icon-on-right bigger-110"></i>'+
-              '</button>';
 $(document).on('ready',function(){      
 
   $('#field-Dpto').on('change',function( ){
@@ -19,7 +16,7 @@ $(document).on('ready',function(){
   function generateSelect ( item , target ) {
     var html = '';
     for (var i = 0 ; i < item.length; i++) {
-       html += '<option value="'+item[i].departamento_id+'">'+item[i].descripcion+'<option>';
+       html += '<option value="'+item[i].id+'">'+item[i].descripcion+'<option>';
     }
     $(target).html( html );
   }
@@ -47,16 +44,5 @@ function renderData ( data ) {
   });
   $('.chosen-select').trigger("chosen:updated");
 }
-
-/*var button = '<button onclick="return false;" id="buscar" class="btn btn-purple btn-small" >'+
-              'Buscar<i class="icon-search icon-on-right bigger-110"></i>'+
-              '</button>';*/
-
-$('#field-ci').parent().append(button);
-
-
-//findByCI
-
-
 
 });

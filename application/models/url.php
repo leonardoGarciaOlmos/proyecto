@@ -32,7 +32,12 @@
 
 		public function getUrlPermision( $role_id )
 		{
+
+	//	var_dump($role_id);
 			$urls = $this->durl->getUrlPermision( $role_id );
+
+	//	var_dump($urls);
+	//	die('muerto en el acto');
 			foreach ($urls as $key => $value) {
 				$urls[$key]['operations'] = explode(',', $value['operations']);
 			}

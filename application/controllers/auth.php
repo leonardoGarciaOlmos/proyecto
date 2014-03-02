@@ -10,7 +10,7 @@ class Auth_Controller extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-				if($this->uri->segment(1)=='auth'){
+		if($this->uri->segment(1)=='auth'){
 		//	echo 'activetop';
 		}
 		if($this->uri->segment(2,'')=='login'){
@@ -104,7 +104,7 @@ class Auth_Controller extends CI_Controller
 			{
 				// Redirect to homepage
 				//echo ' redirect(, location);';//redirect('', 'location');
-				$response['redirect'] = 'usuario/preInscripcion/add';
+				$response['redirect'] = 'usuario/profile';
 				echo json_encode($response);
 			}
 			else
@@ -139,7 +139,8 @@ class Auth_Controller extends CI_Controller
 					//$this->load->view($this->dx_auth->login_view, $data);
 					$response['show_captcha'] = $data['show_captcha'];
 				if(!$this->input->is_ajax_request()){
-					
+					$base_url = base_url();
+					$this->smarty->assign('base_url',$base_url);
 					$this->smarty->assign('data',$data);
 					$this->smarty->display('auth/login.tpl');
 				}else{
@@ -155,9 +156,9 @@ class Auth_Controller extends CI_Controller
 		else
 		{
 			if(!$this->input->is_ajax_request()){
-				redirect('usuario/preInscripcion/add', 'refresh');	
+				redirect('/', 'refresh');	
 			}else{
-				$response['redirect'] = 'usuario/preInscripcion/add';
+				$response['redirect'] = '/';
 				echo json_encode($response);
 			}
 					
@@ -194,7 +195,7 @@ class Auth_Controller extends CI_Controller
 				$val->set_rules('recaptcha_response_field', 'Confirmation Code', 'trim|xss_clean|required|callback_recaptcha_check');
 			}
 
-//var_dump($val->set_value());
+
 
 			// Run form validation and register user if it's pass the validation
 			if ($val->run() AND $this->dx_auth->register($val->set_value('username'), $val->set_value('password'), $val->set_value('email')))
@@ -263,12 +264,21 @@ class Auth_Controller extends CI_Controller
 		// Validate rules and call forgot password function
 		if ($val->run() AND $this->dx_auth->forgot_password($val->set_value('login')))
 		{
-			$data['auth_message'] = 'An email has been sent to your email with instructions with how to activate your new password.';
-			$this->load->view($this->dx_auth->forgot_password_success_view, $data);
+			//$data['auth_message'] = 'An email has been sent to your email with instructions with how to activate your new password.';
+		
+				$response['success'] = FALSE;
+				$response['message'] = 'Un correo electrónico ha sido enviada a su correo electrónico con instrucciones de cómo activar con su nueva contraseña.';
+				echo json_encode( $response );
+
+			//$this->load->view($this->dx_auth->forgot_password_success_view, $data);
+
 		}
 		else
 		{
-			$this->load->view($this->dx_auth->forgot_password_view);
+			//$this->load->view($this->dx_auth->forgot_password_view);
+				$response['success'] = FALSE;
+				$response['message'] = 'Su solicitud de cambio de contraseña ya se ha enviado. Por favor revise su correo electrónico';
+				echo json_encode( $response );
 		}
 	}
 	
