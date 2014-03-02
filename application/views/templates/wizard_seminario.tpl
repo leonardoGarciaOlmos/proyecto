@@ -10,17 +10,17 @@
 
 				<div id="MyWizard" class="row-fluid wizard">
 					<ul class="steps wizard-steps">
-						<li data-target="#step1" class="active" style="min-width: 25%; max-width: 25%;">
+						<li data-target="#step1" class="active" style="min-width: 33%; max-width: 33%;">
 							<span class="step">1</span>
 							<span class="title">Seleccionar Carrera</span>
 						</li>
 
-						<li data-target="#step2" class="" style="min-width: 25%; max-width: 25%;">
+						<li data-target="#step2" class="" style="min-width: 33%; max-width: 33%;">
 							<span class="step">2</span>
 							<span class="title">Añadir seminario</span>
 						</li>
 
-						<li data-target="#step3" class="" style="min-width: 25%; max-width: 25%;">
+						<li data-target="#step3" class="" style="min-width: 33%; max-width: 33%;">
 							<span class="step">3</span>
 							<span class="title">Finalizar</span>
 						</li>
