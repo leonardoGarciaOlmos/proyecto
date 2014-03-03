@@ -285,15 +285,22 @@ function semestre_information_close(pensum)
 				$("input#FechaIni").val(data[0].ini_semestre);
 				$("input#FechaFin").val(data[0].fin_semestre);
 
+				// Parsear Valores
+				data[0].transcurrido = parseInt(data[0].transcurrido);
+				data[0].total = parseInt(data[0].total);
+				data[0].faltante = parseInt(data[0].faltante);
+
 				// Indicar el progreso del semestres
 				var porcentaje = ((data[0].transcurrido*100)/data[0].total).toFixed(2);
 				porcentaje = (porcentaje >= 100) ? 100 : porcentaje;
+				porcentaje = (porcentaje < 0)? 0 : porcentaje;
 				$("#progressBar").attr('data-percent', porcentaje+'% de Avance');
 				$("#progressBar").find('div.bar').css('width', porcentaje+'%');
 
 				// Indicar los dias restantes del semestre
 				var porcentaje2 = ((data[0].faltante*100)/data[0].total).toFixed(2);
 				data[0].faltante = (data[0].faltante <= 0) ? 0 : data[0].faltante;
+				data[0].faltante = (data[0].faltante >= data[0].total) ? data[0].total : data[0].faltante;
 				porcentaje2 = (porcentaje2 <= 0) ? 0 : porcentaje2;
 				$('#circle').data('easyPieChart').update(porcentaje2);
 				$('#circle').find('span.percent').html(data[0].total);
