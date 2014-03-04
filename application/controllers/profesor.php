@@ -13,22 +13,82 @@ class Profesor_Controller extends CI_Controller{
 		$this->admin();
 	}
 
-	public function notas($value='')
+	private function insert_estudiante_plan($id_plan, $carrera, $materia, $evaluaciones, $estPlan)
 	{
+		$tag = true;
 
-		$output->js_files['hgjfjfjfyjgfyl'] = base_url().'assets/js/usuario/notasprof.js';
-		$output->js_files['hgjfjfjfyjggfyl'] = base_url().'assets/js/numeric.js';
-		$output->css_files['hgjfjfjfyjgfyl2'] = base_url().'assets/css/notasProf.css';
+		// Llamada a los Modelos
+		$this->load->model('Materia');
+		$this->load->model('docente');
 
-		$alumnos = $this->getNotas(12,'20748439');
-		$planEvaluacion = $this->getPlanEvaluacion( '20748439', 2, 2 );
-		$encodePE =json_encode( $planEvaluacion );
+		// Estudiante inscritos a la materia
+		$estInscrito = $this->Materia->get_estudiantes_materia($materia, $carrera);
 
-		$this->smarty->assign('encodePE',$encodePE);
-		$this->smarty->assign('alumnos',$alumnos);
-		$this->smarty->assign('planEvaluacion',$planEvaluacion);
-		$this->smarty->assign('base_url',$this->config->item("base_url"));
+		// Recorre los estudiantes inscrito a la materia
+		foreach ($estInscrito as $estInscritoAux) 
+		{
+			$numEvaluacion = 1;
+
+			// Recorre los estudiantes que estan en el plan de evaluacion
+			foreach ($estPlan as $estPlanAux) 
+			{
+				// Compara si el estudiante esta o no en el plan de evaluacion
+				if ($estInscritoAux['ci'] != $estPlanAux['Estudiante']) 
+				{ 
+					$tag = true;
+				}else
+				{ 
+					$tag = false; 
+					break;
+				}
+			}
+
+			// Evalua que el estudiante no este para insertarlo en el plan
+			if($tag == true)
+			{
+				// arma las evaluaciones
+				foreach ($evaluaciones as $evaAux) 
+				{
+					$arrayInsert['evaluacion'.$numEvaluacion] = $evaAux['id'];
+					$numEvaluacion++;
+				}
+
+				$arrayInsert['plan_evaluacion_id'] = $id_plan;
+				$arrayInsert['Estudiante'] = $estInscritoAux['ci'];
+
+				// Inserta el estudiante en el plan
+				$this->docente->insertEstPlan($arrayInsert);
+			}
+		}	
+	}
+
+	public function notas($id_plan)
+	{
+		$this->load->model('docente');
+		$this->load->model('Carrera');
+		$this->load->model('Materia');
+
+		$notas = $this->docente->getNotasPlanEva($id_plan);
+		$evaluaciones = $this->docente->getEvaluacionPlanEva($id_plan);
+		$plan = $this->docente->getPlanEvaluacion($id_plan);
+		$this->insert_estudiante_plan($plan[0]['id'], $plan[0]['carrera_id'], $plan[0]['materia'], $evaluaciones, $notas);
+		$carrera = $this->Carrera->one_carrera($plan[0]['carrera_id']);
+		$materia = $this->Materia->get_materia($plan[0]['materia']);
+		$notas = $this->docente->getNotasPlanEva($id_plan);
+
+		$output->js_files['je'] = base_url().'assets/js/usuario/notasprof.js';
+		$output->css_files['je'] = "";
+
+		$this->smarty->assign('numEvaluaciones', count($evaluaciones));
+		$this->smarty->assign('numNotas', count($notas));
+		$this->smarty->assign('evaluaciones', $evaluaciones);
+		$this->smarty->assign('notas', $notas);
+		$this->smarty->assign('carrera', $carrera[0]['nombre']);
+		$this->smarty->assign('materia', $materia[0]['nombre']);
+		$this->smarty->assign('plan', $plan[0]['id']);
+
 		$vista = $this->smarty->fetch('usuario/chargeEvaluation.tpl');
+
 		$this->smarty->assign('output',$vista);
 		$this->smarty->assign('css_files',$output->css_files);
 		$this->smarty->assign('js_files',$output->js_files);
@@ -36,6 +96,13 @@ class Profesor_Controller extends CI_Controller{
 	}
 
 
+	public function updateNotaEstudiante()
+	{
+		$object = $_POST["objectData"];
+		
+		$this->load->model('docente');
+		echo $this->docente->updateEstPlan(array($object["campo"] => $object["nota"]), $object["estudiante"], $object["plan"]);
+	}
 
 	public function admin()
 	{
@@ -176,27 +243,5 @@ class Profesor_Controller extends CI_Controller{
 		return $post_array;
 	}
 
-
-	private function getNotas( $horario_id, $usuario_ci )
-	{
-		$this->load->model('docente');
-		$estudiantes = $this->docente->getEstudiantes( $horario_id, $usuario_ci );
-		if($estudiantes){
-			return $estudiantes;
-		}else{
-			return false;
-		}
-	}
-
-	private function getPlanEvaluacion( $ci, $carrera_id, $materia )
-	{
-		$this->load->model('docente');
-		$planEvaluacion = $this->docente->getPlanEvaluacion( $ci, $carrera_id, $materia );
-		if($planEvaluacion){
-			return $planEvaluacion;
-		}else{
-			return false;
-		}
-	}
 
 }
