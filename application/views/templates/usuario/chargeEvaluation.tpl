@@ -1,10 +1,87 @@
-					<div class="row-fluid">
-						<div class="span12">
-							<!--PAGE CONTENT BEGINS-->
+<div class="widget-box">
+	<div class="widget-header widget-header-blue widget-header-flat">
+		<h4 class="lighter">Notas de estudiante</h4>
 
+		<div class="widget-toolbar no-border">
+			<button class="btn btn-mini btn-primary">
+				<i class="icon-print"></i>
+				Imprimir
+			</button>
+		</div>
+	</div>
+
+	<div class="widget-body">
+		<div class="widget-main">
+		
+			<div class="clearfix">
+				<div class="grid3">
+					<span class="grey">
+						<i class="icon-bookmark icon-2x blue"></i>
+						Carrera
+					</span>
+					<h5 class="bigger pull-right">{$carrera}</h5>
+				</div>
+
+				<div class="grid2">
+					<span class="grey">
+						<i class="icon-book icon-2x red"></i>
+						Materia
+					</span>
+					<h5 class="bigger pull-right">{$materia}</h5>
+				</div>
+			</div>
+
+			<div class="hr hr8 hr-double"></div>
+
+
+			<div class="row-fluid">
+				<div class="span12">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									<span>Estudiantes / Evaluacion</span>
+								</th>
+								{for $numEva=1 to $numEvaluaciones}
+									<th class="center">{$evaluaciones[$numEva-1]['descripcion']} ({$evaluaciones[$numEva-1]['porcentaje']}%)</th>
+								{/for}
+							</tr>
+						</thead>
+
+						<tbody>
+							{for $numNot=1 to $numNotas}
+								<tr>
+									<td><span>{$notas[$numNot-1]['nombre_estudiante']}</span></td>
+
+									{for $numEva=1 to $numEvaluaciones}
+										
+										{for $numEvaAux=1 to $numEvaluaciones}
+											{if $evaluaciones[$numEva-1]['id'] eq $notas[$numNot-1]["evaluacion$numEvaAux"]}
+												<td class="center">
+													<input type="text" class="nota" style="width:36px;" value="{$notas[$numNot-1]["nota$numEvaAux"]}" campo="nota{$numEva}" plan="{$plan}" estudiante="{$notas[$numNot-1]['Estudiante']}">
+												</td>
+											{/if}
+										{/for}
+
+									{/for}
+
+								</tr>
+							{/for}
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<!-- 					<div class="row-fluid">
+						<div class="span12">
 							<div class="row-fluid">
 								<div class="span12">
-<!-- 									<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+ 									<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 										<thead>
 											<tr>
 												<th class="center">
@@ -44,7 +121,7 @@
 												<td class="hidden-phone">Feb 12</td>
 
 											</tr>
-									</table> -->
+									</table>
 									<script type="text/javascript" >
 										var plan = {$encodePE};
 									</script>
@@ -85,4 +162,4 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->

@@ -153,6 +153,61 @@ class Pensum_Controller extends CI_Controller
 	}
 
 
+
+	/**
+	*	
+	* Vizualizar un pensum	
+	*
+	* Realiza el llamado a un template que contiene la
+	* información de un pensum en donde se ven los
+	* semestres y las materias
+	*
+	* @param 	integer $id_pensum ID del pensum
+	* @return 	none
+	*
+	*/
+	public function view($id_pensum)
+	{
+		// Carga de los modelos
+		$this->load->model('Pensum');
+		$this->load->model('Carrera');
+		$this->load->model('Semestre');
+
+		// Inicializar parametros
+		$pensum = $this->Pensum->one_pensum($id_pensum);
+		$carrera = $this->Carrera->one_carrera($pensum[0]['carrera_id']);
+		$materia = $this->Pensum->materia_pensum($id_pensum);
+		$semestre = $this->Pensum->row_semestre_pensum($id_pensum);
+		$semestreInfo = $this->Pensum->semestre_info($id_pensum);
+		$perioSemestre = $this->Semestre->get_periodo_semestres($id_pensum);
+		if (count($perioSemestre) == 0) 
+		{ $perioSemestre = 'no hay';	
+		}else
+		{ $perioSemestre = ($perioSemestre[0]['semestre']%2 == 0)? 'Pares': 'Impares';}
+
+		// Variables del template
+		$this->smarty->assign('carrera', $carrera[0]['nombre']);
+		$this->smarty->assign('NumSemestre', $semestre);
+		$this->smarty->assign('NumMateria', count($materia));
+		$this->smarty->assign('SemAbiertos', $perioSemestre);
+		$this->smarty->assign('SemestreInfo', $semestreInfo);
+		$this->smarty->assign('semestre', $semestre);
+		$this->smarty->assign('materia', $materia);
+
+		// Template
+		$output = $this->smarty->fetch('view_pensum.tpl');
+
+		// Librerias
+		$js_files = array("");
+		$css_files = array("");
+
+	    $this->smarty->assign('output', $output);
+	    $this->smarty->assign('css_files', $css_files);
+	    $this->smarty->assign('js_files', $js_files);
+	    $this->smarty->display('index.tpl');
+	}
+
+
 	/**
 	*	
 	* Eliminar un pensum	
@@ -408,7 +463,7 @@ class Pensum_Controller extends CI_Controller
 						</li>
 
 						<li>
-							<a id="view" href="#" value="'.$row->id.'">
+							<a id="view" href="'.base_url().'pensum/view/'.$row->id.'" value="'.$row->id.'">
 								<i class="icon-search"></i> Ver Registro										
 							</a>
 						</li>
