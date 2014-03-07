@@ -68,14 +68,15 @@ class Profesor_Controller extends CI_Controller{
 		$this->load->model('Carrera');
 		$this->load->model('Materia');
 
-		$notas = $this->docente->getNotasPlanEva($id_plan);
+		$notasAux = $this->docente->getNotasPlanEva($id_plan);
 		$evaluaciones = $this->docente->getEvaluacionPlanEva($id_plan);
 		$plan = $this->docente->getPlanEvaluacion($id_plan);
-		$this->insert_estudiante_plan($plan[0]['id'], $plan[0]['carrera_id'], $plan[0]['materia'], $evaluaciones, $notas);
+		$this->insert_estudiante_plan($plan[0]['id'], $plan[0]['carrera_id'], $plan[0]['materia'], $evaluaciones, $notasAux);
 		$carrera = $this->Carrera->one_carrera($plan[0]['carrera_id']);
 		$materia = $this->Materia->get_materia($plan[0]['materia']);
 		$notas = $this->docente->getNotasPlanEva($id_plan);
 
+		$output->js_files['jes'] = base_url().'assets/js/numeric.js';
 		$output->js_files['je'] = base_url().'assets/js/usuario/notasprof.js';
 		$output->css_files['je'] = "";
 

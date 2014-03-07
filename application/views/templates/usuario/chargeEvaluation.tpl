@@ -40,33 +40,46 @@
 						<thead>
 							<tr>
 								<th>
-									<span>Estudiantes / Evaluacion</span>
+									<span>Cedula</span>
+								</th>
+								<th>
+									<span>Estudiantes</span>
 								</th>
 								{for $numEva=1 to $numEvaluaciones}
-									<th class="center">{$evaluaciones[$numEva-1]['descripcion']} ({$evaluaciones[$numEva-1]['porcentaje']}%)</th>
+									<th class="center">
+										<a href="#" data-rel="tooltip" data-original-title="{$evaluaciones[$numEva-1]['descripcion']}">
+											Evaluación{$numEva} ({$evaluaciones[$numEva-1]['porcentaje']}%)
+										</a>
+									</th>
 								{/for}
 							</tr>
 						</thead>
 
 						<tbody>
-							{for $numNot=1 to $numNotas}
+
+							{if $numNotas eq 0}
 								<tr>
-									<td><span>{$notas[$numNot-1]['nombre_estudiante']}</span></td>
-
-									{for $numEva=1 to $numEvaluaciones}
-										
-										{for $numEvaAux=1 to $numEvaluaciones}
-											{if $evaluaciones[$numEva-1]['id'] eq $notas[$numNot-1]["evaluacion$numEvaAux"]}
-												<td class="center">
-													<input type="text" class="nota" style="width:36px;" value="{$notas[$numNot-1]["nota$numEvaAux"]}" campo="nota{$numEva}" plan="{$plan}" estudiante="{$notas[$numNot-1]['Estudiante']}">
-												</td>
-											{/if}
-										{/for}
-
-									{/for}
-
+									<td class="center" colspan="{$numEvaluaciones+2}">
+										<h4>No hay alumnos inscritos</h4>
+									</td>
 								</tr>
-							{/for}
+							{else}
+								{for $numNot=1 to $numNotas}
+									<tr>
+										<td><span>{$notas[$numNot-1]['Estudiante']}</span></td>
+										<td><span>{$notas[$numNot-1]['nombre_estudiante']}</span></td>
+										{for $numEva=1 to $numEvaluaciones}
+											{for $numEvaAux=1 to $numEvaluaciones}
+												{if $evaluaciones[$numEva-1]['id'] eq $notas[$numNot-1]["evaluacion$numEvaAux"]}
+													<td class="center">
+														<input type="text" class="nota" style="width:36px;" value="{$notas[$numNot-1]["nota$numEvaAux"]}" campo="nota{$numEva}" plan="{$plan}" estudiante="{$notas[$numNot-1]['Estudiante']}">
+													</td>
+												{/if}
+											{/for}
+										{/for}
+									</tr>
+								{/for}
+							{/if}
 						</tbody>
 					</table>
 				</div>
