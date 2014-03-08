@@ -92,6 +92,17 @@ class Pensum extends CI_Model
 		return $arrayRow;
 	}
 
+
+	public function semestre_info($id_pensum)
+	{
+		$query = $this->db->query('select PEN.id, MHP.semestre, sum(MHP.horas_teoricas) as HT, sum(MHP.horas_practicas) as HP, sum(MHP.total_horas) as TH, sum(MHP.uni_credito) as UC
+									from pensum as PEN inner join materia_has_pensum as MHP
+									on PEN.id = MHP.pensum_id
+									where PEN.id = '.$id_pensum.'
+									group by(MHP.semestre) ASC');
+		return $query->result_array();
+	}
+
 	public function add_materia_pensum($pensum, $semestre, $materia)
 	{
 		$data = array('materia_codigo' => $materia['codigo'], 'pensum_id' => $pensum, 'semestre' => $semestre, 

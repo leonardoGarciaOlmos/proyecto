@@ -165,7 +165,7 @@
 		return $data;
 	}
 
-	public function getPlanEvaluacion( $id_plan ){
+	/*public function getPlanEvaluacion( $id_plan ){
 		$query = "SELECT *
 					 FROM sistemas.plan_evaluacion pe inner join sistemas.evaluacion e 
 						on e.plan_evaluacion_id=pe.id
@@ -174,6 +174,58 @@
 		$query = $this->db->query($query, array($ci, $carrera_id, $materia));
 		$data = $query->result_array();
 		return $data;
+	}*/
+
+
+	public function getPlanEvaluacion( $id_plan )
+	{
+		$this->db->select('*');
+		$this->db->where('id', $id_plan);
+		$query = $this->db->get('plan_evaluacion');
+		$data = $query->result_array();
+		return $data;
+	}
+
+	public function getEvaluacionPlanEva($id_plan)
+	{
+		$query = 'select EVA.*
+				  from plan_evaluacion as PEV
+				  inner join evaluacion as EVA
+				  on PEV.id = EVA.plan_evaluacion_id
+				  where PEV.id = '. $id_plan;
+
+		$query = $this->db->query($query);
+		$data = $query->result_array();
+		return $data;
+	}
+
+	public function getNotasPlanEva($id_plan)
+	{
+		$query = 'select Concat(USU.nombre, " ", USU.apellido) as nombre_estudiante, NDE.*
+				  from plan_evaluacion as PEV
+				  inner join notas_detallada as NDE
+				  inner join usuario as USU
+				  on PEV.id = NDE.plan_evaluacion_id
+				  and NDE.Estudiante = USU.ci
+				  where PEV.id = 2';
+
+		$query = $this->db->query($query);
+		$data = $query->result_array();
+		return $data;
+	}
+
+	public function insertEstPlan($arrayData)
+	{
+		$statusInsert = $this->db->insert('notas_detallada', $arrayData);
+		return $statusInsert;
+	}
+
+	public function updateEstPlan($arrayData, $estudiante, $id_plan)
+	{
+		$this->db->where('Estudiante', $estudiante);
+		$this->db->where('plan_evaluacion_id', $id_plan);
+		$statusUpdate = $this->db->update('notas_detallada', $arrayData);
+		return $statusUpdate;
 	}
 
 }
