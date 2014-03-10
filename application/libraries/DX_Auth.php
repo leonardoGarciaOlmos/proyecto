@@ -1238,8 +1238,8 @@ class DX_Auth
 				// Get User data
 				$row = $query->row();
 				// Check if there is already new password created but waiting to be activated for this login
-				if (!$row->newpass_key)
-				{
+				// if (!$row->newpass_key)
+				// {
 
 					// Appearantly there is no password created yet for this login, so we create new password
 					$data['password'] = $this->_gen_pass();
@@ -1267,12 +1267,12 @@ class DX_Auth
 					$this->_email($row->correo, $from, $subject, $message);
 					
 					$result = TRUE;
-				}
-				else
-				{
-					// There is already new password waiting to be activated
-					$this->_auth_error = $this->ci->lang->line('auth_request_sent');
-				}
+				// }
+				// else
+				// {
+				// 	// There is already new password waiting to be activated
+				// 	$this->_auth_error = $this->ci->lang->line('auth_request_sent');
+				// }
 			}
 			else
 			{
