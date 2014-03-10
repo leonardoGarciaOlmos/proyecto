@@ -256,4 +256,62 @@ public function findByCI()
 }
 
 
+public function notaTotales($estudiante)
+{
+	$this->load->model('Estudiante');
+	$this->load->model('Pensum');
+
+	// Inicializar parametros
+	$materiaApro = 0;
+	$materiaRepr = 0;
+	$materiaFalt = 0;
+	$carrera = $this->Estudiante->get_estudiante_carrera($estudiante);
+	$infoEstud = $this->Estudiante->get_estudiante($estudiante);
+	$semestre = $this->Estudiante->get_estudiante_semestre($estudiante);
+	$Numsemestre = $this->Pensum->row_semestre_pensum($infoEstud[0]['pensum_id']);
+	$notas = $this->Estudiante->get_estudiante_notas_totales($estudiante);
+	foreach ($notas as $value) 
+	{
+		switch ($value['estatus']) 
+		{
+			case 'APROBADA':
+				$materiaApro++;
+			break;
+
+			case 'REPROBADA':
+				$materiaRepr++;
+			break;			
+			
+			default:
+				$materiaFalt++;
+			break;
+		}
+	}
+
+	// Variables del template
+	$this->smarty->assign('carrera', $carrera[0]['nombre']);
+	$this->smarty->assign('semestre', $semestre[0]['semestre']);
+	$this->smarty->assign('matApro', $materiaApro);
+	$this->smarty->assign('matRepro', $materiaRepr);
+	$this->smarty->assign('matFaltante', $materiaFalt);
+	$this->smarty->assign('notas', $notas);
+	$this->smarty->assign('numSemes', $Numsemestre);
+
+	// Template
+	$output = $this->smarty->fetch('usuario/notasTotales.tpl');
+
+	// Librerias
+	$js_files = array("");
+	$css_files = array("");
+
+    $this->smarty->assign('output', $output);
+    $this->smarty->assign('css_files', $css_files);
+    $this->smarty->assign('js_files', $js_files);
+    $this->smarty->display('index.tpl');
+}
+
+
+
+
+
 }
