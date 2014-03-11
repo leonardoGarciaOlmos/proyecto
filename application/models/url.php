@@ -49,7 +49,7 @@
 			$return['response_message'] = array('message' => 'Se ha insertado completamente todos los datos');
 			foreach ($menuData as $key => $value){
 				if($key!='delet'){
-				//	var_dump($key,$value);
+					//var_dump($key,$value);
 					if($this->durl->getMenuById($value['url_id'])){
 						$return['success'] = $this->durl->updateMenu($value, $value['url_id']);
 					}else{
@@ -67,6 +67,7 @@
 					break;
 				}
 			}
+			die('aa');
 			return $return;
 		}
 

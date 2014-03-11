@@ -61,18 +61,10 @@
 
 		private function orderInsertMenu( $data ){
 			foreach ($data['id'] as $key => $value){
-				$parent = (in_array($value ,$data['check']))?0:1;
-				//Prepara campos sin llenar para que no genere error
-				foreach ($data['name'] as $key => $value) {
-					$data['name'][$key] = (strlen($value)>0)? $value : 'ninguno';
-				}
-				if($data['hijos'][$key] == '' AND $parent == 1){
-					$parent = 1;
-				}else{
-					$parent = 0;
-				}
+				$name = $data['name'][$key];
+				$parent = (strlen($name)>0)? 1 : 0;
 				$parent = ($parent == 1)?$parent = $this->idParent( $data, $data['url'][$key] ): $parent;
-				if ($parent !== ''){
+				if ($parent !== 0){
 				$array[$value] = array(
 								'url_id' => $data['id'][$key],
 								'name' => $data['name'][$key],
