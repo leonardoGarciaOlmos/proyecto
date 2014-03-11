@@ -85,6 +85,30 @@
 		    $this->smarty->display('index.tpl');
 		}
 
+		function consulta_user(){			
+			
+		    $output->js_files['hgjfjfjfyjgfyl'] = base_url().'assets/js/horario_user.js';
+		    $output->js_files['hgjfjfjfyjfyl'] = base_url().'assets/js/jquery-ui-1.10.3.custom.min.js';
+		    $output->css_files['hgjfjfjfyjfyl'] = base_url().'assets/css/horario.css';
+
+		   	$horas = $this->prof->get_horas();
+			$result = array();
+
+			foreach ($horas as $item => $value) {
+				array_push($result, $this->prof->get_dias($value['hora_inicio']));
+			}
+
+			//$this->smarty->assign('tiporef','consulta');
+			$this->smarty->assign('horas',$horas);
+		    $this->smarty->assign('dias',$result);
+		    $this->smarty->assign('base_url',$this->config->item("base_url"));
+		    $vista = $this->smarty->fetch('horario-consult.tpl');
+		    $this->smarty->assign('output',$vista);
+		    $this->smarty->assign('css_files',$output->css_files);
+		    $this->smarty->assign('js_files',$output->js_files);
+		    $this->smarty->display('index.tpl');
+		}
+
 		function principal(){
 		    $output->js_files['hgjfjfjfyjfyl'] = base_url().'assets/js/jquery-ui-1.10.3.custom.min.js';
 		    $output->js_files['hgjfjfjfyjfyl'] = base_url().'assets/js/horario_principal.js';
@@ -153,6 +177,12 @@
 			
 		}
 
+		function call_consulta_horario_user(){
+			$ci = $this->session->userdata("DX_user_id");
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->prof->consulta_horario_user($ci)));	
+		}
+
+
 		function call_get_cerreras(){
 			$this->output->set_content_type('application/json')->set_output(json_encode($this->prof->get_carreras()));
 		}
@@ -168,10 +198,20 @@
 			$this->output->set_content_type('application/json')->set_output(json_encode($this->prof->verify_horario($pen, $sem)));
 		}
 
+		function call_verify_seminario(){
+			$materia = $this->input->post('materia');
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->prof->verificar_seminario($materia)));
+		}
+
+		function call_horario_seminario(){
+			$materia = $this->input->post('materia');
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->prof->horario_seminario($materia)));
+		}
+
 		function sesion(){
-			//var_dump($this->session->all_userdata());
+			var_dump($this->session->all_userdata());
 			//reg_audit("cool");
-			var_dump($this->session->userdata("DX_user_id"));
+			//var_dump($this->session->userdata("DX_user_id"));
 		}
 
 

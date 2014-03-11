@@ -107,27 +107,29 @@ function stepOne(){
 					$.post(base_url+'inscripcionMateria/call_get_horario', {"semestre":$("#semestres option:selected").val(), "pensum":$("#carrera").attr('pensum'), "materia":$("#materias option:selected").val()} , function(data){
 			            if(data.length == 0){
 			            	bootbox.alert("No se han encontrado bloques en el horario con la materia seleccionada es imposible agregarla");
-			            }
-			            $.each(data, function(pos,item){
-			            	if($("#"+item.bloque).children().length < 1){								
-								if((parseInt(total_uc) + parseInt(mat_uc)) < 23){
+			            }else{
+			            	if (group != sem){
+								$("#sem-mat").append("<optgroup label='"+$("#semestres option:selected").text()+"'> </optgroup>");
+							}
+							$("#sem-mat").children("optgroup[label='"+$("#semestres option:selected").text()+"']").append('<option value="'+$("#materias").val()+'" uc="'+$("#materias option:selected").attr("uc")+'">'+$("#materias option:selected").text()+'</option>');
+							$("#total_uc").html((parseInt(total_uc) + parseInt(mat_uc)));
+							$("#total_mat").html($("#sem-mat > optgroup > option").length);
+	
+				            $.each(data, function(pos,item){
+				            	if($("#"+item.bloque).children().length < 1){								
+									if((parseInt(total_uc) + parseInt(mat_uc)) < 23){								
+										$("#"+item.bloque).append("<span class='data_h' mat = "+item.materia_codigo+" ci= "+item.ci+"><p class='text-error'>" + item.materia + "</p><p class='text-info'>" + item.nombre +" "+ item.apellido + "</p></span>");
+	
+									}else{
+										bootbox.alert("No se pueden añadir mas materias debido a que ha llegado al limite de unidades de credito");
 
-									if (group != sem){
-										$("#sem-mat").append("<optgroup label='"+$("#semestres option:selected").text()+"'> </optgroup>");
 									}
-									$("#"+item.bloque).append("<span class='data_h' mat = "+item.materia_codigo+" ci= "+item.ci+"><p class='text-error'>" + item.materia + "</p><p class='text-info'>" + item.nombre +" "+ item.apellido + "</p></span>");
-									$("#sem-mat").children("optgroup[label='"+$("#semestres option:selected").text()+"']").append('<option value="'+$("#materias").val()+'" uc="'+$("#materias option:selected").attr("uc")+'">'+$("#materias option:selected").text()+'</option>');	
-									$("#total_uc").html((parseInt(total_uc) + parseInt(mat_uc)));
-									$("#total_mat").html($("#sem-mat > optgroup > option").length);
-								}else{
-									bootbox.alert("No se pueden añadir mas materias debido a que ha llegado al limite de unidades de credito");
-
-								}
-								
-			            	}else{
-			            		bootbox.alert("No se puede agregar la materia debido a que interfiere con un bloque de hora ya agregado. Verifique y vuelva a intetarlo.");		            	
-			            	}
-			            });
+									
+				            	}else{
+				            		bootbox.alert("No se puede agregar la materia debido a que interfiere con un bloque de hora ya agregado. Verifique y vuelva a intetarlo.");		            	
+				            	}
+				            });
+						}
 			        });
 
 				}else{
