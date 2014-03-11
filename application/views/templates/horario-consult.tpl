@@ -1,4 +1,4 @@
-<h1 id="title">Generador de Horarios</h1>
+<h1 id="title">Consulta de tu Horario</h1>
 <hr>
 
 <div class="alert alert-block alert-success" style="display:none">
@@ -20,7 +20,7 @@
     </p>
 </div>
 
-<a id='tipo_consulta' tipo='{$tiporef}'></a>
+<a id='tipo_consulta' tipo='consulta'></a>
 <div class="CSSTableGenerator" >
     <table id="format" border="1">
         <thead>    
@@ -50,7 +50,7 @@
 </div>
     <hr>
     <div class="modal-footer">
-        <a id="retunr" href="{$base_url}/horario/principal" class="btn" data-dismiss="modal" aria-hidden="true">Regresar</a>
+        <a id="retunr" href="{$base_url}" class="btn" data-dismiss="modal" aria-hidden="true">Regresar</a>
         <a id="consult" href="#" class="btn" data-dismiss="modal" aria-hidden="true">Consultar</a>
         <a id="insert_data" href="#" class="btn" data-dismiss="modal" aria-hidden="true">Insertar</a>
     </div>
@@ -103,32 +103,4 @@
             <a id='borrar' href="#" class="btn" data-dismiss="modal" aria-hidden="true">Borrar</a>
             <a id="insert_info" class="btn btn-primary">Insertar Datos</a>
         </div>
-</div>
-
-
-<div id="modal_sem" style="display:none" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Seleccion de seminario</h3>
-    </div>
-
-    <div class="modal-body">
-        
-        <select id="seminario" class="span8 center">
-            <option value="vacio">Seleccione Seminario</option>
-        </select>
-        
-        <div id="alert_sem" class="alert alert-danger" style="display:none">
-            <button type="button" class="close" data-dismiss="alert">
-                <i class="icon-remove"></i>
-            </button>
-            <strong>Disculpe!</strong>
-            <span id="notification_sem"></span>
-            <br>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <a id='close' href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</a>
-        <a id="save_sem" class="btn btn-primary">Guardar</a>
-    </div>
 </div>
