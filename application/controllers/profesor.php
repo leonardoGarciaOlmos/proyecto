@@ -138,7 +138,7 @@ class Profesor_Controller extends CI_Controller{
 	/**
 	//General
 	**/
-			$crud->fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion');
+			$crud->fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion','nacionalidad');
  			$crud->unset_texteditor('observacion','full_text');
  			$crud->display_as('fecha_nac','Fecha de Nacimiento')
  			->display_as('est_civil','Estado Civil')
