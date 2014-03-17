@@ -1,3 +1,13 @@
+/*
+ *
+ * Copyright (c) 2006-2011 Sam Collett (http://www.texotela.co.uk)
+ * Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
+ * and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+ * 
+ * Version 1.3.1
+ * Demo: http://www.texotela.co.uk/code/jquery/numeric/
+ *
+ */
 (function($) {
 /*
  * Allows only valid characters to be entered into input boxes.
@@ -13,6 +23,10 @@
  * @example  $(".numeric").numeric({ decimal : "," }); // use , as separator
  * @example  $(".numeric").numeric({ negative : false }); // do not allow negative values
  * @example  $(".numeric").numeric(null, callback); // use default values, pass on the 'callback' function
+ * @example  $(".numeric").numeric({ scale: 2 }); // allow only two numbers after the decimal point.
+ * @example  $(".numeric").numeric({ scale: 0 }); // Same as $(".numeric").numeric({ decimal : false });
+ * @example  $(".numeric").numeric({ precision: 2 }); // allow only two numbers.
+ * @example  $(".numeric").numeric({ precision: 4, scale: 2 }); // allow four numbers with two decimals. (99.99)
  *
  */
 $.fn.numeric = function(config, callback)
@@ -30,8 +44,30 @@ $.fn.numeric = function(config, callback)
 	var negative = (config.negative === true) ? true : false;
 	// callback function
 	callback = (typeof(callback) == "function" ? callback : function() {});
+	// scale
+	var scale;
+	if ((typeof config.scale) == "number")
+	{
+		if (config.scale == 0)
+		{
+			decimal = false;
+			scale = -1;
+		}
+		else
+			scale = config.scale;
+	}
+	else
+		scale = -1;
+	// precision
+	var precision;
+	if ((typeof config.precision) == "number")
+	{
+		precision = config.precision;
+	}
+	else
+		precision = 0;
 	// set data and methods
-	return this.data("numeric.decimal", decimal).data("numeric.negative", negative).data("numeric.callback", callback).keypress($.fn.numeric.keypress).keyup($.fn.numeric.keyup).blur($.fn.numeric.blur);
+	return this.data("numeric.decimal", decimal).data("numeric.negative", negative).data("numeric.callback", callback).data("numeric.scale", scale).data("numeric.precision", precision).keypress($.fn.numeric.keypress).keyup($.fn.numeric.keyup).blur($.fn.numeric.blur);
 };
 
 $.fn.numeric.keypress = function(e)
@@ -120,10 +156,46 @@ $.fn.numeric.keypress = function(e)
 			}
 		}
 	}
+	//if a number key was pressed.
 	else
 	{
-		allow = true;
-	}
+		// If scale >= 0, make sure there's only <scale> characters
+		// after the decimal point.
+		if($.data(this, "numeric.scale") >= 0)
+		{
+			var decimalPosition = this.value.indexOf(decimal);
+			//If there is a decimal.
+			if (decimalPosition >= 0)
+			{
+				decimalsQuantity = this.value.length - decimalPosition - 1;
+				//If the cursor is after the decimal.
+				if ($.fn.getSelectionStart(this) > decimalPosition)
+					allow = decimalsQuantity < $.data(this, "numeric.scale");
+				else
+				{
+					integersQuantity = (this.value.length - 1) - decimalsQuantity;
+					//If precision > 0, integers and decimals quantity should not be greater than precision
+					if (integersQuantity < ($.data(this, "numeric.precision") - $.data(this, "numeric.scale")))
+						allow = true;
+					else
+						allow = false;
+				}
+			}
+			//If there is no decimal
+			else {
+				if ($.data(this, "numeric.precision") > 0)
+					allow = this.value.replace($.data(this, "numeric.decimal"), "").length < $.data(this, "numeric.precision") - $.data(this, "numeric.scale");
+				else
+					allow = true;
+			}
+		}
+		else
+			// If precision > 0, make sure there's not more digits than precision
+			if ($.data(this, "numeric.precision") > 0)
+				allow = this.value.replace($.data(this, "numeric.decimal"), "").length < $.data(this, "numeric.precision");
+			else
+				allow = true;
+		}
 	return allow;
 };
 
@@ -134,11 +206,10 @@ $.fn.numeric.keyup = function(e)
 	{
 		// get carat (cursor) position
 		var carat = $.fn.getSelectionStart(this);
-		var selectionEnd = $.fn.getSelectionEnd(this);
 		// get decimal character and determine if negatives are allowed
 		var decimal = $.data(this, "numeric.decimal");
 		var negative = $.data(this, "numeric.negative");
-
+		
 		// prepend a 0 if necessary
 		if(decimal !== "" && decimal !== null)
 		{
@@ -156,7 +227,7 @@ $.fn.numeric.keyup = function(e)
 			}
 			val = this.value;
 		}
-
+		
 		// if pasted in, only allow the following characters
 		var validChars = [0,1,2,3,4,5,6,7,8,9,'-',decimal];
 		// get length of the value (to loop through)
@@ -205,10 +276,20 @@ $.fn.numeric.keyup = function(e)
 					val = val.substring(0, k) + val.substring(k + 1);
 				}
 			}
+			// remove numbers after the decimal so that scale matches.
+			if ($.data(this, "numeric.scale") >= 0)
+				val = val.substring(0, firstDecimal+$.data(this, "numeric.scale") + 1);
+			// remove numbers so that precision matches.
+			if ($.data(this, "numeric.precision") > 0)
+				val = val.substring(0, $.data(this, "numeric.precision") + 1);
 		}
+		// limite the integers quantity, necessary when user delete decimal separator
+		else if ($.data(this, "numeric.precision") > 0)
+			val = val.substring(0, ($.data(this, "numeric.precision") - $.data(this, "numeric.scale")));
+		
 		// set the value and prevent the cursor moving to the end
 		this.value = val;
-		$.fn.setSelection(this, [carat, selectionEnd]);
+		$.fn.setSelection(this, carat);
 	}
 };
 
@@ -243,16 +324,6 @@ $.fn.getSelectionStart = function(o)
 		return o.value.lastIndexOf(r.text);
 	} else { return o.selectionStart; }
 };
-
-// Based on code from http://javascript.nwbox.com/cursor_position/ (Diego Perini <dperini@nwbox.com>)
-$.fn.getSelectionEnd = function(o)
-{
-	if (o.createTextRange) {
-		var r = document.selection.createRange().duplicate()
-		r.moveStart('character', -o.value.length)
-		return r.text.length
-	} else return o.selectionEnd
-}
 
 // set the selection, o is the object (input), p is the position ([start, end] or just start)
 $.fn.setSelection = function(o, p)

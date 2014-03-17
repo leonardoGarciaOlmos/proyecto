@@ -133,4 +133,12 @@
 			return $result;
 		}
 
+		public function getUserOne($ci)
+		{
+			$this->db->select('*');
+			$this->db->where('ci', $ci);
+			$query = $this->db->get('usuario');
+			return $query->result_array();			
+		}
+
 	}
