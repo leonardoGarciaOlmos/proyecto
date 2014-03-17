@@ -170,7 +170,7 @@ class Profesor_Controller extends CI_Controller{
 
 			if($operation == 'insert_validation'){
 
-				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|exact_length[8]');
+				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|min_length[7]');
 				$crud->set_rules('nombre', 'Nombre', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('fecha_nac', 'fecha Nacimiento', 'required|exact_length[10]|callback_check_fecha');
 				$crud->set_rules('apellido', 'Apellido', 'required|min_length[3]|max_length[80]|alpha_dash_space');

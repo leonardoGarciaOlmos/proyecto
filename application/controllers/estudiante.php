@@ -95,7 +95,7 @@ class Estudiante_Controller extends CI_Controller{
 			
 			if($operation == 'insert_validation'){
 
-				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]');
+				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|min_length[7]');
 				$crud->set_rules('nombre', 'Nombre', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('apellido', 'Apellido', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('correo', 'Correo Electronico', 'required|is_unique[usuario.correo]|valid_email');
