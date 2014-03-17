@@ -209,7 +209,7 @@
 				  inner join usuario as USU
 				  on PEV.id = NDE.plan_evaluacion_id
 				  and NDE.Estudiante = USU.ci
-				  where PEV.id = 2';
+				  where PEV.id = '.$id_plan;
 
 		$query = $this->db->query($query);
 		$data = $query->result_array();
