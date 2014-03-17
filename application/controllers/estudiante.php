@@ -35,7 +35,7 @@ class Estudiante_Controller extends CI_Controller{
 				'nivel_instruccion','clave','laico','religioso', 'tipo','tipo_sangre',
 				'congregacion','nacionalidad','confirmacion_de_clave',
 				'etnia','newpass','newpass_key','last_ip','created','modified','pensum_id','last_login','newpass_time','DPTO');
-			$crud->unset_list();
+			//$crud->unset_list();
  			$crud->unset_print();
  			$crud->unset_read();
  			$crud->unset_edit();

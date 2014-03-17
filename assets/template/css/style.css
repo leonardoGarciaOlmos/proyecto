@@ -45,3 +45,11 @@
 .tags > .tag{
 	width: 70%!important;
 }
+
+.alertar {
+	-moz-animation: vertical 1.5s infinite ease 1.5s;
+	-webkit-animation: vertical 1.5s infinite ease 1.5s;
+	-o-animation: vertical 1.5s infinite ease 1.5s;
+	-ms-animation: vertical 1.5s infinite ease 1.5s;
+	animation: vertical 1.5s infinite ease 1.5s;
+}

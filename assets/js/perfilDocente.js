@@ -9,7 +9,7 @@ $(document).ready(function(){
 	});
 
 	$("#guardar").click(function(){
-		$.post(base_url+'perfil/Call_insert_materias', {"materias": $(".chosen-select").val(), "carrera_id":$("#carrera").val()}, function(data){
+		$.post(base_url+'perfil/Call_insert_materias', {"materias": $(".chosen-select").val(), "carrera_id":$("#carrera").val(), "ci":$("#ci").attr("ci")}, function(data){
 			carga_materias();
 			$("#alert1").show();
 			setTimeout(function() {
@@ -20,7 +20,7 @@ $(document).ready(function(){
 	});
 
 	$("#eliminar").click(function(){
-		$.post(base_url+'perfil/Call_delete_materias', {"materias": $("#c_materias").val()}, function(data){
+		$.post(base_url+'perfil/Call_delete_materias', {"materias": $("#c_materias").val(), "ci":$("#ci").attr("ci")}, function(data){
 			materias();
 			$("#alert2").show();
 			setTimeout(function() {
@@ -33,7 +33,7 @@ $(document).ready(function(){
 
 
 	function carga_materias(){
-		$.post(base_url+'perfil/Call_get_materias', {"carrera_id":$("#carrera").val()}, function(data){
+		$.post(base_url+'perfil/Call_get_materias', {"carrera_id":$("#carrera").val(), "ci":$("#ci").attr("ci")}, function(data){
 			$("#materias").empty();
 
 			$.each(data, function(pos, item){
@@ -45,7 +45,7 @@ $(document).ready(function(){
 	}
 
 	function materias(){
-		$.post(base_url+'perfil/Call_get_materias_doc', {"carrera_id":$("#carrera").val()}, function(data){
+		$.post(base_url+'perfil/Call_get_materias_doc', {"carrera_id":$("#carrera").val(), "ci":$("#ci").attr("ci")}, function(data){
 			$("#c_materias").empty();
 
 			$.each(data, function(pos, item){

@@ -117,11 +117,16 @@ class Profesor_Controller extends CI_Controller{
 			$crud->unset_jquery_ui();
 			$operation = $crud->getState();
 			$crud->set_relation('nacionalidad','paises','nombre');
+			$crud->add_action('Asig. Materias', '', 'perfil/all','icon-plus');
 
 	/**
 	// Vista de Tabla
 	**/
 			$crud->unset_delete();
+			$crud->unset_print();
+			$crud->unset_export();
+
+
 			$crud->unset_columns('direccion','est_civil','fecha_nac','observacion','nivel_instruccion','clave','laico','religioso','congregacion','nacionalidad','confirmacion_de_clave','etnia','newpass','newpass_key','last_ip','created','modified','pensum_id','newpass_time','last_login','semestre','carrera','expediente');
 
 	/**

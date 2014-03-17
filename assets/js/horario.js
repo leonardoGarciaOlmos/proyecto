@@ -216,7 +216,9 @@ $(function () {
 
     function carga_seminario (materia, id) {
         $.post(base_url+'horario/call_horario_seminario', {"materia": materia}, function(data, textStatus, xhr) {
-            matter.data[id].seminario = data[0].seminario_id;
+            if(data[0] != ""){
+                matter.data[id].seminario = data[0].seminario_id;
+            }
         });
     }
 
@@ -244,5 +246,11 @@ $(function () {
         $("#consult").hide();
         $("#insert_data").show();
     }
+
+    $("#consult").click(function(event) {
+        $("form").attr('action', base_url+'download/test2');
+        $("#html").val($(".CSSTableGenerator").html());
+        $("form").submit();
+    });
 
 });

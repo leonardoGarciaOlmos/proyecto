@@ -95,7 +95,11 @@
 				if(isset($value2['bloque'])){
 					$query = $this->db->query('SELECT id from horario where materia_has_pensum_materia_codigo = "'.$value2['id'].'" and materia_has_pensum_pensum_id = "'.$this->pensum.'"');
 					if($query->result() == null){
-						$this->db->query('INSERT INTO horario values("","'.$value2['id'].'","'.$this->pensum.'", '.$value2['seminario'].')');
+						if($value2["seminario"] != "vacio"){
+							$this->db->query('INSERT INTO horario values("","'.$value2['id'].'","'.$this->pensum.'", '.$value2['seminario'].')');
+						}else{
+							$this->db->query('INSERT INTO horario values("","'.$value2['id'].'","'.$this->pensum.'", "")');
+						}
 						$query = $this->db->query('SELECT MAX(id) as id from horario');
 						$id = $query->result_array();
 						$id = $id['0']['id'];
@@ -108,7 +112,10 @@
 						$result = $query->result_array();
 						$id = $result['0']['id'];
 
-						$query = $this->db->query('UPDATE horario SET seminario_id = '.$value2['seminario'].' WHERE id = '.$id.' ');
+						if($value2["seminario"] != "vacio"){
+							$query = $this->db->query('UPDATE horario SET seminario_id = '.$value2['seminario'].' WHERE id = '.$id.' ');	
+						}	
+						
 
 						$query = $this->db->query('SELECT usuario_ci as ci, horario_id as id from usuario_has_horario where usuario_ci = "'.$value['id'].'" and horario_id = "'.$id.'"');
 						if($query->result() == null){

@@ -45,15 +45,15 @@ $(function () {
 			$("#evaluaciones").attr("total",total);
 			
 		}else{
-			$(".well").addClass("alert-error");
+			$(".well").addClass("alert-error alertar");
 			setTimeout(function() {
-                $(".well").removeClass("alert-error");
+                $(".well").removeClass("alert-error alertar");
             }, 5000);
 		}
 	});
 
 	$("#guardar").click(function(event) {
-		if($("#evaluaciones").attr('total') == 100){
+		if($("#evaluaciones").attr('total') == 100 && $("#carrera").val() != "" && $("#materia").val() != ""){
 			save_plan();
 			$("#evaluaciones").empty();
 			$("#materia").empty();
@@ -63,9 +63,9 @@ $(function () {
                 $(".alert").hide();
             }, 5000);
 		}else{
-			$(".well").addClass("alert-error");
+			$(".well").addClass("alert-error alertar");
 			setTimeout(function() {
-                $(".well").removeClass("alert-error");
+                $(".well").removeClass("alert-error alertar");
             }, 5000);
 		}
 		

@@ -18,12 +18,10 @@
 
 		    $output->js_files['hgjfjfjfyjgfyl'] = base_url().'assets/js/plan_evaluacion.js';
 		    $output->css_files['hgjfjfjfyjfyl'] = base_url().'assets/css/horario.css';
-
-
-		    //$nombre = $this->session->userdata('DX_nombre')." ".$this->session->userdata('DX_apellido');
-
+		    $nombre = $this->session->userdata('DX_nombre')." ".$this->session->userdata('DX_apellido');
 		    $carreras = $this->plan->get_carreras();
-		    $this->smarty->assign('carreras',$carreras);
+		    $this->smarty->assign('carreras', $carreras);
+		    $this->smarty->assign('nombre', $nombre);
 		    $this->smarty->assign('base_url',$this->config->item("base_url"));
 		    $vista = $this->smarty->fetch('plan-evaluacion.tpl');
 		    $this->smarty->assign('output',$vista);

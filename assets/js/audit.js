@@ -1,10 +1,15 @@
 var asInitVals = new Array();
  
 $(document).ready(function() {
-    var oTable1 = $('#table').dataTable( {
-				"aoColumns": [
-			      { "bSortable": false },
-			      null, null,null, null, null,
-				  { "bSortable": false }
-				] } );
+
+	console.log(base_url+"assets/js/dataTables.spanish.txt");
+
+    var oTable1 = $('#table').dataTable({
+				    "oLanguage": {
+					      "sUrl": base_url+"assets/js/dataTables.spanish.txt"
+					    }
+			});
+
+
+
 } );

@@ -4,6 +4,8 @@
 			<h4 class="lighter smaller">Perfil del Docente</h4>
 		</div>
 
+		<i id="ci" style="display:none" ci="{$userData['ci']}"></i>
+
 		<div class="widget-body">
 
 			<div class= "widget-main padding-8">
