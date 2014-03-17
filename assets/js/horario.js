@@ -97,7 +97,8 @@ $(function () {
     }
     
     function dialog(a) {
-      $("#notification").html("");
+        $("#alert").hide();
+        $("#notification").html("");
         $("#modal").modal('show');
         $('#insert_info').click(function(){
             if (($("option:selected", "#matter").val() == "vacio") || ($("option:selected", "#teacher").val()=="vacio")) {
@@ -106,18 +107,20 @@ $(function () {
                 return false;
                   
             }else{   
-                           
-                if(validaHoras()=="valid"){
-                    $.each(teacher.data,function(index, el) {
-                        $.each(teacher.data[index].materia, function (pos, item){
-                            if(item.id == $("option:selected", "#matter").val()){
-                               teacher.data[index].materia[pos].seminario = $("#seminario").val();
-                            }
-                        });
-                    });
 
-                    insertarMateria($("option:selected", "#matter").attr("nom"), $("option:selected", "#teacher").attr("nom"),$("#teacher").val(),$("#matter").val());
-                    $('#modal').modal('hide');
+                if(validaHoras()=="valid"){
+                    if(verifica_docente($("option:selected", "#teacher").val(), $("option:selected", "#matter").val())){
+                        $.each(teacher.data,function(index, el) {
+                            $.each(teacher.data[index].materia, function (pos, item){
+                                if(item.id == $("option:selected", "#matter").val()){
+                                   teacher.data[index].materia[pos].seminario = $("#seminario").val();
+                                }
+                            });
+                        });
+
+                        insertarMateria($("option:selected", "#matter").attr("nom"), $("option:selected", "#teacher").attr("nom"),$("#teacher").val(),$("#matter").val());
+                        $('#modal').modal('hide');
+                  } 
                 }else{
                     return false;
                 }
@@ -216,10 +219,29 @@ $(function () {
 
     function carga_seminario (materia, id) {
         $.post(base_url+'horario/call_horario_seminario', {"materia": materia}, function(data, textStatus, xhr) {
-            if(data[0] != ""){
+            if(data != ""){
                 matter.data[id].seminario = data[0].seminario_id;
             }
         });
+    }
+
+    function verifica_docente (docente, materia) {
+        var response = true;
+        $.each($("#format td > span") ,function(index, el) {
+            if($(el).attr('mat') == materia && $(el).attr('ci') != docente){
+                response = false;
+                return false;
+            }else{
+                response = true;
+                return true;
+            }
+        });
+
+        if (response == false) {
+            $("#alert").show();
+            $("#notification").html("Ya otro docente esta impartiendo esta materia en este horario.");
+        }
+        return response;
     }
 
     $("#insert_data").click(function(){

@@ -75,17 +75,13 @@
 		return $query->result_array();
 	}
 
-	function insert_horario($data){
-		var_dump($data[0]);
+	function insert_horario($data){;
 		$query = $this->db->query('SELECT DISTINCT horario_id from view_horario where pensum = "'.$this->pensum.'" and semestre = "'.$this->semestre.'"');
 		$result = $query->result_array();
 
 		if(isset($result[0])){
-			print_r("se ejecuto");
-			//$num = $result[0]["horario_id"];
 			foreach ($result as $key => $value) {
 				$this->db->query('DELETE FROM bloque_hora_has_horario where horario_id = "'.$value['horario_id'].'"');
-				# code...
 			}
 		}
 

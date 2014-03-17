@@ -132,3 +132,7 @@
         <a id="save_sem" class="btn btn-primary">Guardar</a>
     </div>
 </div>
+
+<form method="post">
+    <input id="html" name="html" type="text" value=""/>
+</form>
