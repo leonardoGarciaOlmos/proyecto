@@ -115,7 +115,8 @@ $(document).ready(function()
                     validationInput(tag, "control-group error", 2);
                 }
             });
-        }
+        }else
+        { validationInput(tag, "control-group warning", 2); }
     });
 
 

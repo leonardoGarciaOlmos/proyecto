@@ -67,10 +67,12 @@ class Profesor_Controller extends CI_Controller{
 		$this->load->model('docente');
 		$this->load->model('Carrera');
 		$this->load->model('Materia');
+		$this->load->model('User');
 
 		$notasAux = $this->docente->getNotasPlanEva($id_plan);
 		$evaluaciones = $this->docente->getEvaluacionPlanEva($id_plan);
 		$plan = $this->docente->getPlanEvaluacion($id_plan);
+		$profesor = $this->User->getUserOne($plan[0]['profesor']);
 		$this->insert_estudiante_plan($plan[0]['id'], $plan[0]['carrera_id'], $plan[0]['materia'], $evaluaciones, $notasAux);
 		$carrera = $this->Carrera->one_carrera($plan[0]['carrera_id']);
 		$materia = $this->Materia->get_materia($plan[0]['materia']);
@@ -87,6 +89,8 @@ class Profesor_Controller extends CI_Controller{
 		$this->smarty->assign('carrera', $carrera[0]['nombre']);
 		$this->smarty->assign('materia', $materia[0]['nombre']);
 		$this->smarty->assign('plan', $plan[0]['id']);
+		$this->smarty->assign('estudiante', "");
+		$this->smarty->assign('profesor', $profesor[0]['nombre'].' '.$profesor[0]['apellido']);
 
 		$vista = $this->smarty->fetch('usuario/chargeEvaluation.tpl');
 
@@ -242,6 +246,61 @@ class Profesor_Controller extends CI_Controller{
 		$post_array['pensum_id'] = null;
 		unset($post_array['requisitos']);		
 		return $post_array;
+	}
+
+
+	public function all_plan()
+	{
+		try 
+		{
+			$this->load->library('grocery_crud');
+			$crud = new grocery_CRUD();
+
+			$crud->where('profesor',$this->session->userdata("DX_user_id"));
+			$crud->set_theme('twitter-bootstrap');
+	      	$crud->set_language('spanish');
+	      	$crud->set_table('view_plan_profesor')
+	      		 ->set_primary_key('id', 'view_plan_profesor')
+	      		 ->columns('id', 'carrera', 'materia', 'evaluaciones', 'accion')
+	      		 ->callback_column('accion', array($this,'_callback_accion'));
+
+	      	$crud->unset_delete();
+	      	$crud->unset_edit();     	
+	      	$crud->unset_print();
+
+	     	$output = $crud->render();
+	     	//$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/pensum.js';
+	     	//$output->js_files['jdjdjdjdd']= base_url().'assets/js/bootbox.min.js';
+	     	$output->css_files['hshshs'] = base_url().'assets/grocery_crud/themes/twitter-bootstrap/css/style.css'; 
+
+	      	$this->smarty->assign('output',$output->output);
+		    $this->smarty->assign('css_files',$output->css_files);
+		    $this->smarty->assign('js_files',"");
+		    $this->smarty->display('index.tpl');
+		    
+
+		} catch (Exception $e) {
+			show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		}
+	}
+
+
+	public function _callback_accion($value, $row)
+	{
+
+		return '<div class="btn-group">
+					<button class="btn">Acciones</button>
+					<button class="btn dropdown-toggle" data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<li>
+							<a id="view" href="'.base_url().'profesor/notas/'.$row->id.'" value="'.$row->id.'">
+								<i class="icon-search"></i> Ver Plan									
+							</a>
+						</li>
+					</ul>
+				</div>';
 	}
 
 

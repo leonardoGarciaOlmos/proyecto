@@ -79,30 +79,39 @@
 										<thead>
 											<tr>
 												<th>Codigo</th>
-												<th>Uni. Curricular</th>
-												<th>Nota</th>
-												<th class="hidden-phone">Estatus</th>
+												<th style="width:70%;">Uni. Curricular</th>
+												<th class="center">Nota</th>
+												<th class="hidden-phone center">Estatus</th>
 											</tr>
 										</thead>
 										<tbody>
 
 											{foreach from=$notas key=key item=item}
 												{if $item['semestre'] eq $num}
-													<tr>
+
+													{if $item['estatus'] eq "APROBADA"}
+														<tr class="success">
+													{elseif $item['estatus'] eq "REPROBADA"}
+														<tr class="error">
+													{elseif $item['estatus'] eq "PENDIENTE"}
+														<tr class="warning">
+													{else}
+														<tr>
+													{/if}
 														<td>{$item['materia_codigo']}</td>
 														<td>{$item['nombre']}</td>
 														{if $item['estatus'] eq "APROBADA"}
-															<td class="text-success">{$item['total']}</td>
-															<td class="hidden-phone text-success">{$item['estatus']}</td>
+															<td class="text-success center">{$item['total']}</td>
+															<td class="hidden-phone text-success center">{$item['estatus']}</td>
 														{elseif $item['estatus'] eq "REPROBADA"}
-															<td class="text-error">{$item['total']}</td>
-															<td class="hidden-phone text-error">{$item['estatus']}</td>
+															<td class="text-error center">{$item['total']}</td>
+															<td class="hidden-phone text-error center">{$item['estatus']}</td>
 														{elseif $item['estatus'] eq "PENDIENTE"}
-															<td class="text-warning">{$item['total']}</td>
-															<td class="hidden-phone text-warning">{$item['estatus']}</td>
+															<td class="text-warning center">{$item['total']}</td>
+															<td class="hidden-phone text-warning center">{$item['estatus']}</td>
 														{else}
-															<td>{$item['total']}</td>
-															<td class="hidden-phone">{$item['estatus']}</td>
+															<td class="center">{$item['total']}</td>
+															<td class="hidden-phone center">{$item['estatus']}</td>
 														{/if}
 													</tr>
 												{/if}
