@@ -1,9 +1,18 @@
+<div class="page-header position-relative">
+	<h1>
+		Docentes
+		<small>
+			<i class="icon-double-angle-right"></i>
+			Plan de Evaluacion
+		</small>
+	</h1>
+</div>
 <div class="span12">
 	<div class="widget-box">
 		<div class="widget-header header-color-dark">
 			<h4 class="smaller">
-				Plan de Evaluacion
-				<small>Lenin Luque</small>
+				{$nombre}
+				
 			</h4>
 		</div>
 
@@ -53,12 +62,13 @@
 
 					<div class="span6">
 						<div class="well">
-							<h4 class="red smaller lighter ">Cuidado!</h4>
+							<h4 class="text-info smaller lighter ">Cuidado!</h4>
 							<dt class="text-warning">Para añadir una nueva evaluacion debe cumplir con las siguientes condiciones:</dt>
-							<dd>- La evaluacion no puede valer mas de 60%</dd>
-							<dd>- El nombre y el valor de la evaluacion no pueden estar vacios</dd>
-							<dd>- La suma de todas la evaluaciones debe ser de 100%</dd>
-							<dd>- La cantidad de evaluaciones no puede ser mayor a 8</dd>
+							<dd>- La evaluacion no puede valer mas de 60%.</dd>
+							<dd>- El nombre y el valor de la evaluacion no pueden estar vacios.</dd>
+							<dd>- La suma de todas la evaluaciones debe ser de 100%.</dd>
+							<dd>- La cantidad de evaluaciones no puede ser mayor a 8.</dd>
+							<dd>- La Carrera y la Materia debe estar seleccionada.</dd>
 						</div>
 					<div class="alert alert-block alert-success hide">
 						<button type="button" class="close" data-dismiss="alert">

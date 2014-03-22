@@ -16,7 +16,7 @@
 
 	function get_materias()
 	{
-		$query = $this->db->query('SELECT m.codigo as id, m.nombre as materia from materia m, materia_has_pensum mhp, pensum p, carrera c where c.id="'.$this->carrera.'" and p.carrera_id="'.$this->carrera.'" and mhp.semestre="'.$this->semestre.'" and mhp.pensum_id=p.id and p.carrera_id=c.id and m.codigo=mhp.materia_codigo and p.id='.$this->pensum.'');
+		$query = $this->db->query('SELECT m.codigo as id, m.nombre as materia, "0" as seminario from materia m, materia_has_pensum mhp, pensum p, carrera c where c.id="'.$this->carrera.'" and p.carrera_id="'.$this->carrera.'" and mhp.semestre="'.$this->semestre.'" and mhp.pensum_id=p.id and p.carrera_id=c.id and m.codigo=mhp.materia_codigo and p.id='.$this->pensum.'');
 
 		return array('data'=>$query->result());
 	}
@@ -39,7 +39,7 @@
 		$result = array('data'=>array());
 		foreach ($get_prof->result() as $row) {
 
-			$get_mat = $this->db->query('SELECT dhm.materia_codigo as id from usuario u, docente_has_materia dhm, materia_has_pensum mhp, carrera c, pensum p where u.ci = dhm.usuario_ci and u.tipo=2 and mhp.pensum_id = p.id and mhp.materia_codigo = dhm.materia_codigo and p.carrera_id = c.id and c.id='.$this->carrera.' and mhp.semestre='.$this->semestre.' and u.ci="'.$row->ci.'"');
+			$get_mat = $this->db->query('SELECT dhm.materia_codigo as id, "0" as seminario from usuario u, docente_has_materia dhm, materia_has_pensum mhp, carrera c, pensum p where u.ci = dhm.usuario_ci and u.tipo=2 and mhp.pensum_id = p.id and mhp.materia_codigo = dhm.materia_codigo and p.carrera_id = c.id and c.id='.$this->carrera.' and mhp.semestre='.$this->semestre.' and u.ci="'.$row->ci.'"');
 			$mat = $get_mat->result_array();
 
 			$get_hour = $this->db->query('SELECT CONCAT(TIME_FORMAT(hora_inicio,"%h:%i %p"), " - ", TIME_FORMAT(hora_final,"%h:%i %p")) as hora, dia from view_horario where ci="'.$row->ci.'"');
@@ -75,27 +75,27 @@
 		return $query->result_array();
 	}
 
-	function insert_horario($data){
+	function insert_horario($data){;
 		$query = $this->db->query('SELECT DISTINCT horario_id from view_horario where pensum = "'.$this->pensum.'" and semestre = "'.$this->semestre.'"');
 		$result = $query->result_array();
 
 		if(isset($result[0])){
-			print_r("se ejecuto");
-			//$num = $result[0]["horario_id"];
 			foreach ($result as $key => $value) {
 				$this->db->query('DELETE FROM bloque_hora_has_horario where horario_id = "'.$value['horario_id'].'"');
-				# code...
 			}
 		}
 
 		foreach ($data as $key => $value) {
 
 			foreach ($value['materia'] as $key2 => $value2) {
-				print_r($value2);
 				if(isset($value2['bloque'])){
 					$query = $this->db->query('SELECT id from horario where materia_has_pensum_materia_codigo = "'.$value2['id'].'" and materia_has_pensum_pensum_id = "'.$this->pensum.'"');
 					if($query->result() == null){
-						$this->db->query('INSERT INTO horario values("","'.$value2['id'].'","'.$this->pensum.'")');
+						if($value2["seminario"] != "vacio"){
+							$this->db->query('INSERT INTO horario values("","'.$value2['id'].'","'.$this->pensum.'", '.$value2['seminario'].')');
+						}else{
+							$this->db->query('INSERT INTO horario values("","'.$value2['id'].'","'.$this->pensum.'", "")');
+						}
 						$query = $this->db->query('SELECT MAX(id) as id from horario');
 						$id = $query->result_array();
 						$id = $id['0']['id'];
@@ -107,6 +107,11 @@
 					}else{
 						$result = $query->result_array();
 						$id = $result['0']['id'];
+
+						if($value2["seminario"] != "vacio"){
+							$query = $this->db->query('UPDATE horario SET seminario_id = '.$value2['seminario'].' WHERE id = '.$id.' ');	
+						}	
+						
 
 						$query = $this->db->query('SELECT usuario_ci as ci, horario_id as id from usuario_has_horario where usuario_ci = "'.$value['id'].'" and horario_id = "'.$id.'"');
 						if($query->result() == null){
@@ -226,6 +231,23 @@
 		$this->db->where('plan_evaluacion_id', $id_plan);
 		$statusUpdate = $this->db->update('notas_detallada', $arrayData);
 		return $statusUpdate;
+	}
+
+	function consulta_horario_user($ci){
+		$query = $this->db->query("SELECT * FROM view_horario h, usuario_has_horario uhh WHERE uhh.horario_id = h.horario_id and uhh.usuario_ci = ".$ci." ");
+		$data = $query->result_array();
+		return $data;
+	
+	}
+
+	function verificar_seminario($materia){
+		$query = $this->db->query("SELECT s.id, s.nombre FROM materia_has_seminario mhs, seminario s WHERE materia_codigo = '".$materia."' and mhs.seminario_id = s.id ");
+		return $query->result_array();
+	}
+
+	function horario_seminario($materia){
+		$query = $this->db->query("SELECT * FROM horario WHERE materia_has_pensum_materia_codigo = '".$materia."' ");
+		return $query->result_array();
 	}
 
 }

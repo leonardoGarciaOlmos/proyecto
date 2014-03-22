@@ -18,14 +18,28 @@
 
 		    $output->js_files['hgjfjfjfyjgfyl'] = base_url().'assets/js/plan_evaluacion.js';
 		    $output->css_files['hgjfjfjfyjfyl'] = base_url().'assets/css/horario.css';
-
-
-		    //$nombre = $this->session->userdata('DX_nombre')." ".$this->session->userdata('DX_apellido');
-
+		    $nombre = $this->session->userdata('DX_nombre')." ".$this->session->userdata('DX_apellido');
 		    $carreras = $this->plan->get_carreras();
-		    $this->smarty->assign('carreras',$carreras);
+		    $this->smarty->assign('carreras', $carreras);
+		    $this->smarty->assign('nombre', $nombre);
 		    $this->smarty->assign('base_url',$this->config->item("base_url"));
 		    $vista = $this->smarty->fetch('plan-evaluacion.tpl');
+		    $this->smarty->assign('output',$vista);
+		    $this->smarty->assign('css_files',$output->css_files);
+		    $this->smarty->assign('js_files',$output->js_files);
+		    $this->smarty->display('index.tpl');
+		}
+
+		function view_admin()
+		{
+
+		    $output->js_files['hgjfjfjfyjgfyl'] = base_url().'assets/js/plan_admin.js';
+		    $output->css_files['hgjfjfjfyjfyl'] = base_url().'assets/css/horario.css';
+
+		    $prof = $this->plan->get_prof();
+		    $this->smarty->assign('prof',$prof);
+		    $this->smarty->assign('base_url',$this->config->item("base_url"));
+		    $vista = $this->smarty->fetch('plan_admin.tpl');
 		    $this->smarty->assign('output',$vista);
 		    $this->smarty->assign('css_files',$output->css_files);
 		    $this->smarty->assign('js_files',$output->js_files);
@@ -51,6 +65,19 @@
 			$this->output->set_content_type('application/json')->set_output(json_encode($this->plan->get_plan($carrera_id, $ci, $materia)));
 
 
+		}
+
+		function call_get_mat_plan(){
+			$ci = $this->input->post("ci");
+
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->plan->get_mat_plan($ci)));
+
+		}
+
+		function call_get_plan_evaluacion(){
+			$ci = $this->input->post("ci");
+
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->plan->get_plan_evaluacion($ci)));
 		}
 
 }

@@ -57,7 +57,7 @@
 
 	function insert_materias($carrera, $materias, $ci){
 		foreach ($materias as $key => $value) {
-			$query = $this->db->query("INSERT INTO docente_has_materia values (".$ci.",'".$value."',".$carrera.",'');");
+			$query = $this->db->query("INSERT INTO docente_has_materia values ('".$ci."','".$value."',".$carrera.",'');");
 		}
 
 	}

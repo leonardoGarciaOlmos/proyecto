@@ -35,7 +35,7 @@ class Estudiante_Controller extends CI_Controller{
 				'nivel_instruccion','clave','laico','religioso', 'tipo','tipo_sangre',
 				'congregacion','nacionalidad','confirmacion_de_clave',
 				'etnia','newpass','newpass_key','last_ip','created','modified','pensum_id','last_login','newpass_time','DPTO');
-			$crud->unset_list();
+			//$crud->unset_list();
  			$crud->unset_print();
  			$crud->unset_read();
  			$crud->unset_edit();
@@ -47,7 +47,6 @@ class Estudiante_Controller extends CI_Controller{
 
 			$crud->unset_fields('direccion','expediente','estatus','tipo','observacion');
 			$crud->callback_insert(array($this,'encrypt_password_and_insert_callback'));
-			//$crud->callback_before_insert(array($this,'requisitos_callback'));
 
 	/**
 	//Editar
@@ -95,7 +94,7 @@ class Estudiante_Controller extends CI_Controller{
 			
 			if($operation == 'insert_validation'){
 
-				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]');
+				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|min_length[7]');
 				$crud->set_rules('nombre', 'Nombre', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('apellido', 'Apellido', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('correo', 'Correo Electronico', 'required|is_unique[usuario.correo]|valid_email');
@@ -148,6 +147,7 @@ public function check_fecha($date)
 }
 
 
+
 	public function encrypt_password_and_insert_callback($post_array) {
 		$post_array = $this->requisitos_callback($post_array);
 		unset($post_array['confirmacion_de_clave']);
@@ -165,6 +165,7 @@ public function check_fecha($date)
 	private function save( $data )
 	{
 		$this->load->model('user','user');
+		$data['fecha_nac'] = date("Y-m-d", strtotime($data['fecha_nac']));
 		$this->user->load( array('ci' => $data['ci']));
 		$this->user->set( $data );
 		$this->user->save();
@@ -193,6 +194,7 @@ public function check_fecha($date)
 		unset($post_array['requisitos']);		
 		return $post_array;
 	}
+
 
 
 

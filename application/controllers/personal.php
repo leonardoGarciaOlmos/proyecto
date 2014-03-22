@@ -48,7 +48,7 @@ class Personal_Controller extends CI_Controller{
 	/**
 	//General
 	**/
-			$crud->fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion');
+			$crud->fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave','laico','nacionalidad','religioso','congregacion');
  			$crud->unset_texteditor('observacion','full_text');
  			$crud->display_as('fecha_nac','Fecha de Nacimiento')
  			->display_as('est_civil','Estado Civil')
@@ -70,7 +70,7 @@ class Personal_Controller extends CI_Controller{
 
 			if($operation == 'insert_validation'){
 
-				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|exact_length[8]');
+				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|min_length[7]');
 				$crud->set_rules('nombre', 'Nombre', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('fecha_nac', 'fecha Nacimiento', 'required|exact_length[10]|callback_check_fecha');
 				$crud->set_rules('apellido', 'Apellido', 'required|min_length[3]|max_length[80]|alpha_dash_space');
@@ -141,6 +141,7 @@ class Personal_Controller extends CI_Controller{
 	private function save( $data )
 	{
 		$this->load->model('user','user');
+		$data['fecha_nac'] = date("Y-m-d", strtotime($data['fecha_nac']));
 		$this->user->load( array('ci' => $data['ci']));
 		$this->user->set( $data );
 		$this->user->save();

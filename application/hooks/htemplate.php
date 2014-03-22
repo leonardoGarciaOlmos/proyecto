@@ -20,6 +20,7 @@
 			$ci->smarty->assign('assetPath', $assetPath);
 			$ci->smarty->assign('ciPath', base_url());
 			$ci->smarty->assign('currentUrl', current_url());
+			$ci->smarty->assign('nombre', $ci->session->userdata('DX_nombre')." ".$ci->session->userdata('DX_apellido'));
 			$ci->load->model('system');
 
 		}

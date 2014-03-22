@@ -10,7 +10,8 @@ $(document).on('ready',function(){
       type: "GET",
       url: base_url+'carrera/carreraByDPTO/'+Dpto_id,
       success: function( data ) {
-        generateSelect( data );
+        generateSelect( data, '#field-carrera');
+        $('.chosen-select').trigger("chosen:updated");
       }
     });
   });
@@ -57,8 +58,8 @@ function renderData ( data ) {
 $('#field-ci').parent().append(button);
 
 
-$('#crudForm').attr('action','http://localhost/proyectouni/usuario/preInscripcionadmin/insert');
+$('#crudForm').attr('action','http://localhost/proyecto/usuario/preInscripcionadmin/insert');
 
 
-validation_url  = "http://localhost/proyectouni/usuario/preInscripcionadmin/update_validation";
+validation_url  = "http://localhost/proyecto/usuario/preInscripcionadmin/update_validation";
 });

@@ -15,10 +15,16 @@
 			$info = $crud->getStateInfo();
 		    $crud->set_table('carrera')
 		        ->set_subject('Carrera');
-
 		    $crud->fields('nombre','descripcion','departamento_id');
 		  	$crud->required_fields('nombre','departamento_id');
 		  	$operacion = $crud->getState();
+
+		  if ($operacion == 'ajax_list_info' || $operacion == 'ajax_list') {
+			$crud->set_relation('departamento_id','departamento m','{id} ({nombre})');
+		  }else {
+			$crud->set_relation('departamento_id','departamento','{id} ({nombre})');
+		  }
+
 
 
 			if($operacion == 'insert_validation'){
@@ -30,7 +36,8 @@
 						$crud->set_rules('departamento_id', 'Departamento');
 					}
 			$crud->display_as('departamento_id','Departamento');
-			$crud->set_relation('departamento_id','departamento','{id} ({nombre})');
+
+
 			$output = $crud->render();		 
 		    
 		    $this->smarty->assign('output',$output->output);

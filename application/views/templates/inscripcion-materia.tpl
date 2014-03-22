@@ -41,7 +41,7 @@
 									<div class="span3 center">
 										<div>
 											<span class="profile-picture">
-												<img id="avatar" class="editable editable-click editable-empty" alt="Alex's Avatar" src="assets/avatars/profile-pic.jpg"></img>
+												<img id="avatar" class="editable editable-click editable-empty" alt="Alex's Avatar" src="http://localhost/proyecto/assets/avatars/profile-pic.jpg"></img>
 											</span>
 
 											<div class="space-4"></div>
@@ -264,7 +264,7 @@
 
 													<div class="row-fluid">
 														<div class="span12 well">
-															La informacion sumistrada en esta panalla es referencial en caso de existir alguna incongruencia contacte a su Administrador. <a>Admin@iuspo.com</a>
+															La informacion sumistrada en esta panalla es referencial en caso de existir alguna incongruencia contacte a su Administrador. <a>Administracion@iuspo.com</a>
 														</div>
 													</div>
 

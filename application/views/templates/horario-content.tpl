@@ -104,3 +104,35 @@
             <a id="insert_info" class="btn btn-primary">Insertar Datos</a>
         </div>
 </div>
+
+
+<div id="modal_sem" style="display:none" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Seleccion de seminario</h3>
+    </div>
+
+    <div class="modal-body">
+        
+        <select id="seminario" class="span8 center">
+            <option value="vacio">Seleccione Seminario</option>
+        </select>
+        
+        <div id="alert_sem" class="alert alert-danger" style="display:none">
+            <button type="button" class="close" data-dismiss="alert">
+                <i class="icon-remove"></i>
+            </button>
+            <strong>Disculpe!</strong>
+            <span id="notification_sem"></span>
+            <br>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a id='close' href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</a>
+        <a id="save_sem" class="btn btn-primary">Guardar</a>
+    </div>
+</div>
+
+<form method="post">
+    <input id="html" name="html" type="text" value=""/>
+</form>
