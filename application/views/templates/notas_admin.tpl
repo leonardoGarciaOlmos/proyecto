@@ -26,7 +26,7 @@
                     <td class="center">{$datos.carrera}</td>
                     <td class="center">{$datos.semestre}</td>
                     <td class="center">{$datos.materia}</td>
-                    <td class="center"><span class="editable notas" >{$datos.total}</span></td>
+                    <td class="center"><span class="editable notas" ci="{$datos.ci}" mat="{$datos.codigo}" sem="{$datos.semestre}">{$datos.total}</span></td>
                     <td class="center">{$datos.estatus}</td>
                 </tr>   
                 {/foreach}   

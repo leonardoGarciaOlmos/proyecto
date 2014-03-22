@@ -33,7 +33,11 @@
 		}
 
 		function editar_nota(){
+			$this->load->model('notas','nota');
 			$notas = $this->input->post("notas");
-			$this->output->set_content_type('application/json')->set_output(json_encode($this->nota->edit_notas($notas)));
+			$ci = $this->input->post("ci");
+			$codigo = $this->input->post("mat");
+			$sem = $this->input->post("sem");
+			$this->output->set_content_type('application/json')->set_output(json_encode($this->nota->edit_notas($notas, $ci, $codigo, $sem)));
 		}
 	}

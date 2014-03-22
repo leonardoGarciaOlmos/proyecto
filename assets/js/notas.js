@@ -10,7 +10,7 @@ $(function () {
 
 	    	if(value != ""){
 	    		if(value < 20){
-		    		$.post(base_url+'notas/prueba', {"notas": value}, function(data, textStatus, xhr) {
+		    		$.post(base_url+'notas/editar_nota', {"notas": value, "sem": sem, "mat": mat, "ci":ci}, function(data, textStatus, xhr) {
 		    			
 				    });
 	    		}else{
@@ -32,7 +32,9 @@ $(function () {
 		}).columnFilter();
 
 	$("span.editable").click(function(event) {
-		$this.attr('');
+		ci = $(this).attr('ci');
+		sem = $(this).attr('sem');
+		mat = $(this).attr("mat");
 	});
 	
 
