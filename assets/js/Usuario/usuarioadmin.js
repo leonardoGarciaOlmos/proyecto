@@ -58,8 +58,8 @@ function renderData ( data ) {
 $('#field-ci').parent().append(button);
 
 
-$('#crudForm').attr('action','http://localhost/proyectouni/usuario/preInscripcionadmin/insert');
+$('#crudForm').attr('action','http://localhost/proyecto/usuario/preInscripcionadmin/insert');
 
 
-validation_url  = "http://localhost/proyectouni/usuario/preInscripcionadmin/update_validation";
+validation_url  = "http://localhost/proyecto/usuario/preInscripcionadmin/update_validation";
 });

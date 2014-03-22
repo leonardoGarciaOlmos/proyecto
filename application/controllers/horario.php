@@ -109,6 +109,10 @@
 		    $this->smarty->display('index.tpl');
 		}
 
+		function consulta_horario_estudiante(){
+			$this->consulta_user();
+		}
+
 		function principal(){
 		    $output->js_files['hgjfjfjfyjfyl'] = base_url().'assets/js/jquery-ui-1.10.3.custom.min.js';
 		    $output->js_files['hgjfjfjfyjfyl'] = base_url().'assets/js/horario_principal.js';

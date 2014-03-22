@@ -33,7 +33,16 @@
         </tbody>
 
         <tfoot>
-            
+        <tr>
+            <th class="center">Cedula</th>
+            <th class="center">Nombre</th>
+            <th class="center">Apellido</th>
+            <th class="center">Carrera</th>
+            <th class="center">Semestre</th>
+            <th class="center">Materia</th>
+            <th class="center">Total</th>
+            <th class="center">Estatus</th>
+        </tr>
         </tfoot>
         </table>
 

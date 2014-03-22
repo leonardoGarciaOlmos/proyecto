@@ -70,7 +70,7 @@ class Usuario_Controller extends CI_Controller{
 
 			if($operation == 'insert_validation'){
 
-				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|exact_length[8]');
+				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|min_length[7]');
 				$crud->set_rules('nombre', 'Nombre', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('fecha_nac', 'fecha Nacimiento', 'required|exact_length[10]|callback_check_fecha');
 				$crud->set_rules('apellido', 'Apellido', 'required|min_length[3]|max_length[80]|alpha_dash_space');
@@ -206,7 +206,7 @@ public function check_fecha($date)
 			
 			if($operation == 'insert_validation'){
 
-				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|exact_length[8]');
+				$crud->set_rules('ci', 'Cedula de Identidad', 'required|is_unique[usuario.ci]|min_length[7]');
 				$crud->set_rules('nombre', 'Nombre', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('apellido', 'Apellido', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('correo', 'Correo Electronico', 'required|is_unique[usuario.correo]|valid_email');
@@ -217,7 +217,7 @@ public function check_fecha($date)
 
 			}else if($operation == 'update_validation'){
 				$crud->set_rules('requisitos', 'requisitos', 'etnia');
-				$crud->set_rules('ci', 'Cedula de Identidad', 'required|exact_length[8]');
+				$crud->set_rules('ci', 'Cedula de Identidad', 'required|min_length[7]');
 				$crud->set_rules('nombre', 'Nombre', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('apellido', 'Apellido', 'required|min_length[3]|max_length[80]|alpha_dash_space');
 				$crud->set_rules('correo', 'Correo Electronico', 'required|valid_email');
@@ -268,22 +268,6 @@ public function check_fecha($date)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	public function encrypt_password_and_insert_admin_callback($post_array) {
 		$post_array = $this->requisitos_callback($post_array);
 		unset($post_array['confirmacion_de_clave']);
@@ -322,6 +306,7 @@ public function check_fecha($date)
 
 	private function save( $data )
 	{
+		$data['fecha_nac'] = date("Y-m-d", strtotime($data['fecha_nac']));
 		$this->load->model('user','user');
 		$this->user->load( array('ci' => $data['ci']));
 		$this->user->set( $data );

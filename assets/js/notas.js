@@ -1,21 +1,40 @@
+var edit;
+var ci;
+var sem;
+var mat;
 $(function () {
-	
 	$('.notas').editable({
-        type: 'spinner',
 		name : 'notas',
 		url: base_url+"notas/prueba",
-		spinner : {
-			min : 0, max:20, step:0.1,
-		},
 		validate: function(value) {
-		    bootbox.confirm("¿Esta seguro que desea continuar con este cambio?.", function(result, value) {
-		    	if(result == true && value != ""){
-		    		$.post(base_url+'notas/prueba', {"notas": value}, function(data, textStatus, xhr) {
-		    			/*optional stuff to do after success */
-		    		});
-		    	}
 
-			});
+	    	if(value != ""){
+	    		if(value < 20){
+		    		$.post(base_url+'notas/prueba', {"notas": value}, function(data, textStatus, xhr) {
+		    			
+				    });
+	    		}else{
+	    			return "La nota no puede ser mayor a 20."
+	    		}
+	    	}else{
+	    		return "El campo no puede estar vacio inserte una valor numerico ";
+	    	}
 		}
+	}).on('shown', function(e, editable){
+		edit = editable;
+		$(".input-medium").numeric({ precision: 4, decimal : ".",  negative : false, scale: 2 });
 	});
+
+	var oTable = $('#table').dataTable({
+	    "oLanguage": {
+		      "sUrl": base_url+"assets/js/dataTables.spanish.txt"
+		    }
+		}).columnFilter();
+
+	$("span.editable").click(function(event) {
+		$this.attr('');
+	});
+	
+
+	
 })

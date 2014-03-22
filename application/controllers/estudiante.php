@@ -47,7 +47,6 @@ class Estudiante_Controller extends CI_Controller{
 
 			$crud->unset_fields('direccion','expediente','estatus','tipo','observacion');
 			$crud->callback_insert(array($this,'encrypt_password_and_insert_callback'));
-			//$crud->callback_before_insert(array($this,'requisitos_callback'));
 
 	/**
 	//Editar
@@ -148,6 +147,7 @@ public function check_fecha($date)
 }
 
 
+
 	public function encrypt_password_and_insert_callback($post_array) {
 		$post_array = $this->requisitos_callback($post_array);
 		unset($post_array['confirmacion_de_clave']);
@@ -165,6 +165,7 @@ public function check_fecha($date)
 	private function save( $data )
 	{
 		$this->load->model('user','user');
+		$data['fecha_nac'] = date("Y-m-d", strtotime($data['fecha_nac']));
 		$this->user->load( array('ci' => $data['ci']));
 		$this->user->set( $data );
 		$this->user->save();
@@ -193,6 +194,7 @@ public function check_fecha($date)
 		unset($post_array['requisitos']);		
 		return $post_array;
 	}
+
 
 
 

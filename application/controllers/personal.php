@@ -141,6 +141,7 @@ class Personal_Controller extends CI_Controller{
 	private function save( $data )
 	{
 		$this->load->model('user','user');
+		$data['fecha_nac'] = date("Y-m-d", strtotime($data['fecha_nac']));
 		$this->user->load( array('ci' => $data['ci']));
 		$this->user->set( $data );
 		$this->user->save();
