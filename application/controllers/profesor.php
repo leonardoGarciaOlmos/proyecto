@@ -255,21 +255,32 @@ class Profesor_Controller extends CI_Controller{
 	}
 
 
-	public function all_plan()
+	public function all_plan($profesor = null)
 	{
 		try 
 		{
 			$this->load->library('grocery_crud');
 			$crud = new grocery_CRUD();
 
-			$crud->where('profesor',$this->session->userdata("DX_user_id"));
-			$crud->set_theme('twitter-bootstrap');
-	      	$crud->set_language('spanish');
-	      	$crud->set_table('view_plan_profesor')
-	      		 ->set_primary_key('id', 'view_plan_profesor')
-	      		 ->columns('id', 'carrera', 'materia', 'evaluaciones', 'accion')
-	      		 ->callback_column('accion', array($this,'_callback_accion'));
 
+			$crud->set_theme('twitter-bootstrap');
+		    $crud->set_language('spanish');
+			if(isset($profesor))
+			{
+				$crud->where('profesor', $profesor);
+		      	$crud->set_table('view_plan_profesor')
+		      		 ->set_primary_key('id', 'view_plan_profesor')
+		      		 ->columns('id', 'carrera', 'materia', 'evaluaciones', 'accion')
+		      		 ->callback_column('accion', array($this,'_callback_accion'));
+			}else
+			{
+				$crud->set_table('view_plan_profesor')
+		      		 ->set_primary_key('id', 'view_plan_profesor')
+		      		 ->columns('id', 'nombre', 'carrera', 'materia', 'evaluaciones', 'accion')
+		      		 ->display_as('nombre', 'Profesor')
+		      		 ->callback_column('accion', array($this,'_callback_accion'));
+			}
+			
 	      	$crud->unset_delete();
 	      	$crud->unset_edit();     	
 	      	$crud->unset_print();
