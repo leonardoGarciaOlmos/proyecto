@@ -399,20 +399,29 @@ public function notas($id_plan, $estudiante)
 	}
 
 
-	public function all_plan()
+	public function all_plan($estudiante = null)
 	{
 		try 
 		{
 			$this->load->library('grocery_crud');
 			$crud = new grocery_CRUD();
 
-			$crud->where('cedula', $this->session->userdata("DX_user_id"));
 			$crud->set_theme('twitter-bootstrap');
-	      	$crud->set_language('spanish');
-	      	$crud->set_table('view_plan_estudiante')
-	      		 ->set_primary_key('id', 'view_plan_estudiante')
-	      		 ->columns('id', 'carrera', 'materia', 'evaluaciones', 'accion')
-	      		 ->callback_column('accion', array($this,'_callback_accion'));
+		    $crud->set_language('spanish');
+			if(isset($profesor))
+			{
+				$crud->where('cedula', $estudiante);
+		      	$crud->set_table('view_plan_estudiante')
+		      		 ->set_primary_key('id', 'view_plan_estudiante')
+		      		 ->columns('id', 'estudiante','carrera', 'materia', 'evaluaciones', 'accion')
+		      		 ->callback_column('accion', array($this,'_callback_accion'));
+			}else
+			{
+				$crud->set_table('view_plan_estudiante')
+		      		 ->set_primary_key('id', 'view_plan_estudiante')
+		      		 ->columns('id', 'carrera', 'materia', 'evaluaciones', 'accion')
+		      		 ->callback_column('accion', array($this,'_callback_accion'));
+			}
 
 	      	$crud->unset_delete();
 	      	$crud->unset_edit();     	
