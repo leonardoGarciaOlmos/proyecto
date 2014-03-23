@@ -1,6 +1,15 @@
 <?php
 class Carrera extends CI_Model
 {
+
+	public function all_carrera()
+	{
+		$this->db->select('*');
+		$this->db->from('carrera');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 	/**
 	*	
 	* Las carrera por cada departamento	
