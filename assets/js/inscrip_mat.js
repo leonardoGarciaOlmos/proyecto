@@ -71,6 +71,15 @@ jQuery(function($) {
 	$('#modal-wizard .modal-header').ace_wizard();
 	$('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
 
+
+	$("#print").click(function(event) {
+        // $(document.createElement('form'));
+        // $("form").append('<input id="html" name="html" type="text" value=""/>');
+        $("form").attr('action', base_url+'download/test2');
+        $("#html").val($("#table_print").html());
+        $("form").submit();
+    });
+
 });
 
 
@@ -206,4 +215,6 @@ function stepTwo(){
 		});
 															
 	});
+
+
 }

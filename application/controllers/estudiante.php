@@ -43,7 +43,13 @@ class Estudiante_Controller extends CI_Controller{
 	/**
 	//Agregar
 	**/
-
+			$crud->set_lang_string('insert_success_message',
+				 'Su informacion se ha guardado con exito. Se redireccionara en un instante.
+				 <script type="text/javascript">
+				  window.setInterval(function(){window.location = "'.base_url().'auth"},5000);
+				 </script>
+				 <div style="display:none">'
+		  	 );
 
 			$crud->unset_fields('direccion','expediente','estatus','tipo','observacion');
 			$crud->callback_insert(array($this,'encrypt_password_and_insert_callback'));
@@ -86,6 +92,8 @@ class Estudiante_Controller extends CI_Controller{
 			if($operation == 'add'){
 					$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave');
 					//,'laico','religioso','congregacion'
+					$crud->unset_back_to_list();
+					
 			}elseif($operation == 'edit'){
 						$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','laico','religioso','congregacion');
 			}

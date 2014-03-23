@@ -127,10 +127,10 @@
 													</fieldset>
 												</form>
 
-												<div class="social-or-login center">
+<!-- 												<div class="social-or-login center">
 													<span class="bigger-110">o Accede Con</span>
-												</div>
-
+												</div> -->
+<!-- 
 												<div class="social-login center">
 													<a class="btn btn-primary">
 														<i class="icon-facebook"></i>
@@ -143,7 +143,7 @@
 													<a class="btn btn-danger">
 														<i class="icon-google-plus"></i>
 													</a>
-												</div>
+												</div> -->
 											</div><!--/widget-main-->
 
 											<div class="toolbar clearfix">
@@ -155,7 +155,7 @@
 												</div>
 
 												<div>
-													<a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">
+													<a href="estudiante/preInscripcion/add"  class="user-signup-link">
 														Quiero registrarme
 														<i class="icon-arrow-right"></i>
 													</a>

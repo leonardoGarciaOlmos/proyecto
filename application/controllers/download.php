@@ -62,6 +62,24 @@
 	        $this->mpdf->Output();
 	    }
 
+	     public function test2(){
+	        //PASAMOS LA RUTA DONDE ESTA EL ESTILO
+	        $stylesheet = file_get_contents('assets/css/reports/template.css');
+	        // '/assets/css/reports/template.css'
+	        //cargamos el estilo CSS
+	        $this->mpdf->WriteHTML($stylesheet,1);
+	        //CARGAMOS LOS PARAMETROS
+	        $data['content'] = $this->input->post("html");
+	        //OBTENEMOS LA VISTA EN HTML
+	        $html = $this->load->view('reports/template.php', $data, true);
+	        //ESCRIBIMOS AL PDF	        
+	        $this->mpdf->WriteHTML($html,2);
+	        //SALIDA DE NUESTRO PDF
+
+	        // echo $html;
+	        $this->mpdf->Output();
+	    }
+
 		public function export()
 		{
 			$html = $this->input->get_post('html', 'No Valido');

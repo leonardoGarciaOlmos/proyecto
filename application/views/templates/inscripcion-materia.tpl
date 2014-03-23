@@ -381,31 +381,33 @@
 												</small>
 											</h1>
 										</div>
-									    <table id="format" border="1" class="table">
-									        <thead>    
-									            <tr>
-									                <th class="day-hour ">Horas</th>
-									                <th class="day-hour ">Lunes</th>
-									                <th class="day-hour ">Martes</th>
-									                <th class="day-hour ">Miércoles</th>
-									                <th class="day-hour ">Jueves</th>
-									                <th class="day-hour ">Viernes</th>
-									            </tr>
-									        </thead>
-									        <tbody>    
-									            {foreach key=key from=$horas item=hora}
-									                <tr data-hora="{$hora.hora_inicio} - {$hora.hora_final}">
-									                    <td class="horas">{$hora.hora_inicio} - {$hora.hora_final}</td>
-									                 {foreach from=$dias.$key item=datos} 
-									                    <td data-dia="{$datos.dia}" id="{$datos.id}"></td>
-									                {/foreach}   
-									                
-									                </tr>
-									            {/foreach}
-									        </tbody>   
+										<div id="table_print"  >
+										    <table id="format" border="1" class="table">
+										        <thead>    
+										            <tr>
+										                <th class="day-hour ">Horas</th>
+										                <th class="day-hour ">Lunes</th>
+										                <th class="day-hour ">Martes</th>
+										                <th class="day-hour ">Miércoles</th>
+										                <th class="day-hour ">Jueves</th>
+										                <th class="day-hour ">Viernes</th>
+										            </tr>
+										        </thead>
+										        <tbody>    
+										            {foreach key=key from=$horas item=hora}
+										                <tr data-hora="{$hora.hora_inicio} - {$hora.hora_final}">
+										                    <td class="horas">{$hora.hora_inicio} - {$hora.hora_final}</td>
+										                 {foreach from=$dias.$key item=datos} 
+										                    <td data-dia="{$datos.dia}" id="{$datos.id}"></td>
+										                {/foreach}   
+										                
+										                </tr>
+										            {/foreach}
+										        </tbody>   
 
-									        <tfoot></tfoot> 
-									    </table>
+										        <tfoot></tfoot> 
+										    </table>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -573,3 +575,7 @@
 		</div><!--/widget-body-->
 	</div>
 </div>
+
+<form style="display:none" method="post">
+	<input id="html" name="html" type="text" value=""/>
+</form>

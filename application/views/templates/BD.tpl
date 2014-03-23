@@ -5,7 +5,7 @@
 			<span>
 				{if $process eq "backup"}
 					<span class="bigger-150 bolder"><i class="icon-caret-right red"></i> Backup</span> base de dato
-					<span class="smaller-80 grey">(click)</span> <br> <i id="upload_button" class="upload-icon icon-cloud-download blue icon-3x" value="basedato/backup"></i>
+					<span class="smaller-80 grey">(click)</span> <br> <i id="upload_button" class="upload-icon icon-cloud-download blue icon-3x" value="basededatos/generateBackup"></i>
 				{elseif $process eq "restore"}
 					<input  type="file" id="id-input-file-3">
 				{/if}

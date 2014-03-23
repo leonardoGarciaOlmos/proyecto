@@ -9,7 +9,7 @@ $(function () {
 		validate: function(value) {
 
 	    	if(value != ""){
-	    		if(value < 20){
+	    		if(value <= 20){
 		    		$.post(base_url+'notas/editar_nota', {"notas": value, "sem": sem, "mat": mat, "ci":ci}, function(data, textStatus, xhr) {
 		    			
 				    });

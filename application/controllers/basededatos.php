@@ -20,12 +20,12 @@ class Basededatos_Controller extends CI_Controller
 
 	public function generateBackup()
 	{
-		$nombre_BD = 'backup' . date('dmY') . '.gz';
+		$nombre_BD = 'backup' . date('dmY') . '.zip';
 		$prefs = array(
                 'tables'      => array(),  		// Array of tables to backup.
                 'ignore'      => array("list_pensum","view_horario"),       // List of tables to omit from the backup
-                'format'      => 'gzip',        // gzip, zip, txt
-                'filename'    => $nombre_BD,    // File name - NEEDED ONLY WITH ZIP FILES
+                'format'      => 'zip',        // gzip, zip, txt
+                'filename'    => $nombre_BD+".sql",    // File name - NEEDED ONLY WITH ZIP FILES
                 'add_drop'    => TRUE,          // Whether to add DROP TABLE statements to backup file
                 'add_insert'  => TRUE,          // Whether to add INSERT data to backup file
                 'newline'     => "\n"           // Newline character used in backup file

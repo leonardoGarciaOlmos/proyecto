@@ -90,7 +90,13 @@ and c.id = ec.carrera_id and ec.usuario_ci = u.ci and u.ci = ".$ci." ");
 			$query = $this->db->query('SELECT horario_id FROM sistemas.view_horario where pensum = '.$pensum.' and materia_codigo="'.$value["mat"].'" and bloque='.$value["bloque"].' ');
 			$result = $query->result_array();
 			
-			$query = $this->db->query('INSERT INTO usuario_has_horario values('.$ci.', '.$result[0]["horario_id"].')');
+			$query = $this->db->query('SELECT horario_id FROM usuario_has_horario WHERE usuario_ci = "'.$ci.'" and horario_id = '.$result[0]["horario_id"].' ');
+			$result2 = $query->result_array();
+
+			if($result2[0]["horario_id"] == null){
+				$query = $this->db->query('INSERT INTO usuario_has_horario values('.$ci.', '.$result[0]["horario_id"].')');
+			}
+			
 		}
 	}
 
