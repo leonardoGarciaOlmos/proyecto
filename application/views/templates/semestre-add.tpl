@@ -14,7 +14,7 @@
 						<div class="span5">
 							<div class="widget-box pricing-box">
 								<div class="widget-header header-color-dark">
-									<h5 class="bigger lighter">Basic Package</h5>
+									<h5 class="bigger lighter">Instrucciones</h5>
 								</div>
 
 								<div class="widget-body">
@@ -22,27 +22,22 @@
 										<ul class="unstyled spaced2">
 											<li>
 												<i class="icon-ok green"></i>
-												10 GB Disk Space
+												Seleccionar Departamento y carrera
 											</li>
 
 											<li>
 												<i class="icon-ok green"></i>
-												200 GB Bandwidth
+												Seleccionar cuales semestre se abriran, si ya la carrera tiene semestres abiertos debe proceder a cerrarlos para abrir otros 
 											</li>
 
 											<li>
 												<i class="icon-ok green"></i>
-												100 Email Accounts
+												Seleccionar una fecha inicio y fecha fin, la fecha de inicio debe ser menor a la fecha fin
 											</li>
 
 											<li>
 												<i class="icon-ok green"></i>
-												10 MySQL Databases
-											</li>
-
-											<li>
-												<i class="icon-ok green"></i>
-												$10 Ad Credit
+												Verificar la información, en caso de ser la correcta presionar el boton enviar para guardar la data
 											</li>
 										</ul>
 									</div>
