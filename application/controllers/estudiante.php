@@ -418,7 +418,10 @@ public function notas($id_plan, $estudiante)
 
 			$crud->set_theme('twitter-bootstrap');
 		    $crud->set_language('spanish');
-			if(isset($profesor))
+		    if($this->session->userdata('DX_role_name') != "Administrador"){
+		    	$estudiante = $this->session->userdata('DX_user_id');
+		    }
+			if(isset($estudiante))
 			{
 				$crud->where('cedula', $estudiante);
 		      	$crud->set_table('view_plan_estudiante')
@@ -436,6 +439,8 @@ public function notas($id_plan, $estudiante)
 	      	$crud->unset_delete();
 	      	$crud->unset_edit();     	
 	      	$crud->unset_print();
+	      	$crud->unset_add();
+	      	$crud->unset_export();
 
 	     	$output = $crud->render();
 	     	//$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/pensum.js';

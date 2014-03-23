@@ -265,6 +265,10 @@ class Profesor_Controller extends CI_Controller{
 
 			$crud->set_theme('twitter-bootstrap');
 		    $crud->set_language('spanish');
+		    //$crud->set_table_title('Lista de Materias asignadas');
+		    if($this->session->userdata('DX_role_name') != "Administrador"){
+		    	$profesor = $this->session->userdata('DX_user_id');
+		    }
 			if(isset($profesor))
 			{
 				$crud->where('profesor', $profesor);
@@ -284,6 +288,9 @@ class Profesor_Controller extends CI_Controller{
 	      	$crud->unset_delete();
 	      	$crud->unset_edit();     	
 	      	$crud->unset_print();
+	      	$crud->unset_add();
+	      	$crud->unset_export();
+
 
 	     	$output = $crud->render();
 	     	//$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/pensum.js';
