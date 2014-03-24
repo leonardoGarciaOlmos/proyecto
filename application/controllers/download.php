@@ -44,18 +44,37 @@
 
 		}
 
-		public function test(){
+		public function reporte_notas(){
 	        //PASAMOS LA RUTA DONDE ESTA EL ESTILO
 	        $stylesheet = file_get_contents('assets/css/reports/template.css');
 	        // '/assets/css/reports/template.css'
 	        //cargamos el estilo CSS
 	        $this->mpdf->WriteHTML($stylesheet,1);
 	        //CARGAMOS LOS PARAMETROS
-	       // $data['content'] = "<h1>Renatto NL</h1>";
+	        setlocale(LC_TIME, 'spanish');
+	        $fecha = strftime("%A %d de %B del %Y");
+			
+	        $data['content'] = ' <p>Emision: '.$fecha.'</p><table>
+			  <tr>
+			    <td>Cedula:</td>
+			    <td>'.$this->session->userdata('DX_user_id').'</td>
+			  </tr>	        
+			  <tr>
+			    <td>Nombre:</td>
+			    <td>'.$this->session->userdata('DX_nombre').' '.$this->session->userdata('DX_apellido').'</td>
+			  </tr>
+			  <tr>
+			    <td>Carrera:</td>
+			    <td>Educacion</td>
+			  </tr>
+			</table>';
+			$data['content'] .= $this->input->post("html");
+
+
 	        //OBTENEMOS LA VISTA EN HTML
 	        $html = $this->load->view('reports/template.php', $data, true);
 	        //ESCRIBIMOS AL PDF	        
-	        $this->mpdf->WriteHTML($html,2);
+	        $this->mpdf->WriteHTML($html,0);
 	        //SALIDA DE NUESTRO PDF
 
 	        // echo $html;
