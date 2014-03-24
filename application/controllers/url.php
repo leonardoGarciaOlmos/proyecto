@@ -2,6 +2,12 @@
 	class Url_Controller extends CI_Controller{
 		private $systemId;
 
+
+	function __construct(){ 
+		parent::__construct(); 
+		$this->dx_auth->need_login();
+	}
+
 		public function index($systemId = '')
 		{
 			$this->all($systemId);

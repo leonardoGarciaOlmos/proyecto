@@ -2,12 +2,11 @@
 class Respaldos_Controller extends CI_Controller
 {
 
-
-
 	function __construct()
 	{ 
 		parent::__construct();
 		$this->load->dbutil(); 
+		$this->dx_auth->need_login();
 		//$this->dx_auth->check_uri_permissions();
 	}
 	public function index($value='')

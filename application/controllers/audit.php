@@ -4,11 +4,13 @@
 		{
 			// Llamando al contructor del Modelo
 			parent::__construct();
+			$this->dx_auth->need_login();
 		}
 
 		public function index($value='')
 		{
 			$this->all($value);
+
 
 		}
 

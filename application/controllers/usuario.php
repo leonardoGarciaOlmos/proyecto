@@ -6,6 +6,7 @@ class Usuario_Controller extends CI_Controller{
 		parent::__construct();
 		//$this->load->model('auditor');
 		//$this->dx_auth->check_uri_permissions();
+		$this->dx_auth->need_login();
 	} 
 
 		public function index( $value = '' )

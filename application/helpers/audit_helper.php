@@ -5,6 +5,7 @@
 	 * @param  string $operation
 	 * @return [type]
 	 */
+	// agregar,editar,consultar,eliminar ENUM
 	function reg_audit($operation="", $description="desconocida")
 	{
 		$CI =& get_instance();

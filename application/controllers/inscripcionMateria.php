@@ -5,6 +5,7 @@
 			// Llamando al contructor del Modelo
 			parent::__construct();
 			$this->load->model('insc_mat','perfil');
+			$this->dx_auth->need_login();
 			//$this->dx_auth->check_uri_permissions();
 		}
 

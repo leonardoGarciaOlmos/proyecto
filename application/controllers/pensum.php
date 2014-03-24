@@ -1,10 +1,9 @@
 <?php
 class Pensum_Controller extends CI_Controller
 {
-	function __construct()
-	{
-		// constructor
-		parent::__construct();
+	function __construct(){ 
+		parent::__construct(); 
+		$this->dx_auth->need_login();
 	}
 
 	public function index()

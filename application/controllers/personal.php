@@ -4,6 +4,7 @@ class Personal_Controller extends CI_Controller{
 	function __construct()
 	{
 		parent::__construct();
+		$this->dx_auth->need_login();
 		//$this->load->model('auditor');
 		//$this->dx_auth->check_uri_permissions();
 	} 

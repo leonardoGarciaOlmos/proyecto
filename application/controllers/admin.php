@@ -9,7 +9,7 @@ class admin extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		
+		$this->dx_auth->need_login();
 		$this->load->library('Table');
 		$this->load->library('Pagination');
 		$this->load->library('DX_Auth');

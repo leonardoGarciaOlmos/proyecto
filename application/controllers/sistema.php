@@ -4,6 +4,7 @@
 		function __construct()
 		{
 			parent::__construct();
+			$this->dx_auth->need_login();
 			$this->dx_auth->check_uri_permissions();
 		} 
 

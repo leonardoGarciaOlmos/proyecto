@@ -1,6 +1,12 @@
 <?php
 class Requisitos_controller extends CI_Controller
 {
+
+	function __construct(){ 
+		parent::__construct(); 
+		$this->dx_auth->need_login();
+	}
+	
 	public function index ($value='')
 	{
 		redirect('requisitos/all');

@@ -4,6 +4,7 @@
 		{
 			// Llamando al contructor del Modelo
 			parent::__construct();
+			$this->dx_auth->need_login();
 			$this->load->model('docente','prof');
 		}
 

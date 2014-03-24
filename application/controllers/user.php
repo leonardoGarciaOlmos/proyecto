@@ -5,6 +5,11 @@
 									  "El usuario se ha registrado correctamente.");
 
 
+	function __construct(){ 
+		parent::__construct(); 
+		$this->dx_auth->need_login();
+	}
+
 		public function index( $value = '' )
 		{
 			$this->all($value);

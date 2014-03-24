@@ -3,6 +3,12 @@
 
 		private $systemId;
 
+
+		function __construct(){ 
+			parent::__construct(); 
+			$this->dx_auth->need_login();
+		}
+
 		public function index($systemId = 4)
 		{
 			/*$this->load->model('role');

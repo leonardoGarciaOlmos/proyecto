@@ -822,6 +822,12 @@ class DX_Auth
 		return $result;
 	}
 
+	function need_login(){
+		if(!$this->is_logged_in()){
+			redirect('/');
+		}
+	}
+
 	// Check if user is logged in
 	function is_logged_in()
 	{

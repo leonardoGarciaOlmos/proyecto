@@ -1,10 +1,10 @@
 <?php
 class Estudiante_Controller extends CI_Controller{
 
-	function __construct()
-	{
-		parent::__construct();
-	} 
+	function __construct(){ 
+		parent::__construct(); 
+	}
+
 
 	public function index( $value = '' )
 	{
@@ -267,6 +267,7 @@ public function findByCI()
 
 public function notaTotales($estudiante)
 {
+	$this->dx_auth->need_login();
 	$this->load->model('Estudiante');
 	$this->load->model('Pensum');
 
@@ -322,6 +323,7 @@ public function notaTotales($estudiante)
 
 public function notas($id_plan, $estudiante)
 {
+	$this->dx_auth->need_login();
 	$this->load->model('docente');
 	$this->load->model('Carrera');
 	$this->load->model('Materia');
