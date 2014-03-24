@@ -479,14 +479,11 @@ class DX_Auth
 			'DX_nivel_instruccion'				=> $data->nivel_instruccion,
 			'DX_expediente'						=> $data->expediente,
 			'DX_observacion'					=> $data->observacion,
-			'DX_tipo_sangre'					=> $data->tipo_sangre	
+			'DX_tipo_sangre'					=> $data->tipo_sangre
 		);
-//var_dump($user);
 
 
 		$this->ci->session->set_userdata($user);
-//var_dump($this->ci->session->all_userdata());
-	//	die('q putas pasa!!');
 	}
 
 	function _auto_cookie($data)
@@ -1357,6 +1354,7 @@ class DX_Auth
 
 	function change_password($old_pass, $new_pass)
 	{
+	
 		// Load Models
 		$this->ci->load->model('dx_auth/users', 'users');
 		
@@ -1368,13 +1366,13 @@ class DX_Auth
 		{
 			// Get current logged in user
 			$row = $query->row();
-
 			$pass = $this->_encode($old_pass);
 
+
 			// Check if old password correct
-			if (crypt($pass, $row->password) === $row->password)
+			if (crypt($pass, $row->clave) === $row->clave)
 			{
-				// Crypt and encode new password
+				// Crypt and encode new clave
 				$new_pass = crypt($this->_encode($new_pass));
 				
 				// Replace old password with new password

@@ -138,10 +138,11 @@ class DUser extends CI_Model
 
 	public function findByCI( $ci )
 	{
-		$campos = 'ci,nombre,apellido,congregacion,correo,direccion,est_civil,estatus, etnia, laico, nacionalidad, nivel_instruccion, pensum_id, religioso, sexo, tipo, tipo_sangre, DATE_FORMAT(fecha_nac, "%d-%m-%Y") as fecha_nac, nacionalidad, carrera_id as carrera';
+		$campos = 'ci,u.nombre,apellido,congregacion,correo,direccion,est_civil,estatus, etnia, laico, nacionalidad, nivel_instruccion, pensum_id, religioso, sexo, tipo, tipo_sangre, DATE_FORMAT(fecha_nac, "%d-%m-%Y") as fecha_nac, nacionalidad,departamento_id as Dpto, carrera_id as carrera';
 		$this->db->select( $campos, false );
 		$this->db->from('usuario u');
 		$this->db->join('estudiante_has_carrera e', 'u.ci = e.usuario_ci', 'left');
+		$this->db->join('carrera c', 'e.carrera_id = c.id', 'inner');
 		$this->db->where('estatus', 'PREINSCRITO');
 		$this->db->like('ci', $ci);
 		$result = $this->db->get();

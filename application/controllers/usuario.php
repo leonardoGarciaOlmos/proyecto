@@ -31,12 +31,9 @@ class Usuario_Controller extends CI_Controller{
 			$crud->unset_delete();
 			$crud->unset_print();
 			$crud->unset_columns('direccion','est_civil','fecha_nac','observacion','nivel_instruccion','clave','laico','religioso','congregacion','nacionalidad','confirmacion_de_clave','etnia','newpass','newpass_key','last_ip','created','modified','pensum_id','newpass_time','last_login','semestre','carrera');
-
 	/**
 	//Agregar
 	**/
-
-
 			$crud->unset_fields('direccion','expediente','estatus','tipo','observacion','confirmacion_de_clave','clave');
 			$crud->callback_insert(array($this,'encrypt_password_and_insert_admin_callback'));
 
@@ -63,9 +60,9 @@ class Usuario_Controller extends CI_Controller{
 	**/
 
 			if($operation == 'add'){
-					$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion');
+				$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion');
 			}elseif($operation == 'edit'){
-						$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','laico','religioso','congregacion');
+				$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','laico','religioso','congregacion');
 			}
 
 			if($operation == 'insert_validation'){
@@ -88,6 +85,8 @@ class Usuario_Controller extends CI_Controller{
 	**/
 
 			$output = $crud->render();
+			$output->js_files['hdghjddtsdjdtjd'] = base_url().'assets/js/usuario/dateformat.js';
+			$output->js_files['hdghjddtsdjdtjd'] = base_url().'assets/js/usuario/profile.js';
 			$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/chosen-icon.js';
 			$output->js_files['hdghjddtjdtjl'] = base_url().'assets/js/icon-array.js';
 			$output->js_files['hdghjddtjdtjy'] = base_url().'assets/js/system-icons.js';
@@ -130,9 +129,7 @@ public function check_fecha($date)
 		try{
 			$this->load->library('grocery_crud');
 			$crud = new grocery_CRUD();
-			$crud->set_theme('twitter-bootstrap');
-		//	$crud->set_theme('flexigrid');
-			
+			$crud->set_theme('twitter-bootstrap');			
 			$crud->set_language('spanish');
 			$crud->set_table('usuario');
 			$crud->set_subject('usuario');
@@ -174,7 +171,6 @@ public function check_fecha($date)
 			$crud->fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion',
 				'correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion','nacionalidad','DPTO','carrera','requisitos','pensum_id');
  			$crud->unset_texteditor('observacion','full_text');
-
  			$crud->display_as('ci','Cedula de identidad')
  			->display_as('fecha_nac','Fecha de Nacimiento')
  			->display_as('est_civil','Estado Civil')
@@ -184,7 +180,6 @@ public function check_fecha($date)
  			->display_as('DPTO','Departamento')
  			->display_as('requisitos','Requisitos')
  			->display_as('carrera','Carrera');
- 		//	->display_as('confirmacion_de_clave','Confirmación de Clave')
 
  			$crud->callback_field('DPTO',array($this,'add_field_callback_DPTO'));
 			$crud->callback_field('carrera',array($this,'add_field_callback_carrera'));
@@ -196,7 +191,7 @@ public function check_fecha($date)
 	//Validaciones
 	**/
 			if($operation == 'add'){
-					$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave','carrera');
+					$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','carrera');
 			}elseif($operation == 'edit'){
 						$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil',
 							'tipo_sangre','nivel_instruccion','correo','etnia','laico','religioso','congregacion','carrera');
@@ -230,6 +225,7 @@ public function check_fecha($date)
 	**/
 
 			$output = $crud->render();
+			$output->js_files['hdghjddtsdjdtjd'] = base_url().'assets/js/usuario/dateformat.js';
 			$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/Usuario/usuarioAdmin.js';
 
 		}catch(Exception $e){
@@ -256,8 +252,20 @@ public function check_fecha($date)
 
 	public function profile($value='')
 	{
-		$js_files['dfsdf'] = base_url().'assets/js/base_dato.js';
-		$this->smarty->assign('process', 'restore');
+		$this->load->model('estudiante');
+		$carrera = $this->estudiante->get_estudiante_carrera($this->dx_auth->userData('user_id'))[0];
+		$semestre = $this->estudiante->get_estudiante_semestre($this->dx_auth->userData('user_id'))[0]['semestre'];
+
+		$output->js_files['jdjdjdjdd']= base_url().'assets/js/bootbox.min.js';
+		$js_files['dfsdf'] = base_url().'assets/js/usuario/profile.js';
+		$data['ci'] = $this->dx_auth->userData('user_id');
+		$data['nombre'] = $this->dx_auth->userData('nombre')." ".$this->dx_auth->userData('nombre');
+		$data['correo'] = $this->dx_auth->userData('email');
+		$data['carrera'] = $carrera['nombre'];
+		$data['edad'] = $this->CalculaEdad($this->dx_auth->userData('fecha_nac'));
+		$data['semestre'] = $semestre;
+		$data['direccion'] = $this->dx_auth->userData('direccion');
+		$this->smarty->assign('usuario', $data);
 		$output = $this->smarty->fetch('usuario/profile.tpl');
 
 	    $this->smarty->assign('output', $output);
@@ -266,7 +274,10 @@ public function check_fecha($date)
 	    $this->smarty->display('index.tpl');
 	}
 
-
+	public function CalculaEdad( $fecha ) {
+		list($Y,$m,$d) = explode("-",$fecha);
+		return( date("md") < $m.$d ? date("Y")-$Y-1 : date("Y")-$Y );
+	}
 
 	public function encrypt_password_and_insert_admin_callback($post_array) {
 		$post_array = $this->requisitos_callback($post_array);
@@ -283,25 +294,13 @@ public function check_fecha($date)
 		$post_array = $this->requisitos_callback($post_array);
 		unset($post_array['confirmacion_de_clave']);
 		unset($post_array['requisitos'],$post_array['Dpto']);
-		$post_array['clave'] =  $this->dx_auth->_encode($post_array['clave']);
 		$post_array['semestre'] = 1;
 		$post_array['tipo'] = 'ESTUDIANTE';
-		$post_array['estatus'] = 'INSCRITO';
+		$post_array['estatus'] = 'ACTIVO';
+
+
 		return $this->save($post_array);
 	}
-
-/*	public function encrypt_password_and_update_callback($post_array) {
-		$this->load->library('encrypt');
-		die('muertoooo');
-		$post_array = $this->requisitos_callback($post_array);
-		$key = 'super-secret-key';
-		unset($post_array['confirmacion_de_clave']);
-		unset($post_array['requisitos'],$post_array['Dpto']);
-		$post_array['clave'] = $this->encrypt->encode($post_array['clave'], $key);
-		$post_array['semestre'] = 1;
-
-		return $this->save($post_array);
-	}*/
 
 
 	private function save( $data )
@@ -309,6 +308,9 @@ public function check_fecha($date)
 		$data['fecha_nac'] = date("Y-m-d", strtotime($data['fecha_nac']));
 		$this->load->model('user','user');
 		$this->user->load( array('ci' => $data['ci']));
+		if( trim($data['clave']) != ""){
+			$data['clave'] =  $this->dx_auth->_encode($post_array['clave']);
+		}
 		$this->user->set( $data );
 		$this->user->save();
 	}

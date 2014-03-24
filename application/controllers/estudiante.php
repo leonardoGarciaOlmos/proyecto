@@ -58,15 +58,15 @@ class Estudiante_Controller extends CI_Controller{
 	//Editar
 	**/
 			$crud->unset_edit_fields('direccion','expediente','estatus','tipo','observacion');
-		//	$crud->field_type('clave', 'password');
-		//	$crud->field_type('confirmacion_de_clave', 'password');
+			$crud->field_type('clave', 'password');
+			$crud->field_type('confirmacion_de_clave', 'password');
 			$crud->field_type('pensum_id', 'invisible');
 		
 	/**
 	//General
 	**/
 			$crud->fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion',
-				'correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion','DPTO','nacionalidad','carrera','pensum_id');
+				'correo','etnia','clave','confirmacion_de_clave','laico','religioso','congregacion','nacionalidad','DPTO','carrera','pensum_id');
  			$crud->unset_texteditor('observacion','full_text');
 
  			$crud->display_as('ci','Cedula de identidad')
@@ -82,7 +82,7 @@ class Estudiante_Controller extends CI_Controller{
 
  			$crud->callback_field('DPTO',array($this,'add_field_callback_DPTO'));
 			$crud->callback_field('carrera',array($this,'add_field_callback_carrera'));
-		//	$crud->callback_field('requisitos',array($this,'add_field_callback_requisitos'));
+			$crud->callback_field('requisitos',array($this,'add_field_callback_requisitos'));
 
 
 
@@ -90,12 +90,10 @@ class Estudiante_Controller extends CI_Controller{
 	//Validaciones
 	**/
 			if($operation == 'add'){
-					$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave');
-					//,'laico','religioso','congregacion'
-					$crud->unset_back_to_list();
-					
+				$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','clave','confirmacion_de_clave');
+				$crud->unset_back_to_list();
 			}elseif($operation == 'edit'){
-						$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','laico','religioso','congregacion');
+				$crud->required_fields('ci','nombre','apellido','direccion','fecha_nac','sexo','est_civil','tipo_sangre','nivel_instruccion','correo','etnia','laico','religioso','congregacion');
 			}
 
 
@@ -119,6 +117,7 @@ class Estudiante_Controller extends CI_Controller{
 	**/
 
 			$output = $crud->render();
+			$output->js_files['hdghjddtsdjdtjd'] = base_url().'assets/js/usuario/dateformat.js';
 			$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/Usuario/usuario.js';
 
 		}catch(Exception $e){

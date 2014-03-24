@@ -192,6 +192,7 @@ class Profesor_Controller extends CI_Controller{
 	**/
 
 			$output = $crud->render();
+			$output->js_files['hdghjddtsdjdtjd'] = base_url().'assets/js/usuario/dateformat.js';
 			$output->js_files['hdghjddtjdtjd'] = base_url().'assets/js/chosen-icon.js';
 			$output->js_files['hdghjddtjdtjl'] = base_url().'assets/js/icon-array.js';
 			$output->js_files['hdghjddtjdtjy'] = base_url().'assets/js/system-icons.js';
@@ -240,6 +241,7 @@ class Profesor_Controller extends CI_Controller{
 
 	private function save( $data )
 	{
+
 		$this->load->model('user','user');
 		$data['fecha_nac'] = date("Y-m-d", strtotime($data['fecha_nac']));
 		$this->user->load( array('ci' => $data['ci']));
