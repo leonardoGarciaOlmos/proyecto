@@ -168,9 +168,9 @@ class Auth_Controller extends CI_Controller
 	function logout()
 	{
 		$this->dx_auth->logout();
-		
-		$data['auth_message'] = 'Gracias por visitarnos, Feliz Día.';		
-		$this->load->view($this->dx_auth->logout_view, $data);
+		Redirect('/');
+		// $data['auth_message'] = 'Gracias por visitarnos, Feliz Día.';		
+		// $this->load->view($this->dx_auth->logout_view, $data);
 	}
 	
 	
@@ -305,7 +305,7 @@ class Auth_Controller extends CI_Controller
 	{
 		// Check if user logged in or not
 		if ($this->dx_auth->is_logged_in())
-		{			
+		{
 			$val = $this->form_validation;
 			
 			// Set form validation
@@ -313,18 +313,17 @@ class Auth_Controller extends CI_Controller
 			$val->set_rules('new_password', 'New Password', 'trim|required|xss_clean|min_length['.$this->min_password.']|max_length['.$this->max_password.']|matches[confirm_new_password]');
 			$val->set_rules('confirm_new_password', 'Confirm new Password', 'trim|required|xss_clean');
 			
+
 			// Validate rules and change password
 			if ($val->run() AND $this->dx_auth->change_password($val->set_value('old_password'), $val->set_value('new_password')))
 			{
-				$data['auth_message'] = 'Your password has successfully been changed.';
-				$this->load->view($this->dx_auth->change_password_success_view, $data);
+				$data['auth_message'] = 'Tu clave ha sido cambiada exitosamente.';
 			}
 			else
 			{
-				$datos_plantilla['contenido'] = $this->dx_auth->change_password_view;
-				$this->load->view('plantilla',$datos_plantilla);
-				//$this->load->view();
+				$data['auth_message'] = "Ha ocurrido un error al cambiar la clave, verificar data por favor";
 			}
+			echo json_encode($data);
 		}
 		else
 		{

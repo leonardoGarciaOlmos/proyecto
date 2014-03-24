@@ -1,4 +1,4 @@
-$(document).on('ready',function(){      
+$(document).on('ready',function(){
 
   $('#field-Dpto').on('change',function( ){
     var Dpto_id = $(this).val();

@@ -40,7 +40,7 @@
 			<div class="container-fluid">
 				<a href="#" class="brand logo nav-logo">
 					<small>
-						<img class="img" src="{$assetPath}images/Logo.png" style="height: 42px;width: 50px;"  alt="Infoguia.com En un click lo encuentras todo!" title="Infoguia.com"/><small>Instituto Universitario Padre Ojeda</small>
+						<img class="img" src="{$assetPath}images/Logo.png" style="height: 42px;width: 50px; margin-right: 50px;"  alt="Infoguia.com En un click lo encuentras todo!" title="Infoguia.com"/><small>Instituto Universitario Padre Ojeda</small>
 					</small>
 				</a>
 				<ul class="nav ace-nav pull-right">

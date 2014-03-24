@@ -96,7 +96,7 @@ class Personal_Controller extends CI_Controller{
 			$output->js_files['hdghjddtjdtjl'] = base_url().'assets/js/icon-array.js';
 			$output->js_files['hdghjddtjdtjy'] = base_url().'assets/js/system-icons.js';
 			$output->css_files['hdghjddtjdtjy'] = base_url().'assets/chosen/chosen.css';
-
+			$output->js_files['hdghjddtsdjdtjd'] = base_url().'assets/js/usuario/dateformat.js';
 
 		}catch(Exception $e){
 
