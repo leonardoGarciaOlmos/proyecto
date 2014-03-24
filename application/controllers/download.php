@@ -90,9 +90,9 @@
 	        //CARGAMOS LOS PARAMETROS
 	        $data['content'] = $this->input->post("html");
 	        //OBTENEMOS LA VISTA EN HTML
-	        $html = $this->load->view('reports/template.php', $data, true);
+	        $html = $this->load->view('reports/constancia.php', $data, true);
 	        //ESCRIBIMOS AL PDF	        
-	        $this->mpdf->WriteHTML($html,2);
+	        $this->mpdf->WriteHTML($html,0);
 	        //SALIDA DE NUESTRO PDF
 
 	        // echo $html;
@@ -109,6 +109,47 @@
 	        $this->mpdf->WriteHTML($html,3);
 	        $this->mpdf->Output();
 		}
+
+	public function constancia($value='')
+	{
+		$this->load->model('estudiante');
+		$carrera = $this->estudiante->get_estudiante_carrera($this->dx_auth->userData('user_id'))[0];
+		$semestre = $this->estudiante->get_estudiante_semestre($this->dx_auth->userData('user_id'))[0]['semestre'];
+
+		 setlocale(LC_ALL,"es_ES");
+		 setlocale(LC_TIME, 'spanish');
+		 $fecha = strftime("%A %d de %B del %Y");
+
+		$output->js_files['jdjdjdjdd']= base_url().'assets/js/bootbox.min.js';
+		$js_files['dfsdf'] = base_url().'assets/js/usuario/profile.js';
+		$data['ci'] = $this->dx_auth->userData('user_id');
+		$data['nombre'] = $this->dx_auth->userData('nombre')." ".$this->dx_auth->userData('apellido');
+		$data['correo'] = $this->dx_auth->userData('email');
+		$data['carrera'] = $carrera['nombre'];
+		$data['fecha'] = $fecha;
+		$data['semestre'] = $semestre;
+		$data['direccion'] = $this->dx_auth->userData('direccion');
+		$this->smarty->assign('usuario', $data);
+
+		        //PASAMOS LA RUTA DONDE ESTA EL ESTILO
+		        $stylesheet = file_get_contents('assets/css/reports/template.css');
+		        // '/assets/css/reports/template.css'
+		        //cargamos el estilo CSS
+		        $this->mpdf->WriteHTML($stylesheet,1);
+		        //CARGAMOS LOS PARAMETROS
+		       // $data['content'] = "<h1>Renatto NL</h1>";
+		        //OBTENEMOS LA VISTA EN HTML
+		        $html = $this->load->view('reports/constancia.php', $data, true);
+		        //ESCRIBIMOS AL PDF	        
+		        $this->mpdf->WriteHTML($html,0);
+		        //SALIDA DE NUESTRO PDF
+
+		        // echo $html;
+		        $this->mpdf->Output();
+
+
+
+	}
 
 }
 ?>
