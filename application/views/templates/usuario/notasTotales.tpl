@@ -3,7 +3,7 @@
 		<h4 class="lighter">Notas Totales</h4>
 
 		<div class="widget-toolbar no-border">
-			<button class="btn btn-mini btn-primary">
+			<button id = "print" class="btn btn-mini btn-primary">
 				<i class="icon-print"></i>
 				Imprimir
 			</button>
@@ -129,3 +129,14 @@
 		</div>
 	</div>
 </div>
+<form method="post" style="display:none">
+    <input id="html" name="html" type="text" value=""/>
+</form>
+<script type="text/javascript">
+	$("#print").click(function(event) {
+		$("form").attr('action', base_url+'download/reporte_notas');
+        $("#html").val($(".timeline-items").html());
+        $("form").submit();
+	});
+
+</script>>

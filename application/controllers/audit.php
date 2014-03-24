@@ -16,9 +16,8 @@
 
 		function all()
 		{
-		    $output->js_files['hgjfjfjfyjgfyl'] = base_url().'assets/js/jquery.dataTables.bootstrap.js';
+		    //$output->js_files['hgjfjfjfyjgfyl'] = base_url().'assets/js/jquery.dataTables.bootstrap.js';
 		    $output->js_files['hgfjfjfjfyjgfyl'] = base_url().'assets/js/jquery.dataTables.min.js';
-		    $output->js_files['hgfjfdsfjfjfyjgfyl'] = base_url().'assets/js/ace.min.js';
 		    $output->js_files['hgfjfjfjfyjgfsyl'] = base_url().'assets/js/audit.js';
 
 		    $output->css_files['hgjfjfjfyjdsfyl'] = base_url().'assets/css/jquery.dataTables.css';
