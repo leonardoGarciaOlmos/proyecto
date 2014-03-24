@@ -13,33 +13,27 @@
 		    $crud->set_theme('twitter-bootstrap');
 		    $crud->set_language('spanish');
 			$info = $crud->getStateInfo();
-		    $crud->set_table('carrera')
-		        ->set_subject('Carrera');
+		    $crud->set_table('carrera')->set_subject('Carrera');
 		    $crud->fields('nombre','descripcion','departamento_id');
 		  	$crud->required_fields('nombre','departamento_id');
 		  	$operacion = $crud->getState();
 
-		  if ($operacion == 'ajax_list_info' || $operacion == 'ajax_list') {
-			$crud->set_relation('departamento_id','departamento m','{id} ({nombre})');
-		  }else {
-			$crud->set_relation('departamento_id','departamento','{id} ({nombre})');
-		  }
-
-
+			if ($operacion == 'ajax_list_info' || $operacion == 'ajax_list' || $operacion == 'all') {
+				$crud->set_relation('departamento_id','departamento m','{id} ({nombre})');
+			}else{
+				$crud->set_relation('departamento_id','departamento','{id} ({nombre})');
+			}
 
 			if($operacion == 'insert_validation'){
-					    $crud->set_rules('nombre', 'Nombre de la carrera', 'trim|required|is_unique[carrera.nombre]');
-						$crud->set_rules('departamento_id', 'Departamento','trim|required');
-					}
+			    $crud->set_rules('nombre', 'Nombre de la carrera', 'trim|required|is_unique[carrera.nombre]');
+				$crud->set_rules('departamento_id', 'Departamento','trim|required');
+			}
 			if($operacion == 'update_validation'){
-					    $crud->set_rules('nombre', 'Nombre de la carrera','trim|required|is_unique[carrera.nombre.id.'.$info->primary_key.']');
-						$crud->set_rules('departamento_id', 'Departamento');
-					}
+			    $crud->set_rules('nombre', 'Nombre de la carrera','trim|required|is_unique[carrera.nombre.id.'.$info->primary_key.']');
+				$crud->set_rules('departamento_id', 'Departamento');
+			}
 			$crud->display_as('departamento_id','Departamento');
-
-
-			$output = $crud->render();		 
-		    
+			$output = $crud->render();		    
 		    $this->smarty->assign('output',$output->output);
 		    $this->smarty->assign('css_files',$output->css_files);
 		    $this->smarty->assign('js_files',$output->js_files);

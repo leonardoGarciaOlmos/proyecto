@@ -44,8 +44,12 @@ $(document).on('ready',function(){
 function renderData ( data ) {
   $.each(data, function(index, val) {
      $('#field-'+index).val(val);
+     if(index=="Dpto"){
+        $('#field-Dpto').trigger('change');
+     }
   });
   $('.chosen-select').trigger("chosen:updated");
+
   $.each(data.requisitos, function(index, val) {
      $('#field-requisitos-'+val).prop('checked','checked');
   });

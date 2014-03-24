@@ -9,9 +9,39 @@
 
 		public function index($value='')
 		{
-			$this->all($value);
+			$this->profile($value);
 
 		}
+
+		public function profile($value='')
+		{
+			$this->load->model('estudiante');
+			$carrera = $this->estudiante->get_estudiante_carrera($this->dx_auth->userData('user_id'))[0];
+			$semestre = $this->estudiante->get_estudiante_semestre($this->dx_auth->userData('user_id'))[0]['semestre'];
+
+			$output->js_files['jdjdjdjdd']= base_url().'assets/js/bootbox.min.js';
+			$js_files['dfsdf'] = base_url().'assets/js/usuario/profile.js';
+			$data['ci'] = $this->dx_auth->userData('user_id');
+			$data['nombre'] = $this->dx_auth->userData('nombre')." ".$this->dx_auth->userData('nombre');
+			$data['correo'] = $this->dx_auth->userData('email');
+			$data['carrera'] = $carrera['nombre'];
+			$data['edad'] = $this->CalculaEdad($this->dx_auth->userData('fecha_nac'));
+			$data['semestre'] = $semestre;
+			$data['direccion'] = $this->dx_auth->userData('direccion');
+			$this->smarty->assign('usuario', $data);
+			$output = $this->smarty->fetch('usuario/profile.tpl');
+
+		    $this->smarty->assign('output', $output);
+		    $this->smarty->assign('css_files','');
+		    $this->smarty->assign('js_files',$js_files);
+		    $this->smarty->display('index.tpl');
+		}
+
+	public function CalculaEdad( $fecha ) {
+		list($Y,$m,$d) = explode("-",$fecha);
+		return( date("md") < $m.$d ? date("Y")-$Y-1 : date("Y")-$Y );
+	}
+
 
 		function all($ci)
 		{
