@@ -41,7 +41,7 @@
 									<div class="span3 center">
 										<div>
 											<span class="profile-picture">
-												<img id="avatar" class="editable editable-click editable-empty" alt="Alex's Avatar" src="http://localhost/proyecto/assets/avatars/profile-pic.jpg"></img>
+												<img id="avatar" class="editable editable-click editable-empty" alt="Alex's Avatar" src="http://192.168.0.103/proyecto/assets/avatars/profile-pic.jpg"></img>
 											</span>
 
 											<div class="space-4"></div>

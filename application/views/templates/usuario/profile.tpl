@@ -47,7 +47,7 @@
 												<div class="row-fluid">
 													<div class="span3 center">
 														<span class="profile-picture">
-															<img class="editable" alt="Alex's Avatar" id="avatar2" src="http://localhost/proyecto/assets/avatars/profile-pic.jpg" />
+															<img class="editable" alt="Alex's Avatar" id="avatar2" src="http://192.168.0.103/proyecto/assets/avatars/profile-pic.jpg" />
 														</span>
 
 														<div class="space space-4"></div>

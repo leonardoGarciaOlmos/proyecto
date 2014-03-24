@@ -80,7 +80,7 @@
 
 												<div class="space-6"></div>
 
-												<form  action="http://localhost/proyecto/auth" method="post" accept-charset="utf-8" class="form-signin" id="form-signin">	<h2 class="form-signin-heading" >
+												<form  action="http://192.168.0.103/proyecto/auth" method="post" accept-charset="utf-8" class="form-signin" id="form-signin">	<h2 class="form-signin-heading" >
 													<fieldset>
 														<label>
 															<span class="block input-icon input-icon-right">
@@ -177,7 +177,7 @@
 													Ingresa tu correo para recibir las instrucciones
 												</p>
 
-												<form  id="olvidoClave"  accept-charset="utf-8" action="http://localhost/proyecto/auth" method="post">
+												<form  id="olvidoClave"  accept-charset="utf-8" action="http://192.168.0.103/proyecto/auth" method="post">
 													<fieldset>
 														<label>
 															<span class="block input-icon input-icon-right">

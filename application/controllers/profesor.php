@@ -241,7 +241,7 @@ class Profesor_Controller extends CI_Controller{
 	{
 
 		$this->load->model('user','user');
-		$data['fecha_nac'] = date("Y-m-d", strtotime($data['fecha_nac']));
+		$data['fecha_nac'] = DateTime::createFromFormat('d/m/Y', $data["fecha_nac"])->format('Y-m-d');;
 		$this->user->load( array('ci' => $data['ci']));
 		$this->user->set( $data );
 		$this->user->save();

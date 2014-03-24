@@ -62,8 +62,8 @@ function renderData ( data ) {
 $('#field-ci').parent().append(button);
 
 
-$('#crudForm').attr('action','http://localhost/proyecto/usuario/preInscripcionadmin/insert');
+$('#crudForm').attr('action','http://192.168.0.103/proyecto/usuario/preInscripcionadmin/insert');
 
 
-validation_url  = "http://localhost/proyecto/usuario/preInscripcionadmin/update_validation";
+validation_url  = "http://192.168.0.103/proyecto/usuario/preInscripcionadmin/update_validation";
 });
