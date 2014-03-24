@@ -15,7 +15,7 @@
 	
 
 	function get_audit(){
-		$query = $this->db->query("SELECT * FROM audit a, usuario u WHERE a.id_user=u.ci");
+		$query = $this->db->query("SELECT a.id_user, u.nombre, u.apellido, a.description, DATE_FORMAT(a.date,'%d-%m-%Y %h:%m') as date, a.operation, a.client_ip FROM audit a, usuario u WHERE a.id_user=u.ci");
 		return $query->result_array();
 
 	}

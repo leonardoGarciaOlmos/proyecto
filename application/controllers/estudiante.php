@@ -266,11 +266,11 @@ public function findByCI()
 }
 
 
-public function notaTotales($estudiante)
+public function notaTotales($estudiante = null)
 {
 	$this->load->model('Estudiante');
 	$this->load->model('Pensum');
-
+	$estudiante = $this->session->userdata("DX_user_id");
 	// Inicializar parametros
 	$materiaApro = 0;
 	$materiaRepr = 0;
@@ -426,13 +426,13 @@ public function notas($id_plan, $estudiante)
 				$crud->where('cedula', $estudiante);
 		      	$crud->set_table('view_plan_estudiante')
 		      		 ->set_primary_key('id', 'view_plan_estudiante')
-		      		 ->columns('id', 'estudiante','carrera', 'materia', 'evaluaciones', 'accion')
+		      		 ->columns('id','estudiante','carrera', 'materia', 'evaluaciones', 'accion')
 		      		 ->callback_column('accion', array($this,'_callback_accion'));
 			}else
 			{
 				$crud->set_table('view_plan_estudiante')
 		      		 ->set_primary_key('id', 'view_plan_estudiante')
-		      		 ->columns('id', 'carrera', 'materia', 'evaluaciones', 'accion')
+		      		 ->columns('id', 'estudiante','carrera', 'materia', 'evaluaciones', 'accion')
 		      		 ->callback_column('accion', array($this,'_callback_accion'));
 			}
 
@@ -469,7 +469,7 @@ public function notas($id_plan, $estudiante)
 					</button>
 					<ul class="dropdown-menu">
 						<li>
-							<a id="view" href="'.base_url().'estudiante/notas/'.$row->id.'/19274679" value="'.$row->id.'">
+							<a id="view" href="'.base_url().'estudiante/notas/'.$row->id.'/'.$row->cedula.'" value="'.$row->id.'">
 								<i class="icon-search"></i> Ver Plan									
 							</a>
 						</li>
@@ -477,7 +477,22 @@ public function notas($id_plan, $estudiante)
 				</div>';
 	}
 
+	public function list_estudiantes(){
+	  	$output->js_files['hgjfjffyl'] = base_url().'assets/js/jquery.dataTables.columnFilter.js';
+	    $output->js_files['jfyjgfyl'] = base_url().'assets/js/jquery.dataTables.min.js';
+	    $output->js_files['jfydsjgfyl'] = base_url().'assets/js/estudiante.js';
+	    $output->css_files['hgjfjfjfyjdsdsadfyl'] = base_url().'assets/css/jquery.dataTables.css';
 
+	    $this->load->model('estudiante','est');
+	   	$data = $this->est->get_estudiante_carrera_report();
 
+		$this->smarty->assign('data',$data);
+	    $this->smarty->assign('base_url',$this->config->item("base_url"));
+	    $vista = $this->smarty->fetch('estudiante-carrera.tpl');
+	    $this->smarty->assign('output',$vista);
+	    $this->smarty->assign('css_files',$output->css_files);
+	    $this->smarty->assign('js_files',$output->js_files);
+	    $this->smarty->display('index.tpl');
+	}
 
 }

@@ -55,5 +55,10 @@ class Estudiante extends CI_Model
 		return $query->result_array();
 	}
 
+	public function get_estudiante_carrera_report(){
+		$query = $this->db->query('SELECT u.ci, u.nombre, u.apellido, u.est_civil, u.sexo, u.nivel_instruccion, u.direccion, c.nombre as carrera from estudiante_has_carrera ehs, usuario u, carrera c where u.ci=ehs.usuario_ci and c.id = ehs.carrera_id ');
+		return $query->result_array();
+	}
+
 }
 ?>
