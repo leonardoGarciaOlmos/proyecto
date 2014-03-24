@@ -38,5 +38,49 @@ class Grafica_Controller extends CI_Controller
 		echo json_encode($row);
 	}
 
+	function json_all_alumno_carrera_sexo()
+	{
+		// Carga de los modelos
+		$this->load->model('Grafica');
+
+		// Se realiza la petición para las carreras
+		$row = $this->Grafica->all_alumno_carrera_sexo();
+
+		echo json_encode($row);
+	}
+
+	function json_all_alumno_nivel()
+	{
+		// Carga de los modelos
+		$this->load->model('Grafica');
+
+		// Se realiza la petición para las carreras
+		$row = $this->Grafica->all_alumno_nivel();
+
+		echo json_encode($row);
+	}
+
+	function json_all_alumno_edad()
+	{
+		// Carga de los modelos
+		$this->load->model('Grafica');
+
+		// Se realiza la petición para las carreras
+		$row = $this->Grafica->all_alumno_edad();
+
+		echo json_encode($row);
+	}
+
+	function json_all_tipo_usuario_tipo()
+	{
+		// Carga de los modelos
+		$this->load->model('Grafica');
+
+		// Se realiza la petición para las carreras
+		$row = $this->Grafica->all_tipo_usuario_tipo();
+
+		echo json_encode($row);
+	}
+
 }
 ?>
